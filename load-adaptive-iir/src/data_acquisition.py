@@ -76,13 +76,17 @@ def _load_binance(symbol: str, start_date, end_date, raw_dir: Path) -> pd.DataFr
         
     full_df = pd.concat(dfs, ignore_index=True)
     
+    # §3.2: Verify timestamp units by checking value magnitude.
+    # From Jan 2025, Binance SPOT timestamps are in microseconds; before that, milliseconds.
+    # Column order verified against the README shipped in the downloaded zip.
     first_time = full_df['time'].iloc[0]
-    if first_time > 1e15: 
-        # microseconds
+    if first_time > 1e15:
+        # microseconds → seconds
         full_df['timestamp'] = full_df['time'] / 1e6
     else:
-        # milliseconds
+        # milliseconds → seconds
         full_df['timestamp'] = full_df['time'] / 1e3
+
         
     full_df['price'] = full_df['price'].astype(float)
     full_df = full_df.sort_values('timestamp').drop_duplicates(subset=['timestamp', 'price'])

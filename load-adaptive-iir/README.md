@@ -28,6 +28,7 @@ Running the pipeline produces 11 key figures in `results/figures/` and a benchma
 | Butterworth | 0.0762 | 0.0881 | 0.0817 | 3.7333 | 37.8992 | 0.1772 | 0.0388 |
 
 ### Limitations & Methodological Choices
-- **Evaluation Methodology**: The model uses point-wise precision, recall, and F1 scoring with a tolerance buffer ($\pm 20$ samples) around each true anomaly to account for natural filter lag. We explicitly **do not** use full point-adjustment (where any detection inside the window counts all points in the window as detected). The literature has shown point-adjustment artificially inflates performance scores, so we use strict buffering as a defensible methodological choice.
-- **Simulated Backpressure**: Since this is a standalone DSP project, backpressure is simulated using a discrete-event queue model rather than extracted from a real stream-processing runtime.
-- **Dataset Scope**: Tested primarily on a short window of Binance BTCUSDT tick data.
+- **Evaluation Methodology**: Point-wise precision, recall, and F1 use a tolerance buffer (±20 samples) around each true anomaly to account for natural filter lag. Full point-adjustment is explicitly **not** used — the literature has shown it artificially inflates scores. Results are reported both **combined** (`results/tables/comparison.csv`) and **per anomaly type** (`comparison_point.csv`, `comparison_level_shift.csv`, `comparison_volatility_burst.csv`).
+- **Simulated Backpressure**: Since this is a standalone DSP project with no real stream-processing runtime, backpressure is simulated using a discrete-event single-server queue model — directly analogous to Active Queue Management (RED/Adaptive RED) in networking.
+- **Dataset Scope**: Tested on **Binance BTCUSDT daily trade data, 2024-01-01**, sampled at an average arrival rate of ≈8.66 events/s. Results on other dates, symbols, or tick densities may differ.
+- **No deep learning**: All filters are classical IIR designs; no neural networks, no learned features. The anomaly detector is a simple rolling-σ z-score threshold, identical across all four filters.

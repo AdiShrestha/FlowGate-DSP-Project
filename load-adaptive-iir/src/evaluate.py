@@ -107,8 +107,60 @@ def format_results_table(results_dict, out_path="results/tables/comparison.csv")
     """
     Path(out_path).parent.mkdir(parents=True, exist_ok=True)
     df = pd.DataFrame.from_dict(results_dict, orient='index')
-    # columns = [precision, recall, F1, mean_latency, FP_rate, ROC_AUC, PR_AUC]
     cols = ['Precision', 'Recall', 'F1', 'Mean Latency', 'FP Rate (per 1k)', 'ROC AUC', 'PR AUC', 'PR Baseline']
     df = df[cols]
     df.to_csv(out_path)
     return df
+
+
+def evaluate_by_type(
+    mask: np.ndarray,
+    detections: dict,
+    z_scores: dict,
+    anomaly_info: list,
+    out_dir: str = "results/tables"
+) -> dict:
+    """
+    §9: Runs evaluation separately for each anomaly type (point, level_shift,
+    volatility_burst) and saves one CSV per type.
+
+    Returns a dict mapping anomaly_type → results DataFrame.
+    """
+    Path(out_dir).mkdir(parents=True, exist_ok=True)
+    anomaly_types = sorted({info['type'] for info in anomaly_info})
+    per_type_results = {}
+
+    for atype in anomaly_types:
+        # Filter anomaly_info and mask to this type only
+        type_info = [a for a in anomaly_info if a['type'] == atype]
+
+        # Build a type-specific ground-truth mask
+        n_samples = len(mask)
+        type_mask = np.zeros(n_samples, dtype=bool)
+        for info in type_info:
+            type_mask[info['start']:info['end'] + 1] = True
+
+        results_dict = {}
+        for name, z in z_scores.items():
+            det = detections[name]
+            prec, rec, f1, lat, fpr = evaluate_predictions(type_mask, det, type_info)
+            roc_auc, pr_auc, fprs, tprs, precs, ths = compute_auc(z, type_info, type_mask)
+            results_dict[name] = {
+                'Precision':        prec,
+                'Recall':           rec,
+                'F1':               f1,
+                'Mean Latency':     lat,
+                'FP Rate (per 1k)': fpr,
+                'ROC AUC':          roc_auc,
+                'PR AUC':           pr_auc,
+                'PR Baseline':      np.sum(type_mask) / n_samples,
+            }
+
+        df = pd.DataFrame.from_dict(results_dict, orient='index')
+        cols = ['Precision', 'Recall', 'F1', 'Mean Latency', 'FP Rate (per 1k)', 'ROC AUC', 'PR AUC', 'PR Baseline']
+        df = df[cols]
+        safe_name = atype.replace(' ', '_')
+        df.to_csv(f"{out_dir}/comparison_{safe_name}.csv")
+        per_type_results[atype] = df
+
+    return per_type_results

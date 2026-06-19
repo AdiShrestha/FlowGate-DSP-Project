@@ -3,25 +3,38 @@ import scipy.signal
 
 def fixed_ema(x: np.ndarray, alpha: float) -> tuple[np.ndarray, np.ndarray]:
     """
-    Fixed-pole Exponential Moving Average.
-    Section 1.1: y[n] = alpha*x[n] + (1-alpha)*y[n-1]
-    
+    Fixed-pole Exponential Moving Average (first-order IIR low-pass filter).
+
+    Spec §1.1:
+        y[n] = alpha*x[n] + (1-alpha)*y[n-1]
+        H(z)  = alpha / (1 - (1-alpha)*z⁻¹)
+        Pole location: z_pole = 1 - alpha
+
+    DC group delay derivation (§1.1):
+        The impulse response is h[n] = alpha*(1-alpha)^n  for n >= 0.
+        Group delay at DC is the mean of h[n]:
+            tau_g(0) = sum_{n=0}^{inf} n * h[n]
+                     = alpha * sum_{n=0}^{inf} n*(1-alpha)^n
+                     = alpha * (1-alpha) / alpha^2          [geometric series identity]
+                     = (1-alpha) / alpha
+        Numerically verified against scipy.signal.group_delay at w→0 in tests/test_filters.py.
+
     Parameters:
-    - x: Input signal array
-    - alpha: Smoothing factor (0 < alpha < 1)
-    
+    - x:     Input signal array.
+    - alpha: Smoothing factor (0 < alpha < 1).
+
     Returns:
-    - y: Filtered signal array
-    - pole_trajectory: Array of pole locations over time (constant)
+    - y:               Filtered signal array (same length as x).
+    - pole_trajectory: Constant array of pole locations (1 - alpha) for every sample.
     """
     x = np.asarray(x)
     n_samples = len(x)
     y = np.zeros(n_samples)
     y[0] = x[0]
-    
+
     for n in range(1, n_samples):
         y[n] = alpha * x[n] + (1 - alpha) * y[n-1]
-        
+
     pole_trajectory = np.full(n_samples, 1 - alpha)
     return y, pole_trajectory
 

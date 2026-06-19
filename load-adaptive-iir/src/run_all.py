@@ -16,7 +16,7 @@ from src.zdomain_analysis import (
 )
 from src.anomaly_injection import inject_anomalies
 from src.detection import detect_anomalies
-from src.evaluate import evaluate_predictions, compute_auc, format_results_table
+from src.evaluate import evaluate_predictions, compute_auc, format_results_table, evaluate_by_type
 from src.visualize import plot_time_domain_comparison, plot_roc_pr_curves, plot_metrics_bar_comparison
 
 def main():
@@ -157,8 +157,14 @@ def main():
         }
         auc_data[name] = (roc_auc, pr_auc, fprs, tprs, precs, ths)
         
-    print("Saving results table...")
+    print("Saving results table (combined)...")
     results_df = format_results_table(results_dict)
+
+    print("Saving per-anomaly-type tables (§9)...")
+    per_type = evaluate_by_type(mask, detections, z_scores, anomaly_info)
+    for atype, df_type in per_type.items():
+        print(f"\n  --- {atype} ---")
+        print(df_type.to_string())
     
     # Auto-update README
     readme_path = Path("README.md")
