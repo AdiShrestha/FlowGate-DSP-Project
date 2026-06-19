@@ -72,18 +72,54 @@ def main():
     print("Injecting synthetic anomalies...")
     x_injected, mask, anomaly_info = inject_anomalies(df['price'])
     
+    n_samples = len(x_injected)
+    valid_windows = np.zeros(n_samples, dtype=bool)
+    buffer = 20
+    for info in anomaly_info:
+        start = max(0, info['start'] - buffer)
+        end = min(n_samples, info['end'] + buffer + 1)
+        valid_windows[start:end] = True
+        
+    import scipy.stats
+    corr, p = scipy.stats.pearsonr(L.values, valid_windows.astype(float))
+    print(f"Pearson correlation between L[n] and near-anomaly indicator: {corr:.4f} (p={p:.4e})")
+    
+    fig_corr, ax_corr = plt.subplots(figsize=(10, 4))
+    ax_corr.plot(df['timestamp'], L.values, label='Load L[n]', color='red', alpha=0.7)
+    ax_corr.fill_between(df['timestamp'], 0, 1, where=valid_windows, color='grey', alpha=0.3, label='Anomaly Window')
+    ax_corr.set_title(f"Load vs Anomaly Injection (Pearson r = {corr:.4f})")
+    ax_corr.legend()
+    fig_corr.savefig("results/figures/load_vs_anomaly_correlation.png", dpi=150)
+    plt.close(fig_corr)
+    
     print("Running filters...")
     y_fixed, pole_fixed = fixed_ema(x_injected, alpha=0.06) 
     y_adaptive, pole_adaptive = load_adaptive_ema(x_injected, L.values)
     y_kama, pole_kama = kama(x_injected)
     y_butter, pole_butter = butterworth_lowpass(x_injected)
     
+    fs_assumed = 100.0
+    f_c_matched = 0.06 * fs_assumed / (2 * np.pi)
+    y_butter_matched, pole_butter_matched = butterworth_lowpass(x_injected, cutoff_hz=f_c_matched, fs=fs_assumed)
+    
     filters_out = {
         'Fixed EMA (0.06)': y_fixed,
         'Load Adaptive EMA': y_adaptive,
         'KAMA': y_kama,
-        'Butterworth': y_butter
+        'Butterworth (Default)': y_butter,
+        'Butterworth (Matched)': y_butter_matched
     }
+    
+    print("Running detection robustness check on Fixed EMA...")
+    import time
+    t0 = time.time()
+    _, _, det_std_100 = detect_anomalies(x_injected, y_fixed, window=100, estimator='std')
+    _, _, det_std_300 = detect_anomalies(x_injected, y_fixed, window=300, estimator='std')
+    print(f"FP rate (STD, w=100): {(np.sum(det_std_100 & ~valid_windows) / np.sum(~valid_windows)) * 1000:.2f} per 1k")
+    print(f"FP rate (STD, w=300): {(np.sum(det_std_300 & ~valid_windows) / np.sum(~valid_windows)) * 1000:.2f} per 1k")
+    _, _, det_mad_100 = detect_anomalies(x_injected, y_fixed, window=100, estimator='mad')
+    print(f"FP rate (MAD, w=100): {(np.sum(det_mad_100 & ~valid_windows) / np.sum(~valid_windows)) * 1000:.2f} per 1k")
+    print(f"Robustness check took {time.time() - t0:.1f}s")
     
     print("Generating real data PSD...")
     plot_real_data_psd(x_injected, fs=1.0, y_dict=filters_out)
@@ -107,7 +143,7 @@ def main():
     
     for name, z in z_scores.items():
         prec, rec, f1, lat, fpr = evaluate_predictions(mask, detections[name], anomaly_info)
-        roc_auc, pr_auc, fprs, tprs, precs, ths = compute_auc(z, anomaly_info)
+        roc_auc, pr_auc, fprs, tprs, precs, ths = compute_auc(z, anomaly_info, mask)
         
         results_dict[name] = {
             'Precision': prec,
@@ -116,7 +152,8 @@ def main():
             'Mean Latency': lat,
             'FP Rate (per 1k)': fpr,
             'ROC AUC': roc_auc,
-            'PR AUC': pr_auc
+            'PR AUC': pr_auc,
+            'PR Baseline': np.sum(mask) / len(mask)
         }
         auc_data[name] = (roc_auc, pr_auc, fprs, tprs, precs, ths)
         

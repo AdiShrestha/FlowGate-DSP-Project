@@ -5,7 +5,8 @@ def detect_anomalies(
     x: np.ndarray, 
     y: np.ndarray, 
     window: int = 100, 
-    threshold: float = 3.0
+    threshold: float = 3.0,
+    estimator: str = 'std'
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     """
     Computes residuals, normalized Z-scores, and binary detection flags.
@@ -15,6 +16,7 @@ def detect_anomalies(
     - y: Filtered signal
     - window: Rolling window size for residual standard deviation
     - threshold: Z-score threshold for flagging an anomaly
+    - estimator: 'std' or 'mad' for robust scale estimation
     
     Returns:
     - residual: x - y
@@ -26,9 +28,13 @@ def detect_anomalies(
     
     residual = x - y
     
-    # Causal rolling std (trailing window only, no lookahead)
     r_series = pd.Series(residual)
-    sigma_r = r_series.rolling(window=window, min_periods=1).std().bfill().values
+    if estimator == 'std':
+        sigma_r = r_series.rolling(window=window, min_periods=1).std().bfill().values
+    elif estimator == 'mad':
+        def mad_calc(s):
+            return np.median(np.abs(s - np.median(s)))
+        sigma_r = r_series.rolling(window=window, min_periods=1).apply(mad_calc, raw=True).bfill().values * 1.4826
     
     # Avoid division by zero
     sigma_r = np.where(sigma_r == 0, 1e-9, sigma_r)

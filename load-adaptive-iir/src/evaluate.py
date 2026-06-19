@@ -108,7 +108,7 @@ def format_results_table(results_dict, out_path="results/tables/comparison.csv")
     Path(out_path).parent.mkdir(parents=True, exist_ok=True)
     df = pd.DataFrame.from_dict(results_dict, orient='index')
     # columns = [precision, recall, F1, mean_latency, FP_rate, ROC_AUC, PR_AUC]
-    cols = ['Precision', 'Recall', 'F1', 'Mean Latency', 'FP Rate (per 1k)', 'ROC AUC', 'PR AUC']
+    cols = ['Precision', 'Recall', 'F1', 'Mean Latency', 'FP Rate (per 1k)', 'ROC AUC', 'PR AUC', 'PR Baseline']
     df = df[cols]
     df.to_csv(out_path)
     return df

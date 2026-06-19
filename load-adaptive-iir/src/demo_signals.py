@@ -98,8 +98,8 @@ def plot_synthetic_filtering(t, x, filter_func, filter_name, fs=100.0, **kwargs)
     ax1.grid(True, alpha=0.3)
     
     # Frequency domain
-    f_x, Pxx_x = scipy.signal.welch(x, fs, nperseg=1024)
-    f_y, Pxx_y = scipy.signal.welch(y, fs, nperseg=1024)
+    f_x, Pxx_x = scipy.signal.welch(x, fs, nperseg=min(1024, len(x)))
+    f_y, Pxx_y = scipy.signal.welch(y, fs, nperseg=min(1024, len(y)))
     
     ax2.plot(f_x, 10 * np.log10(Pxx_x), color='lightgray', label='Raw Signal')
     ax2.plot(f_y, 10 * np.log10(Pxx_y), color='blue', label=f'Filtered ({filter_name})')
