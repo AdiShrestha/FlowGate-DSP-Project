@@ -48,6 +48,7 @@ def test_load_adaptive_ema_slew_rate():
     assert np.max(diffs) <= d_alpha_max + 1e-9
 
 def test_fixed_ema_group_delay():
+    # Section 1.1 numerically verify DC group delay against scipy.signal.group_delay
     alphas = [0.05, 0.1, 0.3]
     for alpha in alphas:
         b = [alpha]

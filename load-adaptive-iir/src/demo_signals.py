@@ -117,6 +117,8 @@ def plot_synthetic_filtering(t, x, filter_func, filter_name, fs=100.0, **kwargs)
     fig.tight_layout()
     # Normalize filename
     safe_name = filter_name.lower().replace(' ', '_').replace('(', '').replace(')', '')
+    if safe_name == "load_adaptive_ema":
+        safe_name = "load_adaptive"
     fig.savefig(f"results/figures/spectrum_demo_{safe_name}.png", dpi=150)
     plt.close(fig)
 

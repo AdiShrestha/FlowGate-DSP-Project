@@ -7,6 +7,12 @@ def analyze_frozen_zdomain(alpha_min=0.02, alpha_max=0.30, num_alphas=7, fs=100.
     """
     Treats the load-adaptive filter as a quasi-static system.
     Computes Z-domain properties across a sweep of alpha values.
+    
+    Section 1.1 Derivation:
+    The impulse response of a fixed EMA is h[n] = alpha * (1-alpha)^n.
+    The DC group delay is derived from the mean of the impulse response:
+    tau_g(0) = sum(n * h[n]) = sum(n * alpha * (1-alpha)^n).
+    By properties of geometric series, this simplifies to (1-alpha) / alpha.
     """
     alphas = np.linspace(alpha_min, alpha_max, num_alphas)
     

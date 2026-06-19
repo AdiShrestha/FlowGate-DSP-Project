@@ -123,6 +123,25 @@ def main():
     print("Saving results table...")
     results_df = format_results_table(results_dict)
     
+    # Auto-update README
+    readme_path = Path("README.md")
+    if readme_path.exists():
+        content = readme_path.read_text()
+        marker = "*(Results will be populated here after running the pipeline)*"
+        if marker in content:
+            headers = ["Filter"] + list(results_df.columns)
+            header_str = "| " + " | ".join(headers) + " |"
+            sep_str = "|" + "|".join(["---" for _ in headers]) + "|"
+            rows = []
+            for idx, row in results_df.iterrows():
+                row_str = f"| {idx} | " + " | ".join([f"{x:.4f}" for x in row]) + " |"
+                rows.append(row_str)
+            md_table = "\n".join([header_str, sep_str] + rows)
+            
+            content = content.replace(marker, md_table)
+            readme_path.write_text(content)
+            print("README.md updated with results table.")
+    
     print("Generating application results figures...")
     plot_time_domain_comparison(df['timestamp'], x_injected, filters_out, anomaly_info, detections)
     plot_roc_pr_curves(auc_data)
