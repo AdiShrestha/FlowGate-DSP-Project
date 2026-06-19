@@ -1,9 +1,13 @@
 import os
 import zipfile
 import urllib.request
+import ssl
 import pandas as pd
 from pathlib import Path
 from tqdm import tqdm
+
+# Bypass SSL verification for Binance downloads on some macOS setups
+ssl._create_default_https_context = ssl._create_unverified_context
 
 LOBSTER_EVENT_TYPES = {
     1: 'New Limit Order',
