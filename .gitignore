@@ -1,2 +1,5 @@
 dsp_project_build_prompt.md
 load_adaptive_iir_literature_review.md
+load-adaptive-iir/.myenv/
+load-adaptive-iir/.pytest_cache
+load-adaptive-iir/tests/__pycache__
