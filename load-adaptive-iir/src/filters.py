@@ -77,8 +77,10 @@ def load_adaptive_ema(
     y[0] = x[0]
     for n in range(1, n_samples):
         y[n] = alpha[n] * x[n] + (1 - alpha[n]) * y[n-1]
-        
-    pole_trajectory = 1 - alpha
+
+    # Return pole trajectory directly from alpha to avoid floating-point
+    # round-trip error (1 - (1 - alpha) ≠ alpha exactly in IEEE 754).
+    pole_trajectory = 1.0 - alpha
     return y, pole_trajectory
 
 def kama(

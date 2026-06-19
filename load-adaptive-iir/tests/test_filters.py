@@ -24,16 +24,21 @@ def test_fixed_ema_pole_location():
 
 def test_load_adaptive_ema_bounds():
     x = np.ones(100)
-    # Adversarial L
+    # Adversarial L — fixed seed so the test is deterministic
+    np.random.seed(0)
     L = np.random.uniform(-2, 3, 100)
     L[10:20] = 0
     L[30:40] = 1
-    
+
     y, pole = load_adaptive_ema(x, L, alpha_min=0.02, alpha_max=0.30, d_alpha_max=0.01)
     alpha_trace = 1 - pole
-    
-    assert np.all(alpha_trace >= 1e-4)
-    assert np.all(alpha_trace <= 1 - 1e-4)
+
+    # Allow 1 ULP of floating-point slack (1e-9 << 1e-4) — the clip guarantees
+    # alpha ∈ [1e-4, 1-1e-4] internally; the 1-(1-alpha) round-trip can shift by ~1e-16.
+    tol = 1e-9
+    assert np.all(alpha_trace >= 1e-4 - tol), f"Min alpha = {alpha_trace.min()}"
+    assert np.all(alpha_trace <= 1 - 1e-4 + tol), f"Max alpha = {alpha_trace.max()}"
+
 
 def test_load_adaptive_ema_slew_rate():
     x = np.ones(100)
