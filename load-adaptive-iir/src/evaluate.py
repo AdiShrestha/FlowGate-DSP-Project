@@ -30,7 +30,7 @@ def evaluate_predictions(
     FP_points = np.sum(FP_mask)
     
     precision = TP_points / (TP_points + FP_points) if (TP_points + FP_points) > 0 else 0.0
-    recall = TP_points / np.sum(valid_windows) if np.sum(valid_windows) > 0 else 0.0
+    recall = min(1.0, TP_points / np.sum(y_true)) if np.sum(y_true) > 0 else 0.0
     f1 = 2 * precision * recall / (precision + recall) if (precision + recall) > 0 else 0.0
     
     # Latency: for each anomaly, distance from start to first detection in [start, end+buffer]
@@ -53,7 +53,7 @@ def evaluate_predictions(
     
     return precision, recall, f1, mean_latency, fp_rate
 
-def compute_auc(z_scores: np.ndarray, anomaly_info: list, buffer: int = 20):
+def compute_auc(z_scores: np.ndarray, anomaly_info: list, mask: np.ndarray, buffer: int = 20):
     """
     Computes ROC and PR curves by sweeping the detection threshold.
     """
@@ -64,38 +64,40 @@ def compute_auc(z_scores: np.ndarray, anomaly_info: list, buffer: int = 20):
         end = min(n_samples, info['end'] + buffer + 1)
         valid_windows[start:end] = True
         
-    thresholds = np.linspace(1.0, 6.0, 50)
+    abs_z = np.abs(z_scores)
+    thresholds = np.sort(np.unique(abs_z))[::-1]
+    if len(thresholds) > 200:
+        thresholds = thresholds[np.linspace(0, len(thresholds)-1, 200).astype(int)]
+        
     tprs, fprs, precs = [], [], []
     
-    total_pos = np.sum(valid_windows)
-    total_neg = n_samples - total_pos
+    total_pos = np.sum(mask)
+    total_neg = n_samples - np.sum(valid_windows)
     
     if total_pos == 0 or total_neg == 0:
          return 0.0, 0.0, [], [], [], []
          
     for th in thresholds:
-        y_pred = np.abs(z_scores) > th
+        y_pred = abs_z >= th
         
         TP = np.sum(y_pred & valid_windows)
         FP = np.sum(y_pred & ~valid_windows)
         
-        tpr = TP / total_pos
-        fpr = FP / total_neg
+        tpr = min(1.0, TP / total_pos)
+        fpr = min(1.0, FP / total_neg)
         prec = TP / (TP + FP) if (TP + FP) > 0 else 1.0
         
         tprs.append(tpr)
         fprs.append(fpr)
         precs.append(prec)
         
-    # auc function expects x to be monotonically increasing
-    # Since higher threshold means lower FPR, we reverse the arrays
-    fprs_rev = fprs[::-1]
-    tprs_rev = tprs[::-1]
-    roc_auc = auc(fprs_rev, tprs_rev)
-    
-    # PR AUC
-    # tprs (recall) is decreasing with higher threshold, so reverse to make it increasing
-    pr_auc = auc(tprs_rev, precs[::-1])
+    if fprs[-1] < 1.0:
+        fprs.append(1.0)
+        tprs.append(1.0)
+        precs.append(total_pos / (total_pos + total_neg))
+        
+    roc_auc = auc(fprs, tprs)
+    pr_auc = auc(tprs, precs)
     
     return roc_auc, pr_auc, fprs, tprs, precs, thresholds
 

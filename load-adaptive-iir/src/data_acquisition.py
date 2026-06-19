@@ -67,8 +67,8 @@ def _load_binance(symbol: str, start_date, end_date, raw_dir: Path) -> pd.DataFr
         with zipfile.ZipFile(zip_path, 'r') as z:
             csv_name = [n for n in z.namelist() if n.endswith('.csv')][0]
             with z.open(csv_name) as f:
-                # Binance trades CSV doesn't have headers
-                df = pd.read_csv(f, names=['trade Id', 'price', 'qty', 'quoteQty', 'time', 'isBuyerMaker'])
+                # Binance trades CSV has 7 columns
+                df = pd.read_csv(f, names=['trade Id', 'price', 'qty', 'quoteQty', 'time', 'isBuyerMaker', 'isBestMatch'])
                 dfs.append(df)
         
     if not dfs:

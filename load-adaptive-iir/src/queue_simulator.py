@@ -29,7 +29,7 @@ def simulate_backpressure(
         return pd.Series(np.zeros(n_samples), index=timestamps.index, name='L')
         
     # Calculate time differences in seconds
-    t = timestamps.values
+    t = np.asarray(timestamps)
     dt = np.diff(t)
     dt = np.insert(dt, 0, np.mean(dt)) # Assume first step is avg
     
@@ -67,4 +67,6 @@ def simulate_backpressure(
         
     L = np.clip(q / q_max, 0.0, 1.0)
     
-    return pd.Series(L, index=timestamps.index, name='L')
+    if hasattr(timestamps, 'index'):
+        return pd.Series(L, index=timestamps.index, name='L')
+    return pd.Series(L, name='L')
