@@ -1,3 +1,6 @@
+import argparse
+import subprocess
+import sys
 import pandas as pd
 import numpy as np
 from pathlib import Path
@@ -19,7 +22,86 @@ from src.detection import detect_anomalies
 from src.evaluate import evaluate_predictions, compute_auc, format_results_table, evaluate_by_type
 from src.visualize import plot_time_domain_comparison, plot_roc_pr_curves, plot_metrics_bar_comparison
 
+
+def _run_compute_experiments():
+    """
+    Orchestrate the three compute-benefit experiments in order:
+      1. Numba parity gate (hard gate — must pass before anything is timed)
+      2. Experiment A — per-sample compute cost
+      3. Experiment B — throughput stability (depends on A's CSV)
+      4. Experiment C — Pareto curve (depends on B's CSV + existing comparison.csv)
+    """
+    print("\n" + "=" * 65)
+    print("  COMPUTE EXPERIMENTS (--with-compute-experiments)")
+    print("=" * 65)
+
+    # -----------------------------------------------------------------------
+    # Hard gate: Numba parity tests must pass first.
+    # If they fail, every downstream timing number is meaningless.
+    # -----------------------------------------------------------------------
+    print("\n[Gate] Running tests/test_numba_parity.py before any timing...")
+    result = subprocess.run(
+        [sys.executable, "-m", "pytest", "tests/test_numba_parity.py", "-v", "--tb=short"],
+        capture_output=False,
+    )
+    if result.returncode != 0:
+        print("\n[FATAL] Numba parity tests FAILED. "
+              "All timing in Experiments A/B would be meaningless. Aborting.\n")
+        sys.exit(1)
+    print("[Gate] Numba parity tests PASSED. Proceeding to experiments.\n")
+
+    # -----------------------------------------------------------------------
+    # Experiment A
+    # -----------------------------------------------------------------------
+    from src.experiment_a_compute_cost import run_experiment_a
+    run_experiment_a()
+
+    # -----------------------------------------------------------------------
+    # Experiment B
+    # -----------------------------------------------------------------------
+    from src.experiment_b_throughput_stability import run_experiment_b
+    run_experiment_b()
+
+    # -----------------------------------------------------------------------
+    # Experiment C
+    # -----------------------------------------------------------------------
+    from src.experiment_c_pareto import run_experiment_c
+    run_experiment_c()
+
+    print("\n" + "=" * 65)
+    print("  All compute experiments completed successfully.")
+    print("  New outputs:")
+    for f in [
+        "results/tables/experiment_a_compute_cost.csv",
+        "results/tables/experiment_metadata.json",
+        "results/figures/experiment_a_compute_cost.png",
+        "results/tables/experiment_b_throughput.csv",
+        "results/figures/experiment_b_queue_stability.png",
+        "results/figures/experiment_b_max_throughput_bar.png",
+        "results/figures/experiment_c_pareto.png",
+        "results/compute_benefit_summary.md",
+    ]:
+        status = "✓" if Path(f).exists() else "✗ MISSING"
+        print(f"  {status}  {f}")
+    print("=" * 65 + "\n")
+
+
 def main():
+    parser = argparse.ArgumentParser(
+        description="Load-Adaptive IIR Filtering — full pipeline runner."
+    )
+    parser.add_argument(
+        "--with-compute-experiments",
+        action="store_true",
+        help=(
+            "Run Experiments A, B, C (Numba parity gate → compute cost → "
+            "throughput stability → Pareto curve). These take longer than "
+            "the rest of the pipeline. Recommended: wrap with "
+            "`caffeinate -i` on macOS to prevent sleep/thermal throttling."
+        ),
+    )
+    args = parser.parse_args()
+
     print("--- 1. Canonical Signals and Z-Domain Demonstrations ---")
     
     # 6A.1 & 6A.2 Synthetic Signals & Responses
@@ -192,6 +274,13 @@ def main():
     
     print("\n--- Pipeline Completed Successfully ---")
     print(results_df)
+
+    # -----------------------------------------------------------------------
+    # Optional compute experiments (opt-in via flag)
+    # -----------------------------------------------------------------------
+    if args.with_compute_experiments:
+        _run_compute_experiments()
+
 
 if __name__ == "__main__":
     main()

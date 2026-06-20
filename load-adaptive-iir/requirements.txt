@@ -8,3 +8,4 @@ pytest
 pyarrow
 fastparquet
 scikit-learn
+numba
