@@ -38,7 +38,11 @@ if str(_ROOT) not in sys.path:
 from src.data_acquisition import load_tick_series
 from src.queue_simulator import simulate_backpressure
 from src.load_shedding import CONFIGS, compute_processing_mask, apply_shedding
-from src.numba_filters import fixed_iir_direct_form_ii, time_varying_first_order_ema  # ensure warmed up
+from src.numba_filters import (  # ensure all kernels are warmed up at import
+    fixed_iir_direct_form_ii,
+    time_varying_first_order_ema,
+    compute_load_adaptive_alpha,
+)
 
 
 # ---------------------------------------------------------------------------
@@ -139,14 +143,30 @@ def run_experiment_a(repeat: int = 20) -> pd.DataFrame:
     print(f"Processor: {platform.processor()}")
     print(f"Python: {sys.version}")
 
-    # Input lengths to test
-    LENGTHS = [10_000, 100_000, None]  # None = full available series
-
-    # Load full data once
+    # Load full data first (needed to know full_len before building LENGTHS_RESOLVED)
     x_full, L_full = _load_data(n_target=None)
     full_len = len(x_full)
-    LENGTHS_RESOLVED = [min(10_000, full_len), min(100_000, full_len), full_len]
-    print(f"Full data length: {full_len:,} samples")
+
+    # Input lengths to test.
+    # Cap the "full data" run at 200k samples: per-sample cost is length-independent
+    # once JIT-compiled, and 200k → ~20ms/trial which is fast enough for 5 repeats.
+    # Running 20×800k repeats would take 10+ minutes on a fanless M3 Air.
+    MAX_FULL_LEN = 200_000
+    LENGTHS_RESOLVED = [
+        min(10_000,   full_len),
+        min(100_000,  full_len),
+        min(MAX_FULL_LEN, full_len),
+    ]
+    # Deduplicate in case full_len < 100k
+    seen: set[int] = set()
+    LENGTHS_RESOLVED = [x for x in LENGTHS_RESOLVED if not (x in seen or seen.add(x))]
+    print(f"Full data length: {full_len:,} samples  (timing capped at {MAX_FULL_LEN:,})")
+
+    # Adaptive repeat counts: more repeats for small inputs (faster per trial)
+    def _repeats_for(n: int) -> int:
+        if n <= 10_000:   return 20
+        if n <= 100_000:  return 10
+        return 5  # 200k runs take ~20-50ms each; 5 trials is sufficient for IQR
 
     config_names = list(CONFIGS.keys())
 
@@ -167,8 +187,9 @@ def run_experiment_a(repeat: int = 20) -> pd.DataFrame:
     for step, (c_name, s_idx, n_samples) in enumerate(jobs, 1):
         x_sub = x_full[:n_samples]
         L_sub = L_full[:n_samples]
-        print(f"  [{step}/{total}] {c_name:35s}  n={n_samples:>7,} ...", end=" ", flush=True)
-        times = _time_config(c_name, x_sub, L_sub, repeat=repeat)
+        n_rep = _repeats_for(n_samples)
+        print(f"  [{step}/{total}] {c_name:35s}  n={n_samples:>7,}  reps={n_rep} ...", end=" ", flush=True)
+        times = _time_config(c_name, x_sub, L_sub, repeat=n_rep)
         raw_times[(c_name, n_samples)] = times
         med = np.median(times) / n_samples * 1000 * 1000  # ms per 1k samples
         print(f"median={med:.4f} ms/1k")
@@ -220,11 +241,15 @@ def run_experiment_a(repeat: int = 20) -> pd.DataFrame:
         "platform": platform.platform(),
         "processor": platform.processor(),
         "python_version": sys.version,
-        "trial_count_per_config_per_length": repeat,
+        "trial_count_adaptive": {str(n): _repeats_for(n) for n in LENGTHS_RESOLVED},
         "input_lengths_tested": LENGTHS_RESOLVED,
         "config_names": config_names,
-        "note": "Timing is wall-clock, median over repeat trials. "
-                "Run wrapped with `caffeinate -i` for best results on Apple Silicon.",
+        "note": (
+            "Timing is wall-clock, median over repeat trials. "
+            "Full dataset capped at 200k samples (per-sample cost is length-independent "
+            "once JIT-compiled; 200k balances statistical robustness vs. benchmark duration). "
+            "Run wrapped with `caffeinate -i` for best results on Apple Silicon."
+        ),
     }
     meta_path = out_dir / "experiment_metadata.json"
     with open(meta_path, "w") as f:

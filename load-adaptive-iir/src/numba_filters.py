@@ -93,6 +93,62 @@ def time_varying_first_order_ema(x: np.ndarray, alpha_trace: np.ndarray) -> np.n
 
 
 # ---------------------------------------------------------------------------
+# Kernel 3: Load-Adaptive EMA alpha computation (slew-rate-limited)
+# ---------------------------------------------------------------------------
+
+@njit(cache=True)
+def compute_load_adaptive_alpha(
+    L: np.ndarray,
+    alpha_min: float,
+    alpha_max: float,
+    d_alpha_max: float,
+) -> np.ndarray:
+    """
+    Compute the slew-rate-limited alpha trace for load_adaptive_ema.
+
+    This is the unavoidable sequential dependency (alpha[n] depends on
+    alpha[n-1]), so it must run inside a JIT loop — vectorising it would
+    change the math.
+
+    Parameters
+    ----------
+    L           : 1-D float64 array   Normalised backpressure in [0, 1].
+    alpha_min   : float               Minimum smoothing factor.
+    alpha_max   : float               Maximum smoothing factor.
+    d_alpha_max : float               Maximum per-step change in alpha.
+
+    Returns
+    -------
+    alpha : 1-D float64 array   Per-sample alpha values.
+    """
+    n = len(L)
+    alpha = np.empty(n)
+
+    a_init = alpha_max - (alpha_max - alpha_min) * L[0]
+    # clip to [1e-4, 1-1e-4]
+    a_init = max(1e-4, min(1.0 - 1e-4, a_init))
+    alpha[0] = a_init
+
+    for i in range(1, n):
+        target_a = alpha_max - (alpha_max - alpha_min) * L[i]
+        diff = target_a - alpha[i - 1]
+        # slew-rate clamp
+        if diff > d_alpha_max:
+            diff = d_alpha_max
+        elif diff < -d_alpha_max:
+            diff = -d_alpha_max
+        a = alpha[i - 1] + diff
+        # clip
+        if a < 1e-4:
+            a = 1e-4
+        elif a > 1.0 - 1e-4:
+            a = 1.0 - 1e-4
+        alpha[i] = a
+
+    return alpha
+
+
+# ---------------------------------------------------------------------------
 # Module-level warm-up — runs once at import time so JIT compile cost is
 # never inside a timed region.
 # ---------------------------------------------------------------------------
@@ -105,6 +161,9 @@ def _warmup():
 
     _alpha = np.full(16, 0.1, dtype=np.float64)
     time_varying_first_order_ema(_dummy, _alpha)
+
+    _L = np.full(16, 0.5, dtype=np.float64)
+    compute_load_adaptive_alpha(_L, 0.02, 0.30, 0.01)
 
 
 _warmup()

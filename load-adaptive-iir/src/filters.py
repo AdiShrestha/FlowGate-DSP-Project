@@ -12,7 +12,11 @@ Only the recursive accumulation loop is delegated to the Numba kernels.
 import numpy as np
 import scipy.signal
 
-from src.numba_filters import fixed_iir_direct_form_ii, time_varying_first_order_ema
+from src.numba_filters import (
+    fixed_iir_direct_form_ii,
+    time_varying_first_order_ema,
+    compute_load_adaptive_alpha,
+)
 
 
 def fixed_ema(x: np.ndarray, alpha: float) -> tuple[np.ndarray, np.ndarray]:
@@ -71,19 +75,11 @@ def load_adaptive_ema(
     """
     x = np.asarray(x, dtype=np.float64)
     L = np.asarray(L, dtype=np.float64)
-    n_samples = len(x)
 
-    # --- Coefficient computation (unchanged math) ---
-    alpha = np.zeros(n_samples)
-
-    a_init = alpha_max - (alpha_max - alpha_min) * L[0]
-    alpha[0] = np.clip(a_init, 1e-4, 1 - 1e-4)
-
-    for n in range(1, n_samples):
-        target_a = alpha_max - (alpha_max - alpha_min) * L[n]
-        diff = target_a - alpha[n - 1]
-        diff = np.clip(diff, -d_alpha_max, d_alpha_max)
-        alpha[n] = np.clip(alpha[n - 1] + diff, 1e-4, 1 - 1e-4)
+    # --- Coefficient computation via JIT kernel (eliminates Python loop) ---
+    alpha = compute_load_adaptive_alpha(
+        L, alpha_min, alpha_max, d_alpha_max
+    )
 
     # --- Recursive step via Numba kernel ---
     y = time_varying_first_order_ema(x, alpha)
