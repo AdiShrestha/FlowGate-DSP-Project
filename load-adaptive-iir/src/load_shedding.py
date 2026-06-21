@@ -203,6 +203,30 @@ CONFIGS = {
         "shedding": True,
         "shed_max_skip": 4,
     },
+    # -------------------------------------------------------------------------
+    # Bandwidth-Matched configuration (Section 3 hardening pass).
+    #
+    # Problem: the default Load-Adaptive EMA has mean_alpha ≈ 0.199 (much higher
+    # than Fixed EMA's alpha=0.06) because the formula
+    #   alpha[n] = alpha_max - (alpha_max - alpha_min) * L[n]
+    # with alpha_max=0.30 and mean_L≈0.36 yields mean_alpha ≈ 0.19.
+    # This means "does Load-Adaptive underperform?" might just mean "it's a
+    # faster filter on average" — a bandwidth confound, not an adaptation effect.
+    #
+    # Fix: calibrate alpha_max downward (from 0.30 → 0.0825) so mean_alpha ≈ 0.06,
+    # matching Fixed EMA's bandwidth.  alpha_min stays at 0.02 (still allows
+    # the filter to slow down under peak load).
+    #
+    # Calibrated value: alpha_max = 0.08253 gives mean_alpha = 0.06002 on the
+    # real L trace (computed via src.calibration.calibrate_alpha_max).
+    # -------------------------------------------------------------------------
+    "Load-Adaptive EMA (Bandwidth-Matched)": {
+        "label": "Load-Adaptive EMA (Bandwidth-Matched)",
+        "filter_fn": load_adaptive_ema,
+        "filter_kwargs_factory": lambda x, L: {"L": L, "alpha_min": 0.02, "alpha_max": 0.08253},
+        "shedding": False,
+        "shed_max_skip": 4,
+    },
 }
 
 

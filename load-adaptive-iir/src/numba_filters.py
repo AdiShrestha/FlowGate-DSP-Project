@@ -18,7 +18,9 @@ from numba import njit
 # ---------------------------------------------------------------------------
 
 @njit(cache=True)
-def fixed_iir_direct_form_ii(x: np.ndarray, b: np.ndarray, a: np.ndarray) -> np.ndarray:
+def fixed_iir_direct_form_ii(
+    x: np.ndarray, b: np.ndarray, a: np.ndarray, z0: np.ndarray
+) -> np.ndarray:
     """
     Generic fixed-coefficient Direct Form II Transposed IIR filter.
 
@@ -29,16 +31,22 @@ def fixed_iir_direct_form_ii(x: np.ndarray, b: np.ndarray, a: np.ndarray) -> np.
 
     Parameters
     ----------
-    x : 1-D float64 array   Input signal.
-    b : 1-D float64 array   Numerator coefficients.
-    a : 1-D float64 array   Denominator coefficients (a[0] == 1.0).
+    x  : 1-D float64 array   Input signal.
+    b  : 1-D float64 array   Numerator coefficients.
+    a  : 1-D float64 array   Denominator coefficients (a[0] == 1.0).
+    z0 : 1-D float64 array   Initial delay-line state, length = max(len(a), len(b)) - 1.
+                              Pass np.zeros(order) for filters where cold-start doesn't
+                              matter.  For Butterworth, compute via scipy.signal.lfilter_zi
+                              scaled to the first sample (see butterworth_lowpass in
+                              filters.py) to eliminate the start-up transient.
 
     Returns
     -------
     y : 1-D float64 array   Filtered output, same length as x.
     """
     order = max(len(a), len(b)) - 1
-    z = np.zeros(order)
+    # Copy z0 so we don't mutate the caller's array
+    z = z0.copy()
     y = np.empty(len(x))
 
     # Zero-pad to length order+1
@@ -230,7 +238,11 @@ def _warmup():
     _dummy = np.ones(16, dtype=np.float64)
     _b = np.array([0.5, 0.5], dtype=np.float64)
     _a = np.array([1.0, -0.5], dtype=np.float64)
-    fixed_iir_direct_form_ii(_dummy, _b, _a)
+    # fixed_iir_direct_form_ii now requires an explicit z0 initial-state array.
+    # Pass zeros here — warmup only needs to trigger JIT compilation.
+    _order = max(len(_a), len(_b)) - 1
+    _z0 = np.zeros(_order, dtype=np.float64)
+    fixed_iir_direct_form_ii(_dummy, _b, _a, _z0)
 
     time_varying_first_order_ema(_dummy, _dummy)
 

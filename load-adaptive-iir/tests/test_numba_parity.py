@@ -84,12 +84,17 @@ def _ref_kama(x, er_period=10, fast_period=2, slow_period=30):
 
 
 def _ref_butterworth_lowpass(x, order=4, cutoff_hz=1.0, fs=100.0):
-    x = np.asarray(x)
+    x = np.asarray(x, dtype=np.float64)
     omega_c = 2 * np.pi * cutoff_hz
     z_a, p_a, k_a = scipy.signal.butter(order, omega_c, btype='low', analog=True, output='zpk')
     z_d, p_d, k_d = scipy.signal.bilinear_zpk(z_a, p_a, k_a, fs)
     b, a = scipy.signal.zpk2tf(z_d, p_d, k_d)
-    y = scipy.signal.lfilter(b, a, x)
+    b = np.asarray(b, dtype=np.float64)
+    a = np.asarray(a, dtype=np.float64)
+    # Use warm initial state to match the fixed pipeline (cold-start fix).
+    zi = scipy.signal.lfilter_zi(b, a)
+    z0 = (zi * x[0]).astype(np.float64)
+    y, _ = scipy.signal.lfilter(b, a, x, zi=z0)
     n_samples = len(x)
     pole_trajectory = np.tile(p_d, (n_samples, 1))
     return y, pole_trajectory
@@ -154,7 +159,11 @@ def test_kama_numba_parity(test_signal):
 
 
 def test_butterworth_numba_parity(test_signal):
-    """Numba Butterworth must match scipy.signal.lfilter within atol=1e-9."""
+    """
+    Numba Butterworth must match scipy.signal.lfilter within atol=1e-9.
+    Both now use the same warm initial state (lfilter_zi * x[0]) to align
+    with the cold-start fix (Section 2 of the hardening pass).
+    """
     y_ref, _ = _ref_butterworth_lowpass(test_signal)
     y_new, _ = butterworth_lowpass(test_signal)
     assert np.allclose(y_ref, y_new, atol=1e-9), (

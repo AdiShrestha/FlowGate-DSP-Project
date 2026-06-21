@@ -130,6 +130,12 @@ def butterworth_lowpass(
 ) -> tuple[np.ndarray, np.ndarray]:
     """
     Butterworth low-pass filter via explicit bilinear transform.
+
+    Cold-start fix: instead of starting from a zero delay-line state (which
+    causes a visible ramp-up transient when the price level is ~tens of
+    thousands), we compute the steady-state initial conditions via
+    scipy.signal.lfilter_zi and scale them to the first sample x[0].
+    This eliminates the spurious high-FP-rate inflation from the transient.
     """
     x = np.asarray(x, dtype=np.float64)
 
@@ -143,13 +149,22 @@ def butterworth_lowpass(
     # 3. Convert ZPK to transfer function polynomials (b, a)
     b, a = scipy.signal.zpk2tf(z_d, p_d, k_d)
 
-    # 4. Filter via Numba kernel (Direct Form II Transposed)
     b_f = np.asarray(b, dtype=np.float64)
     a_f = np.asarray(a, dtype=np.float64)
-    y = fixed_iir_direct_form_ii(x, b_f, a_f)
+
+    # 4. Compute initial state: steady-state response to a unit step, scaled
+    #    to the actual first sample value.  This eliminates the cold-start
+    #    transient where the filter output ramps from 0 up to ~x[0] over
+    #    the first several time constants.
+    zi = scipy.signal.lfilter_zi(b_f, a_f)           # unit-step steady state
+    z0 = (zi * x[0]).astype(np.float64)              # scaled to this signal's DC level
+
+    # 5. Filter via Numba kernel (Direct Form II Transposed) with warm initial state
+    y = fixed_iir_direct_form_ii(x, b_f, a_f, z0)
 
     # Trajectory of digital poles (constant for all n)
     n_samples = len(x)
     pole_trajectory = np.tile(p_d, (n_samples, 1))
 
     return y, pole_trajectory
+

@@ -98,11 +98,26 @@ def _load_exp_b() -> dict[str, float]:
     return dict(zip(df["config"], df["max_stable_lambda_events_per_sec"]))
 
 
+def _dominates(q_row: np.ndarray, p_row: np.ndarray) -> bool:
+    """
+    Return True iff q dominates p: q is at least as good as p on every axis,
+    and strictly better on at least one.
+    Higher is better on both axes (throughput, roc_auc).
+    """
+    at_least_as_good = (q_row[0] >= p_row[0]) and (q_row[1] >= p_row[1])
+    strictly_better  = (q_row[0] >  p_row[0]) or  (q_row[1] >  p_row[1])
+    return at_least_as_good and strictly_better
+
+
 def _pareto_frontier(points: np.ndarray) -> np.ndarray:
     """
     Given (n, 2) array of (x, y) = (throughput, auc), return boolean mask of
-    Pareto-optimal points (not strictly dominated by any other on both axes).
+    Pareto-optimal points.  A point p is NOT on the frontier iff some other
+    point q dominates it (q >= p on every axis AND q > p on at least one).
     Higher is better on both axes.
+
+    Fix note: the previous implementation used strict > on *both* axes, which
+    failed to detect dominance when the two points were tied on one axis.
     """
     n = len(points)
     pareto = np.ones(n, dtype=bool)
@@ -110,8 +125,7 @@ def _pareto_frontier(points: np.ndarray) -> np.ndarray:
         for j in range(n):
             if i == j:
                 continue
-            # j strictly dominates i if j is better on both axes
-            if points[j, 0] > points[i, 0] and points[j, 1] > points[i, 1]:
+            if _dominates(points[j], points[i]):
                 pareto[i] = False
                 break
     return pareto

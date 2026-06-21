@@ -183,10 +183,19 @@ def main():
     fs_assumed = 100.0
     f_c_matched = 0.06 * fs_assumed / (2 * np.pi)
     y_butter_matched, pole_butter_matched = butterworth_lowpass(x_injected, cutoff_hz=f_c_matched, fs=fs_assumed)
+
+    # Bandwidth-matched Load-Adaptive EMA (Section 3 hardening pass):
+    # alpha_max calibrated to 0.08253 so that mean_alpha ≈ 0.06, matching
+    # Fixed EMA's bandwidth.  Isolates "does adaptation itself help?" from
+    # "is this filter just faster on average?".
+    y_adaptive_bw, pole_adaptive_bw = load_adaptive_ema(
+        x_injected, L.values, alpha_min=0.02, alpha_max=0.08253
+    )
     
     filters_out = {
         'Fixed EMA (0.06)': y_fixed,
         'Load Adaptive EMA': y_adaptive,
+        'Load Adaptive EMA (BW-Matched)': y_adaptive_bw,
         'KAMA': y_kama,
         'Butterworth (Default)': y_butter,
         'Butterworth (Matched)': y_butter_matched
