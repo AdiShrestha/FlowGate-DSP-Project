@@ -1,0 +1,24 @@
+{
+  "platform": "macOS-26.5.1-arm64-arm-64bit",
+  "processor": "arm",
+  "python_version": "3.12.8 (v3.12.8:2dc476bcb91, Dec  3 2024, 14:43:19) [Clang 13.0.0 (clang-1300.0.29.30)]",
+  "trial_count_adaptive": {
+    "10000": 20,
+    "100000": 10,
+    "200000": 5
+  },
+  "input_lengths_tested": [
+    10000,
+    100000,
+    200000
+  ],
+  "config_names": [
+    "Fixed EMA",
+    "Fixed EMA + Shedding",
+    "KAMA",
+    "Butterworth",
+    "Load-Adaptive EMA",
+    "Load-Adaptive EMA + Shedding"
+  ],
+  "note": "Timing is wall-clock, median over repeat trials. Full dataset capped at 200k samples (per-sample cost is length-independent once JIT-compiled; 200k balances statistical robustness vs. benchmark duration). Run wrapped with `caffeinate -i` for best results on Apple Silicon."
+}

@@ -30,48 +30,60 @@ _ROOT = Path(__file__).resolve().parent.parent
 if str(_ROOT) not in sys.path:
     sys.path.insert(0, str(_ROOT))
 
+from src.data_acquisition import load_tick_series
+from src.queue_simulator import simulate_backpressure
+from src.anomaly_injection import inject_anomalies
+from src.detection import detect_anomalies
+from src.evaluate import compute_auc
+from src.load_shedding import CONFIGS, run_config, compute_shedding_delay
+
 
 # ---------------------------------------------------------------------------
-# ROC-AUC mapping: comparison.csv → config name
+# Detection Evaluation
 # ---------------------------------------------------------------------------
 
-# The existing comparison.csv uses filter names from run_all.py. We need to
-# map those to the six configuration names used in Experiments A and B.
-# Unmapped configs (those without a detection-quality measurement) will use
-# a heuristic fallback explained in the summary.
-_AUC_NAME_MAP = {
-    "Fixed EMA (0.06)":       "Fixed EMA",
-    "Load Adaptive EMA":      "Load-Adaptive EMA",
-    "KAMA":                    "KAMA",
-    "Butterworth (Default)":  "Butterworth",
-    "Butterworth (Matched)":  None,  # skip — not in our 6 configs
-}
-
-# For configs that inherit their ROC-AUC from the base filter
-# (shedding changes throughput but not detection quality *on processed ticks*,
-# though it delays anomaly detection slightly — the shedding delay from Exp B
-# is reported but AUC is approximated from the base filter here, with a note).
-_AUC_INHERIT = {
-    "Fixed EMA + Shedding":       "Fixed EMA",
-    "Load-Adaptive EMA + Shedding": "Load-Adaptive EMA",
-}
-
-
-def _load_existing_auc() -> dict[str, float]:
+def _evaluate_detection_quality() -> tuple[dict[str, float], dict[str, float]]:
     """
-    Load ROC-AUC from results/tables/comparison.csv.
-    Returns dict: original_name -> roc_auc.
+    Runs anomaly injection and evaluates detection quality for all 6 configurations.
+    This ensures shedding configurations are honestly evaluated on their actual
+    output, rather than inheriting their baseline's score.
     """
-    csv_path = Path("results/tables/comparison.csv")
-    if not csv_path.exists():
-        raise FileNotFoundError(
-            f"{csv_path} not found. Run the main pipeline first:\n"
-            "  python -m src.run_all"
-        )
-    df = pd.read_csv(csv_path, index_col=0)
-    if "ROC AUC" not in df.columns:
-        raise KeyError(f"'ROC AUC' column not in {csv_path}. Available: {list(df.columns)}")
-    return dict(zip(df.index, df["ROC AUC"]))
+    print("\n  Evaluating detection quality (ROC-AUC) and shedding delays...")
+    try:
+        df = load_tick_series('binance', 'BTCUSDT', ('2024-01-01', '2024-01-01'))
+    except Exception:
+        print("  [Experiment C] Data load failed — using synthetic data.")
+        n = 50_000
+        rng = np.random.default_rng(0)
+        t = np.arange(n) * (1.0 / 8.66)
+        p = 40_000.0 + np.cumsum(rng.normal(0, 5, n))
+        df = pd.DataFrame({'timestamp': t, 'price': p})
+
+    # Use the same 50k subset and seed as the rest of the pipeline
+    df = df.iloc[:50_000].reset_index(drop=True)
+    bursts = [(10_000, 15_000), (30_000, 35_000)]
+    L = simulate_backpressure(df['timestamp'], burst_multiplier=2.0, burst_intervals=bursts)
+    x_clean = df['price']
+    
+    x_injected, mask, anomaly_info = inject_anomalies(x_clean, seed=42)
+    
+    config_auc = {}
+    config_delay = {}
+    
+    for c_name in list(CONFIGS.keys()):
+        y, _, process_mask = run_config(c_name, x_injected, L.values)
+        _, z, _ = detect_anomalies(x_injected, y)
+        roc_auc, _, _, _, _, _ = compute_auc(z, anomaly_info, mask)
+        
+        config_auc[c_name] = roc_auc
+        
+        if process_mask is not None:
+            delay = compute_shedding_delay(anomaly_info, process_mask)
+            config_delay[c_name] = delay
+        else:
+            config_delay[c_name] = 0.0
+            
+    return config_auc, config_delay
 
 
 def _load_exp_b() -> dict[str, float]:
@@ -113,44 +125,13 @@ def run_experiment_c() -> None:
     print("\n===== Experiment C: Detection Quality vs. Compute Cost Pareto Curve =====")
 
     # --- Load data ---
-    raw_auc = _load_existing_auc()
-    print(f"\n  Loaded ROC-AUC from comparison.csv: {raw_auc}")
+    config_auc, config_delay = _evaluate_detection_quality()
+    print(f"\n  Resolved ROC-AUC per config: {config_auc}")
 
     exp_b = _load_exp_b()
     print(f"\n  Loaded max stable λ from Experiment B: {exp_b}")
 
-    # --- Build per-config (throughput, auc) pairs ---
-    config_names = [
-        "Fixed EMA",
-        "Fixed EMA + Shedding",
-        "KAMA",
-        "Butterworth",
-        "Load-Adaptive EMA",
-        "Load-Adaptive EMA + Shedding",
-    ]
-
-    # Build AUC lookup for 6 configs
-    config_auc: dict[str, float] = {}
-    for c_name in config_names:
-        # Direct mapping
-        direct = None
-        for orig, cfg in _AUC_NAME_MAP.items():
-            if cfg == c_name and orig in raw_auc:
-                direct = raw_auc[orig]
-                break
-        if direct is not None:
-            config_auc[c_name] = direct
-        elif c_name in _AUC_INHERIT:
-            # Shedding variant inherits base filter's AUC
-            base = _AUC_INHERIT[c_name]
-            for orig, cfg in _AUC_NAME_MAP.items():
-                if cfg == base and orig in raw_auc:
-                    config_auc[c_name] = raw_auc[orig]
-                    break
-        else:
-            config_auc[c_name] = np.nan
-
-    print(f"\n  Resolved ROC-AUC per config: {config_auc}")
+    config_names = list(CONFIGS.keys())
 
     # Filter to configs that have both throughput and AUC
     valid = [(c, exp_b[c], config_auc[c])
@@ -232,8 +213,11 @@ def run_experiment_c() -> None:
     la_shed_on_pareto = pareto_mask[names.index(la_shed_name)] if la_shed_name in names else None
     la_shed_thru  = exp_b.get(la_shed_name, np.nan)
     la_shed_auc   = config_auc.get(la_shed_name, np.nan)
+    la_shed_delay = config_delay.get(la_shed_name, 0.0)
+    
     fixed_thru    = exp_b.get("Fixed EMA", np.nan)
     fixed_auc     = config_auc.get("Fixed EMA", np.nan)
+    fixed_delay   = config_delay.get("Fixed EMA", 0.0)
 
     # Determine dominators
     dominators = []
@@ -280,7 +264,7 @@ Do not edit this file manually — re-run Experiment C to update.
 
 ### Data Used
 - **Throughput (x-axis):** Max stable arrival rate λ (events/s) from Experiment B.
-- **Detection quality (y-axis):** ROC-AUC from the main pipeline's comparison.csv.
+- **Detection quality (y-axis):** ROC-AUC directly recomputed on shedding-applied output.
 - **Six configurations evaluated:** {', '.join(names)}.
 
 ### Pareto-Optimal Frontier
@@ -294,6 +278,7 @@ The following configurations are **NOT strictly dominated** by any other on both
 |---|---|---|
 | Max stable λ (ev/s) | {la_shed_thru:.2f} | {fixed_thru:.2f} |
 | ROC-AUC | {la_shed_auc:.4f} | {fixed_auc:.4f} |
+| Mean Shedding Delay (ticks) | {la_shed_delay:.1f} | {fixed_delay:.1f} |
 | Throughput gain vs. Fixed EMA | {throughput_gain_pct:+.1f}% | — |
 | AUC change vs. Fixed EMA | {auc_diff:+.4f} | — |
 
@@ -305,12 +290,10 @@ The following configurations are **NOT strictly dominated** by any other on both
 
 {"The load-adaptive configuration **does** sit on the Pareto frontier, meaning it offers a genuinely better tradeoff than all baselines on at least one axis without being worse on the other." if la_shed_on_pareto else "The load-adaptive configuration **does not** sit on the Pareto frontier — the numbers show it is dominated. The claim that it offers a resource-saving benefit is not supported by these measurements."}
 
-### Notes on AUC for Shedding Variants
-AUC for Fixed EMA + Shedding and Load-Adaptive EMA + Shedding is **approximated** from
-their base filter's AUC from the existing comparison.csv. Shedding changes throughput but
-the detection quality on processed ticks is identical to the base filter; what changes is
-that anomaly detection can be delayed by up to `shed_max_skip` ticks when the onset falls
-on a skipped tick. This delay is reported separately in Experiment B.
+### Notes on Shedding Delay
+Shedding changes throughput but slightly degrades detection quality because
+anomalies landing on skipped ticks have delayed onset detection.
+This mean additional delay across all injected anomalies is reported above.
 
 ### Energy Measurement Caveat
 If `avg_cpu_power_mw` values appear in `experiment_a_compute_cost.csv`, note that

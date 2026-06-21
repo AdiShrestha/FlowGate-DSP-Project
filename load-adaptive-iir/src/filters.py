@@ -16,6 +16,7 @@ from src.numba_filters import (
     fixed_iir_direct_form_ii,
     time_varying_first_order_ema,
     compute_load_adaptive_alpha,
+    compute_kama_sc,
 )
 
 
@@ -102,25 +103,10 @@ def kama(
     the conceptual contrast to the load-driven filter.
     """
     x = np.asarray(x, dtype=np.float64)
-    n_samples = len(x)
-    sc_trajectory = np.zeros(n_samples)
-
     fastSC = 2 / (fast_period + 1)
     slowSC = 2 / (slow_period + 1)
 
-    sc_trajectory[:er_period] = slowSC
-
-    # Pre-calculate absolute price changes
-    change = np.abs(np.diff(x, prepend=x[0]))
-
-    for n in range(er_period, n_samples):
-        dir_change = abs(x[n] - x[n - er_period])
-        volatility = np.sum(change[n - er_period + 1: n + 1])
-
-        er = dir_change / volatility if volatility != 0 else 0
-
-        sc = (er * (fastSC - slowSC) + slowSC) ** 2
-        sc_trajectory[n] = sc
+    sc_trajectory = compute_kama_sc(x, er_period, fastSC, slowSC)
 
     # Use sc as alpha_trace; initialise first er_period samples to slowSC
     # (matching original y[:er_period] = x[:er_period] initialisation).

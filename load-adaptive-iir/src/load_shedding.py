@@ -21,6 +21,7 @@ import numpy as np
 from typing import Callable
 
 from src.filters import fixed_ema, load_adaptive_ema, kama, butterworth_lowpass
+from src.numba_filters import compute_processing_mask_kernel, apply_shedding_forward_fill_y
 
 
 # ---------------------------------------------------------------------------
@@ -48,22 +49,7 @@ def compute_processing_mask(L: np.ndarray, shed_max_skip: int = 4) -> np.ndarray
         raise ValueError("compute_processing_mask: L contains NaN — "
                          "caller must sanitise backpressure before shedding.")
 
-    n = len(L)
-    process = np.zeros(n, dtype=np.bool_)
-    # Initialise to shed_max_skip so that the first tick ALWAYS satisfies
-    # ticks_since_processed >= target_skip (target_skip is at most shed_max_skip).
-    # This is correct: there is no previous output to forward-fill from on tick 0.
-    ticks_since_processed = shed_max_skip
-
-    for i in range(n):
-        target_skip = int(round(shed_max_skip * float(L[i])))  # 0 at L=0, shed_max_skip at L=1
-        if ticks_since_processed >= target_skip:
-            process[i] = True
-            ticks_since_processed = 0
-        else:
-            ticks_since_processed += 1
-
-    return process
+    return compute_processing_mask_kernel(L, shed_max_skip)
 
 
 # ---------------------------------------------------------------------------
@@ -118,18 +104,12 @@ def apply_shedding(
 
     y_sub, pole_sub = filter_fn(x_sub, **kwargs_sub)
 
-    # Scatter processed values and forward-fill
-    last_val = x[0]
-    sub_idx = 0
-    for i in range(n):
-        if process_mask[i]:
-            last_val = y_sub[sub_idx]
-            pole_traj[i] = (
-                pole_sub[sub_idx] if pole_sub.ndim == 1
-                else np.nan  # multi-pole (Butterworth) — leave as NaN
-            )
-            sub_idx += 1
-        y[i] = last_val
+    # Numba vectorised forward fill for y
+    y = apply_shedding_forward_fill_y(process_mask, y_sub, x[0])
+    
+    # Vectorised pole scatter (NO forward fill for poles)
+    if pole_sub.ndim == 1:
+        pole_traj[process_mask] = pole_sub
 
     return y, pole_traj
 

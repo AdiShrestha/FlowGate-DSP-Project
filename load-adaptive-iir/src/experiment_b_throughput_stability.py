@@ -165,9 +165,17 @@ def run_experiment_b() -> pd.DataFrame:
     # Use the 10k timing rows for μ (most representative per-sample cost)
     df_a_10k = df_a[df_a["samples"] == df_a["samples"].min()].copy()
 
+    # -----------------------------------------------------------------------
+    # Downstream Cost: Realistic system overhead (deserialisation, DB write, etc.)
+    # We add 5 microseconds per tick. This bridges the 7-8 order of magnitude gap
+    # between nanosecond-scale JIT arithmetic and realistic event arrivals, so the
+    # sweep can actually find a breaking point.
+    # -----------------------------------------------------------------------
+    DOWNSTREAM_COST_S = 5e-6
+
     # median_time_per_1k_ms → seconds per sample
     # ms/1k → s/sample: divide by 1000 (ms→s), divide by 1000 (per 1k)
-    df_a_10k["sec_per_sample"] = df_a_10k["median_time_per_1k_ms"] / 1e6
+    df_a_10k["sec_per_sample"] = (df_a_10k["median_time_per_1k_ms"] / 1e6) + DOWNSTREAM_COST_S
     df_a_10k["mu_raw"] = 1.0 / df_a_10k["sec_per_sample"]
 
     config_mu = dict(zip(df_a_10k["config"], df_a_10k["mu_raw"]))
@@ -175,13 +183,7 @@ def run_experiment_b() -> pd.DataFrame:
     for k, v in config_mu.items():
         print(f"    {k:40s}: μ_raw = {v:,.0f}")
 
-    # λ sweep: empirical rate → 10× empirical, 10 log-spaced points
-    lambda_sweep = np.logspace(
-        np.log10(empirical_lambda),
-        np.log10(10.0 * empirical_lambda),
-        num=10
-    )
-    print(f"\n  λ sweep: {lambda_sweep[0]:.2f} → {lambda_sweep[-1]:.2f} events/s")
+
 
     config_names = list(CONFIGS.keys())
     results = []
@@ -201,6 +203,18 @@ def run_experiment_b() -> pd.DataFrame:
             print(f"  {c_name}: no shedding, μ_eff=μ_raw={mu_eff:,.0f}")
 
         config_mu_eff[c_name] = mu_eff
+
+    # λ sweep: empirical rate → 20% past the fastest effective service rate
+    # This guarantees the sweep crosses the ρ=1 instability threshold for ALL configs.
+    # Use 100 points so we have enough resolution to see the difference between
+    # the shedding and non-shedding configs' breaking points.
+    max_mu_eff = max(config_mu_eff.values()) if config_mu_eff else empirical_lambda * 10.0
+    lambda_sweep = np.logspace(
+        np.log10(empirical_lambda),
+        np.log10(max_mu_eff * 1.2),
+        num=100
+    )
+    print(f"\n  λ sweep: {lambda_sweep[0]:.2f} → {lambda_sweep[-1]:.2f} events/s (100 points)")
 
     # Stability sweep
     print("\n  Running stability sweep...")

@@ -149,21 +149,97 @@ def compute_load_adaptive_alpha(
 
 
 # ---------------------------------------------------------------------------
+# Kernel 4: Load Shedding deterministic stride mask
+# ---------------------------------------------------------------------------
+
+@njit(cache=True)
+def compute_processing_mask_kernel(L: np.ndarray, shed_max_skip: int) -> np.ndarray:
+    """
+    JIT-compiled loop for compute_processing_mask.
+    """
+    n = len(L)
+    process = np.zeros(n, dtype=np.bool_)
+    ticks_since_processed = shed_max_skip
+
+    for i in range(n):
+        target_skip = int(np.round(shed_max_skip * L[i]))
+        if ticks_since_processed >= target_skip:
+            process[i] = True
+            ticks_since_processed = 0
+        else:
+            ticks_since_processed += 1
+
+    return process
+
+
+# ---------------------------------------------------------------------------
+# Kernel 5: KAMA efficiency ratio and SC trajectory
+# ---------------------------------------------------------------------------
+
+@njit(cache=True)
+def compute_kama_sc(x: np.ndarray, er_period: int, fastSC: float, slowSC: float) -> np.ndarray:
+    """
+    JIT-compiled loop for Kaufman's Adaptive Moving Average SC trajectory computation.
+    """
+    n_samples = len(x)
+    sc_trajectory = np.zeros(n_samples)
+    sc_trajectory[:er_period] = slowSC
+
+    change = np.zeros(n_samples)
+    for i in range(1, n_samples):
+        change[i] = abs(x[i] - x[i - 1])
+
+    for n in range(er_period, n_samples):
+        dir_change = abs(x[n] - x[n - er_period])
+        
+        volatility = 0.0
+        for i in range(n - er_period + 1, n + 1):
+            volatility += change[i]
+
+        er = dir_change / volatility if volatility != 0.0 else 0.0
+        sc = (er * (fastSC - slowSC) + slowSC) ** 2
+        sc_trajectory[n] = sc
+
+    return sc_trajectory
+
+
+@njit(cache=True)
+def apply_shedding_forward_fill_y(process_mask: np.ndarray, y_sub: np.ndarray, first_x: float) -> np.ndarray:
+    """
+    JIT-compiled forward-fill for shedding. Scatter processed values into
+    the full-length array and forward-fill the gaps.
+    """
+    n = len(process_mask)
+    y = np.empty(n, dtype=np.float64)
+    last_val = first_x
+    sub_idx = 0
+    for i in range(n):
+        if process_mask[i]:
+            last_val = y_sub[sub_idx]
+            sub_idx += 1
+        y[i] = last_val
+    return y
+
+
+# ---------------------------------------------------------------------------
 # Module-level warm-up — runs once at import time so JIT compile cost is
 # never inside a timed region.
 # ---------------------------------------------------------------------------
 
 def _warmup():
-    _dummy = np.zeros(16, dtype=np.float64)
-    _b = np.array([0.1], dtype=np.float64)
-    _a = np.array([1.0, -0.9], dtype=np.float64)
+    _dummy = np.ones(16, dtype=np.float64)
+    _b = np.array([0.5, 0.5], dtype=np.float64)
+    _a = np.array([1.0, -0.5], dtype=np.float64)
     fixed_iir_direct_form_ii(_dummy, _b, _a)
 
-    _alpha = np.full(16, 0.1, dtype=np.float64)
-    time_varying_first_order_ema(_dummy, _alpha)
+    time_varying_first_order_ema(_dummy, _dummy)
 
     _L = np.full(16, 0.5, dtype=np.float64)
     compute_load_adaptive_alpha(_L, 0.02, 0.30, 0.01)
+
+    _mask = compute_processing_mask_kernel(_L, 4)
+    compute_kama_sc(_dummy, 10, 0.2, 0.01)
+    apply_shedding_forward_fill_y(_mask, _dummy[:len(np.where(_mask)[0])], 0.0)
 
 
 _warmup()
