@@ -171,6 +171,14 @@ def run_experiment_c() -> None:
     fig_dir = Path("results/figures")
     fig_dir.mkdir(parents=True, exist_ok=True)
 
+    # Load multi-seed CIs
+    ci_dict = {}
+    multi_seed_path = Path("results/tables/multi_seed_summary.csv")
+    if multi_seed_path.exists():
+        df_multi = pd.read_csv(multi_seed_path)
+        df_multi = df_multi[df_multi['anomaly_type'] == 'all']
+        ci_dict = dict(zip(df_multi['config'], df_multi['ci_95']))
+
     cmap = plt.get_cmap("tab10")
     fig, ax = plt.subplots(figsize=(10, 7))
 
@@ -187,6 +195,12 @@ def run_experiment_c() -> None:
         color = cmap(i / len(names))
         marker = "★" if is_pareto else "o"
         size = 220 if is_pareto else 120
+        
+        # Plot error bars if available
+        yerr = ci_dict.get(name, 0.0)
+        
+        ax.errorbar(point[0], point[1], yerr=yerr, fmt='none', ecolor='black', capsize=4, zorder=2, alpha=0.5)
+        
         ax.scatter(point[0], point[1], c=[color], s=size,
                    zorder=3, edgecolors="black" if is_pareto else "none",
                    linewidths=1.5)

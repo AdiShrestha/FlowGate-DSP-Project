@@ -141,6 +141,64 @@ def _is_stable(
     return stable, rho, depths
 
 
+def downstream_sensitivity_sweep(df_a_10k: pd.DataFrame, empirical_lambda: float, L: np.ndarray, config_names: list, config_shedding_fracs: dict):
+    costs = [1e-6, 5e-6, 10e-6, 25e-6, 50e-6, 100e-6]
+    print("\n===== Running Downstream Sensitivity Sweep =====")
+    results_sens = []
+    
+    for cost in costs:
+        df_a_copy = df_a_10k.copy()
+        df_a_copy["sec_per_sample"] = (df_a_copy["median_time_per_1k_ms"] / 1e6) + cost
+        df_a_copy["mu_raw"] = 1.0 / df_a_copy["sec_per_sample"]
+        config_mu = dict(zip(df_a_copy["config"], df_a_copy["mu_raw"]))
+        
+        for c_name in config_names:
+            mu_raw = config_mu.get(c_name, empirical_lambda * 2.0)
+            shed_frac = config_shedding_fracs.get(c_name, 0.0)
+            mu_eff = _mu_effective(mu_raw, shed_frac)
+            
+            # Re-run a faster sweep to find max stable lambda
+            lambda_sweep = np.logspace(np.log10(empirical_lambda), np.log10(mu_eff * 1.2), num=20)
+            max_stable_lam = empirical_lambda
+            for lam in lambda_sweep:
+                stable, _, _ = _is_stable(lam, mu_eff, n_ticks=10000)
+                if stable:
+                    max_stable_lam = lam
+            
+            results_sens.append({
+                "downstream_cost_us": cost * 1e6,
+                "config": c_name,
+                "max_stable_lambda": max_stable_lam
+            })
+            
+    df_sens = pd.DataFrame(results_sens)
+    out_dir = Path("results/tables")
+    out_dir.mkdir(parents=True, exist_ok=True)
+    out_csv = out_dir / "experiment_b_sensitivity.csv"
+    df_sens.to_csv(out_csv, index=False)
+    print(f"  Saved: {out_csv}")
+    
+    import matplotlib.pyplot as plt
+    fig, ax = plt.subplots(figsize=(10, 6))
+    for c_name in config_names:
+        subset = df_sens[df_sens["config"] == c_name]
+        ax.plot(subset["downstream_cost_us"], subset["max_stable_lambda"], marker="o", label=c_name)
+    
+    ax.set_yscale("log")
+    ax.set_xscale("log")
+    ax.set_xlabel("Downstream Cost (µs)")
+    ax.set_ylabel("Max Stable λ (events/s)")
+    ax.set_title("Sensitivity of Max Stable Throughput to Downstream Cost")
+    ax.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
+    ax.grid(True, which="both", ls="--", alpha=0.5)
+    fig.tight_layout()
+    out_fig = Path("results/figures/experiment_b_sensitivity.png")
+    out_fig.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(out_fig, dpi=150)
+    plt.close(fig)
+    print(f"  Saved: {out_fig}")
+
+
 # ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
@@ -167,11 +225,17 @@ def run_experiment_b() -> pd.DataFrame:
 
     # -----------------------------------------------------------------------
     # Downstream Cost: Realistic system overhead (deserialisation, DB write, etc.)
-    # We add 5 microseconds per tick. This bridges the 7-8 order of magnitude gap
-    # between nanosecond-scale JIT arithmetic and realistic event arrivals, so the
-    # sweep can actually find a breaking point.
+    # We load the measured p50 UDP latency.
     # -----------------------------------------------------------------------
-    DOWNSTREAM_COST_S = 5e-6
+    import json
+    cost_file = Path("results/tables/downstream_cost_measurement.json")
+    if cost_file.exists():
+        with open(cost_file, "r") as f:
+            DOWNSTREAM_COST_S = json.load(f)["p50_us"] * 1e-6
+        print(f"  Loaded measured DOWNSTREAM_COST_S: {DOWNSTREAM_COST_S*1e6:.2f}µs")
+    else:
+        DOWNSTREAM_COST_S = 5e-6
+        print(f"  Fallback DOWNSTREAM_COST_S: {DOWNSTREAM_COST_S*1e6:.2f}µs")
 
     # median_time_per_1k_ms → seconds per sample
     # ms/1k → s/sample: divide by 1000 (ms→s), divide by 1000 (per 1k)
@@ -190,6 +254,7 @@ def run_experiment_b() -> pd.DataFrame:
 
     # For each config, compute μ_effective considering shedding
     config_mu_eff = {}
+    config_shedding_fracs = {}
     for c_name in config_names:
         cfg = CONFIGS[c_name]
         mu_raw = config_mu.get(c_name, empirical_lambda * 2.0)  # fallback if missing
@@ -197,9 +262,11 @@ def run_experiment_b() -> pd.DataFrame:
         if cfg["shedding"]:
             shed_frac = _compute_shed_fraction(L, shed_max_skip=cfg["shed_max_skip"])
             mu_eff = _mu_effective(mu_raw, shed_frac)
+            config_shedding_fracs[c_name] = shed_frac
             print(f"  {c_name}: shed_fraction={shed_frac:.3f}, μ_eff={mu_eff:,.0f}")
         else:
             mu_eff = mu_raw
+            config_shedding_fracs[c_name] = 0.0
             print(f"  {c_name}: no shedding, μ_eff=μ_raw={mu_eff:,.0f}")
 
         config_mu_eff[c_name] = mu_eff
@@ -340,6 +407,11 @@ def run_experiment_b() -> pd.DataFrame:
     fig2.savefig(bar_fig_path, dpi=150, bbox_inches="tight")
     plt.close(fig2)
     print(f"  Saved: {bar_fig_path}")
+
+    print(f"  Saved: {bar_fig_path}")
+
+    # Run the sensitivity sweep
+    downstream_sensitivity_sweep(df_a_10k, empirical_lambda, L, config_names, config_shedding_fracs)
 
     print("\n===== Experiment B Complete =====")
     return df_results

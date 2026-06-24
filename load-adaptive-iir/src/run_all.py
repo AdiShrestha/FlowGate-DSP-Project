@@ -21,6 +21,8 @@ from src.anomaly_injection import inject_anomalies
 from src.detection import detect_anomalies
 from src.evaluate import evaluate_predictions, compute_auc, format_results_table, evaluate_by_type
 from src.visualize import plot_time_domain_comparison, plot_roc_pr_curves, plot_metrics_bar_comparison
+from src.rrcf_detector import run_rrcf_streaming
+import subprocess
 
 
 def _run_compute_experiments():
@@ -223,7 +225,21 @@ def main():
     print("Running detection logic...")
     detections = {}
     z_scores = {}
+    
+    print("Running RRCF Baseline...")
+    import time
+    t0 = time.time()
+    rrcf_codisp = run_rrcf_streaming(x_injected, num_trees=20, tree_size=128)
+    filters_out['RRCF Baseline'] = np.zeros_like(x_injected) # Dummy for time domain plot
+    z_scores['RRCF Baseline'] = rrcf_codisp
+    # Threshold CoDisp at 97th percentile
+    thresh = np.percentile(rrcf_codisp, 97)
+    detections['RRCF Baseline'] = rrcf_codisp >= thresh
+    print(f"RRCF completed in {time.time()-t0:.1f}s")
+    
     for name, y in filters_out.items():
+        if name == 'RRCF Baseline':
+            continue
         _, z, det = detect_anomalies(x_injected, y)
         detections[name] = det
         z_scores[name] = z
@@ -281,9 +297,27 @@ def main():
     plot_roc_pr_curves(auc_data)
     plot_metrics_bar_comparison(results_df)
     
-    print("\n--- Pipeline Completed Successfully ---")
+    print("\n--- Phase 1: Single Run Completed ---")
     print(results_df)
 
+    # -----------------------------------------------------------------------
+    # MEGA BUILD EXTENSIONS (Sections 3, 4, 6, 8)
+    # -----------------------------------------------------------------------
+    print("\n--- Phase 2: Mega Build Hardening Pass ---")
+    
+    # Check if regimes are already classified, otherwise wait/run data expansion
+    if not Path("results/tables/regime_classification.csv").exists():
+        print("Running Data Expansion (Section 1/6)...")
+        subprocess.run([sys.executable, "src/data_expansion.py"], check=True)
+        
+    print("Running FP-Rate Paradox Analysis (Section 4)...")
+    from src.fp_paradox import demonstrate_fp_paradox
+    demonstrate_fp_paradox()
+    
+    print("Running Multi-Seed Evaluation and DeLong Tests (Section 3/6)...")
+    from src.multi_seed_evaluation import run_multi_seed_evaluation
+    run_multi_seed_evaluation(n_seeds=50, n_anomalies_per_type=100)
+    
     # -----------------------------------------------------------------------
     # Optional compute experiments (opt-in via flag)
     # -----------------------------------------------------------------------
