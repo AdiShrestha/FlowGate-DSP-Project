@@ -3,3 +3,5 @@ load_adaptive_iir_literature_review.md
 load-adaptive-iir/.myenv/
 load-adaptive-iir/.pytest_cache
 load-adaptive-iir/tests/__pycache__
+fix1.md
+report_v2.tex

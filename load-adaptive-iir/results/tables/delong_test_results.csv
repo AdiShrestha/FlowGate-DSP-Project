@@ -1,0 +1,2 @@
+name_A,name_B,auc_A,auc_B,delta_auc,z_stat,p_value,significant_05,significant_01
+Load-Adaptive EMA (BW-Matched),Fixed EMA,0.49928677293928825,0.4994939041295595,-0.00020713119027127025,2.949057195091391,0.003187449805040727,True,True

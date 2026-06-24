@@ -1,0 +1,701 @@
+/Users/adi/Desktop/DSP Mini Project/load-adaptive-iir/.myenv/lib/python3.12/site-packages/rrcf/__init__.py:3: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+--- 1. Canonical Signals and Z-Domain Demonstrations ---
+Generating impulse and step responses...
+Filtering synthetic signals...
+Running Z-Domain analysis sweep...
+
+--- 2. Real Data Pipeline ---
+Loading tick series (Binance BTCUSDT 2024-01-01)...
+Loading cached processed data from data/processed/binance_BTCUSDT_20240101_20240101.parquet
+Simulating backpressure...
+Queue Simulator: avg arrival rate λ = 8.66 events/s
+Queue Simulator: setting service rate μ = 11.55 events/s (target ρ = 0.75)
+Injecting synthetic anomalies...
+Pearson correlation between L[n] and near-anomaly indicator: -0.1072 (p=1.3307e-127)
+Running filters...
+Running detection robustness check on Fixed EMA...
+FP rate (STD, w=100): 64.88 per 1k
+FP rate (STD, w=300): 35.23 per 1k
+FP rate (MAD, w=100): 183.59 per 1k
+Robustness check took 0.6s
+Generating real data PSD...
+Generating time-varying filter visualizations...
+Running detection logic...
+Running RRCF Baseline...
+RRCF completed in 93.2s
+Evaluating models...
+Saving results table (combined)...
+Saving per-anomaly-type tables (§9)...
+
+  --- level_shift ---
+                                Precision    Recall        F1  Mean Latency  FP Rate (per 1k)   ROC AUC    PR AUC  PR Baseline
+RRCF Baseline                    0.032000  0.076190  0.045070           0.0         29.530201  0.692850  0.021964       0.0126
+Fixed EMA (0.06)                 0.020864  0.111111  0.035132           0.0         66.809030  0.596424  0.017308       0.0126
+Load Adaptive EMA                0.015396  0.066667  0.025015           0.0         54.626805  0.563919  0.014404       0.0126
+Load Adaptive EMA (BW-Matched)   0.014375  0.106349  0.025326           0.0         93.430954  0.560922  0.014680       0.0126
+KAMA                             0.017692  0.073016  0.028483           0.0         51.942241  0.589345  0.015688       0.0126
+Butterworth (Default)            0.016113  0.179365  0.029570           0.0        140.329469  0.596310  0.015722       0.0126
+Butterworth (Matched)            0.014243  0.168254  0.026264           0.2        149.196665  0.592417  0.015243       0.0126
+
+  --- point ---
+                                Precision  Recall        F1  Mean Latency  FP Rate (per 1k)   ROC AUC    PR AUC  PR Baseline
+RRCF Baseline                    0.022000     1.0  0.043053           0.0         29.460789  0.997429  0.017110       0.0001
+Fixed EMA (0.06)                 0.006259     1.0  0.012441           0.0         66.954514  0.997540  0.015873       0.0001
+Load Adaptive EMA                0.005132     1.0  0.010212           0.0         54.503464  0.997530  0.013889       0.0001
+Load Adaptive EMA (BW-Matched)   0.004076     1.0  0.008120           0.0         93.222211  0.997530  0.013889       0.0001
+KAMA                             0.016923     1.0  0.033283           0.0         51.330455  0.997530  0.013889       0.0001
+Butterworth (Default)            0.003850     1.0  0.007670           0.0        140.295210  0.997510  0.009921       0.0001
+Butterworth (Matched)            0.003628     1.0  0.007230           0.0        148.910533  0.995494  0.007940       0.0001
+
+  --- volatility_burst ---
+                                Precision    Recall        F1  Mean Latency  FP Rate (per 1k)   ROC AUC    PR AUC  PR Baseline
+RRCF Baseline                    0.026000  0.081420  0.039414          13.6         29.622270  0.795040  0.023988      0.00958
+Fixed EMA (0.06)                 0.039046  0.273486  0.068336          13.0         65.367693  0.835188  0.031599      0.00958
+Load Adaptive EMA                0.032625  0.185804  0.055504          12.2         53.506620  0.759242  0.023025      0.00958
+Load Adaptive EMA (BW-Matched)   0.026389  0.256785  0.047860          13.0         92.009489  0.796561  0.023936      0.00958
+KAMA                             0.030769  0.167015  0.051965          11.2         51.093855  0.788906  0.025943      0.00958
+Butterworth (Default)            0.030800  0.450939  0.057662           2.6        137.811480  0.830105  0.028409      0.00958
+Butterworth (Matched)            0.029696  0.461378  0.055801           2.6        146.408224  0.828488  0.028002      0.00958
+Generating application results figures...
+
+--- Phase 1: Single Run Completed ---
+                                Precision    Recall  ...    PR AUC  PR Baseline
+RRCF Baseline                    0.080000  0.107720  ...  0.057950      0.02228
+Fixed EMA (0.06)                 0.066170  0.199282  ...  0.052970      0.02228
+Load Adaptive EMA                0.053152  0.130162  ...  0.041150      0.02228
+Load Adaptive EMA (BW-Matched)   0.044840  0.187612  ...  0.041692      0.02228
+KAMA                             0.065385  0.152603  ...  0.052740      0.02228
+Butterworth (Default)            0.050763  0.319569  ...  0.047498      0.02228
+Butterworth (Matched)            0.047568  0.317774  ...  0.045973      0.02228
+
+[7 rows x 8 columns]
+
+--- Phase 2: Mega Build Hardening Pass ---
+Running FP-Rate Paradox Analysis (Section 4)...
+Running FP-rate paradox demonstration...
+Loading cached processed data from data/processed/binance_BTCUSDT_20240101_20240101.parquet
+Queue Simulator: avg arrival rate λ = 8.66 events/s
+Queue Simulator: setting service rate μ = 11.55 events/s (target ρ = 0.75)
+Running Multi-Seed Evaluation and DeLong Tests (Section 3/6)...
+Running multi-seed evaluation with 50 runs per regime...
+Regime: trending:   0%|          | 0/50 [00:00<?, ?it/s]Regime: trending:   2%|▏         | 1/50 [00:56<46:22, 56.78s/it]Regime: trending:   4%|▍         | 2/50 [02:18<57:09, 71.45s/it]Regime: trending:   6%|▌         | 3/50 [03:50<1:03:23, 80.92s/it]Regime: trending:   8%|▊         | 4/50 [05:17<1:03:54, 83.37s/it]Regime: trending:  10%|█         | 5/50 [06:38<1:01:40, 82.24s/it]Regime: trending:  12%|█▏        | 6/50 [07:34<53:51, 73.44s/it]  Regime: trending:  14%|█▍        | 7/50 [08:59<55:21, 77.25s/it]Regime: trending:  16%|█▌        | 8/50 [10:20<54:55, 78.46s/it]Regime: trending:  18%|█▊        | 9/50 [11:46<55:10, 80.74s/it]Regime: trending:  20%|██        | 10/50 [13:11<54:49, 82.23s/it]Regime: trending:  22%|██▏       | 11/50 [14:31<52:54, 81.40s/it]Regime: trending:  24%|██▍       | 12/50 [15:32<47:40, 75.29s/it]Regime: trending:  26%|██▌       | 13/50 [16:26<42:27, 68.84s/it]Regime: trending:  28%|██▊       | 14/50 [17:45<43:09, 71.93s/it]Regime: trending:  30%|███       | 15/50 [19:13<44:44, 76.69s/it]Regime: trending:  32%|███▏      | 16/50 [20:35<44:18, 78.19s/it]Regime: trending:  34%|███▍      | 17/50 [22:16<46:48, 85.10s/it]Regime: trending:  36%|███▌      | 18/50 [23:35<44:27, 83.36s/it]Regime: trending:  38%|███▊      | 19/50 [24:38<39:57, 77.35s/it]Regime: trending:  40%|████      | 20/50 [25:30<34:50, 69.69s/it]Regime: trending:  42%|████▏     | 21/50 [27:08<37:47, 78.21s/it]Regime: trending:  44%|████▍     | 22/50 [28:29<36:46, 78.81s/it]Regime: trending:  46%|████▌     | 23/50 [29:26<32:33, 72.35s/it]Regime: trending:  48%|████▊     | 24/50 [30:57<33:46, 77.94s/it]Regime: trending:  50%|█████     | 25/50 [32:20<33:07, 79.52s/it]Regime: trending:  52%|█████▏    | 26/50 [33:42<32:06, 80.26s/it]Regime: trending:  54%|█████▍    | 27/50 [35:07<31:14, 81.51s/it]Regime: trending:  56%|█████▌    | 28/50 [35:56<26:22, 71.92s/it]Regime: trending:  58%|█████▊    | 29/50 [37:19<26:21, 75.29s/it]Regime: trending:  60%|██████    | 30/50 [38:49<26:31, 79.59s/it]Regime: trending:  62%|██████▏   | 31/50 [40:20<26:20, 83.19s/it]Regime: trending:  64%|██████▍   | 32/50 [41:50<25:30, 85.01s/it]Regime: trending:  66%|██████▌   | 33/50 [42:46<21:40, 76.49s/it]Regime: trending:  68%|██████▊   | 34/50 [44:25<22:12, 83.27s/it]Regime: trending:  70%|███████   | 35/50 [45:47<20:40, 82.69s/it]Regime: trending:  72%|███████▏  | 36/50 [47:21<20:07, 86.22s/it]Regime: trending:  74%|███████▍  | 37/50 [48:18<16:44, 77.29s/it]Regime: trending:  76%|███████▌  | 38/50 [49:47<16:11, 80.93s/it]Regime: trending:  78%|███████▊  | 39/50 [51:17<15:20, 83.68s/it]Regime: trending:  80%|████████  | 40/50 [52:38<13:49, 82.93s/it]Regime: trending:  82%|████████▏ | 41/50 [54:03<12:29, 83.32s/it]Regime: trending:  84%|████████▍ | 42/50 [55:36<11:30, 86.33s/it]Regime: trending:  86%|████████▌ | 43/50 [56:58<09:55, 85.14s/it]Regime: trending:  88%|████████▊ | 44/50 [58:37<08:55, 89.32s/it]Regime: trending:  90%|█████████ | 45/50 [1:00:06<07:25, 89.03s/it]Regime: trending:  92%|█████████▏| 46/50 [1:01:29<05:49, 87.25s/it]Regime: trending:  94%|█████████▍| 47/50 [1:03:04<04:29, 89.77s/it]Regime: trending:  96%|█████████▌| 48/50 [1:04:30<02:56, 88.36s/it]Regime: trending:  98%|█████████▊| 49/50 [1:05:38<01:22, 82.35s/it]Regime: trending: 100%|██████████| 50/50 [1:07:11<00:00, 85.54s/it]Regime: trending: 100%|██████████| 50/50 [1:07:11<00:00, 80.63s/it]
+Loading cached processed data from data/processed/binance_BNBUSDT_20240122_20240122.parquet
+Queue Simulator: avg arrival rate λ = 1.26 events/s
+Queue Simulator: setting service rate μ = 1.67 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_SOLUSDT_20240131_20240131.parquet
+Queue Simulator: avg arrival rate λ = 4.58 events/s
+Queue Simulator: setting service rate μ = 6.11 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_ETHUSDT_20240116_20240116.parquet
+Queue Simulator: avg arrival rate λ = 6.62 events/s
+Queue Simulator: setting service rate μ = 8.83 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BTCUSDT_20240126_20240126.parquet
+Queue Simulator: avg arrival rate λ = 5.94 events/s
+Queue Simulator: setting service rate μ = 7.91 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_SOLUSDT_20240106_20240106.parquet
+Queue Simulator: avg arrival rate λ = 2.38 events/s
+Queue Simulator: setting service rate μ = 3.17 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BNBUSDT_20240122_20240122.parquet
+Queue Simulator: avg arrival rate λ = 1.26 events/s
+Queue Simulator: setting service rate μ = 1.67 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_ETHUSDT_20240131_20240131.parquet
+Queue Simulator: avg arrival rate λ = 7.42 events/s
+Queue Simulator: setting service rate μ = 9.90 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_SOLUSDT_20240117_20240117.parquet
+Queue Simulator: avg arrival rate λ = 3.78 events/s
+Queue Simulator: setting service rate μ = 5.04 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_ETHUSDT_20240104_20240104.parquet
+Queue Simulator: avg arrival rate λ = 4.87 events/s
+Queue Simulator: setting service rate μ = 6.50 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_ETHUSDT_20240104_20240104.parquet
+Queue Simulator: avg arrival rate λ = 4.87 events/s
+Queue Simulator: setting service rate μ = 6.50 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_SOLUSDT_20240118_20240118.parquet
+Queue Simulator: avg arrival rate λ = 3.11 events/s
+Queue Simulator: setting service rate μ = 4.15 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_XRPUSDT_20240130_20240130.parquet
+Queue Simulator: avg arrival rate λ = 0.98 events/s
+Queue Simulator: setting service rate μ = 1.31 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BNBUSDT_20240126_20240126.parquet
+Queue Simulator: avg arrival rate λ = 1.29 events/s
+Queue Simulator: setting service rate μ = 1.72 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_SOLUSDT_20240118_20240118.parquet
+Queue Simulator: avg arrival rate λ = 3.11 events/s
+Queue Simulator: setting service rate μ = 4.15 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BTCUSDT_20240108_20240108.parquet
+Queue Simulator: avg arrival rate λ = 13.91 events/s
+Queue Simulator: setting service rate μ = 18.54 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_SOLUSDT_20240116_20240116.parquet
+Queue Simulator: avg arrival rate λ = 1.76 events/s
+Queue Simulator: setting service rate μ = 2.35 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BTCUSDT_20240104_20240104.parquet
+Queue Simulator: avg arrival rate λ = 11.62 events/s
+Queue Simulator: setting service rate μ = 15.50 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_SOLUSDT_20240118_20240118.parquet
+Queue Simulator: avg arrival rate λ = 3.11 events/s
+Queue Simulator: setting service rate μ = 4.15 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_XRPUSDT_20240101_20240101.parquet
+Queue Simulator: avg arrival rate λ = 0.69 events/s
+Queue Simulator: setting service rate μ = 0.92 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BNBUSDT_20240117_20240117.parquet
+Queue Simulator: avg arrival rate λ = 1.58 events/s
+Queue Simulator: setting service rate μ = 2.11 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BTCUSDT_20240104_20240104.parquet
+Queue Simulator: avg arrival rate λ = 11.62 events/s
+Queue Simulator: setting service rate μ = 15.50 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_SOLUSDT_20240106_20240106.parquet
+Queue Simulator: avg arrival rate λ = 2.38 events/s
+Queue Simulator: setting service rate μ = 3.17 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_XRPUSDT_20240118_20240118.parquet
+Queue Simulator: avg arrival rate λ = 0.82 events/s
+Queue Simulator: setting service rate μ = 1.10 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_ETHUSDT_20240110_20240110.parquet
+Queue Simulator: avg arrival rate λ = 18.03 events/s
+Queue Simulator: setting service rate μ = 24.04 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_SOLUSDT_20240116_20240116.parquet
+Queue Simulator: avg arrival rate λ = 1.76 events/s
+Queue Simulator: setting service rate μ = 2.35 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_SOLUSDT_20240122_20240122.parquet
+Queue Simulator: avg arrival rate λ = 2.28 events/s
+Queue Simulator: setting service rate μ = 3.05 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_SOLUSDT_20240126_20240126.parquet
+Queue Simulator: avg arrival rate λ = 1.60 events/s
+Queue Simulator: setting service rate μ = 2.14 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BNBUSDT_20240131_20240131.parquet
+Queue Simulator: avg arrival rate λ = 1.15 events/s
+Queue Simulator: setting service rate μ = 1.53 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_SOLUSDT_20240129_20240129.parquet
+Queue Simulator: avg arrival rate λ = 2.22 events/s
+Queue Simulator: setting service rate μ = 2.96 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_ETHUSDT_20240117_20240117.parquet
+Queue Simulator: avg arrival rate λ = 7.67 events/s
+Queue Simulator: setting service rate μ = 10.23 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_ETHUSDT_20240116_20240116.parquet
+Queue Simulator: avg arrival rate λ = 6.62 events/s
+Queue Simulator: setting service rate μ = 8.83 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BTCUSDT_20240108_20240108.parquet
+Queue Simulator: avg arrival rate λ = 13.91 events/s
+Queue Simulator: setting service rate μ = 18.54 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BNBUSDT_20240115_20240115.parquet
+Queue Simulator: avg arrival rate λ = 2.29 events/s
+Queue Simulator: setting service rate μ = 3.06 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BTCUSDT_20240122_20240122.parquet
+Queue Simulator: avg arrival rate λ = 10.52 events/s
+Queue Simulator: setting service rate μ = 14.03 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_SOLUSDT_20240106_20240106.parquet
+Queue Simulator: avg arrival rate λ = 2.38 events/s
+Queue Simulator: setting service rate μ = 3.17 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BTCUSDT_20240129_20240129.parquet
+Queue Simulator: avg arrival rate λ = 8.08 events/s
+Queue Simulator: setting service rate μ = 10.77 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BNBUSDT_20240122_20240122.parquet
+Queue Simulator: avg arrival rate λ = 1.26 events/s
+Queue Simulator: setting service rate μ = 1.67 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_ETHUSDT_20240129_20240129.parquet
+Queue Simulator: avg arrival rate λ = 3.76 events/s
+Queue Simulator: setting service rate μ = 5.01 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BTCUSDT_20240112_20240112.parquet
+Queue Simulator: avg arrival rate λ = 18.99 events/s
+Queue Simulator: setting service rate μ = 25.32 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_SOLUSDT_20240122_20240122.parquet
+Queue Simulator: avg arrival rate λ = 2.28 events/s
+Queue Simulator: setting service rate μ = 3.05 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_ETHUSDT_20240114_20240114.parquet
+Queue Simulator: avg arrival rate λ = 5.09 events/s
+Queue Simulator: setting service rate μ = 6.78 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BTCUSDT_20240129_20240129.parquet
+Queue Simulator: avg arrival rate λ = 8.08 events/s
+Queue Simulator: setting service rate μ = 10.77 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_SOLUSDT_20240124_20240124.parquet
+Queue Simulator: avg arrival rate λ = 2.48 events/s
+Queue Simulator: setting service rate μ = 3.31 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BTCUSDT_20240104_20240104.parquet
+Queue Simulator: avg arrival rate λ = 11.62 events/s
+Queue Simulator: setting service rate μ = 15.50 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_SOLUSDT_20240101_20240101.parquet
+Queue Simulator: avg arrival rate λ = 2.79 events/s
+Queue Simulator: setting service rate μ = 3.72 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_SOLUSDT_20240129_20240129.parquet
+Queue Simulator: avg arrival rate λ = 2.22 events/s
+Queue Simulator: setting service rate μ = 2.96 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BTCUSDT_20240122_20240122.parquet
+Queue Simulator: avg arrival rate λ = 10.52 events/s
+Queue Simulator: setting service rate μ = 14.03 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BTCUSDT_20240126_20240126.parquet
+Queue Simulator: avg arrival rate λ = 5.94 events/s
+Queue Simulator: setting service rate μ = 7.91 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_XRPUSDT_20240126_20240126.parquet
+Queue Simulator: avg arrival rate λ = 0.84 events/s
+Queue Simulator: setting service rate μ = 1.12 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_ETHUSDT_20240114_20240114.parquet
+Queue Simulator: avg arrival rate λ = 5.09 events/s
+Queue Simulator: setting service rate μ = 6.78 events/s (target ρ = 0.75)
+Regime: volatile:   0%|          | 0/50 [00:00<?, ?it/s]Regime: volatile:   2%|▏         | 1/50 [01:17<1:03:13, 77.42s/it]Regime: volatile:   4%|▍         | 2/50 [03:07<1:17:23, 96.74s/it]Regime: volatile:   6%|▌         | 3/50 [04:04<1:01:32, 78.57s/it]Regime: volatile:   8%|▊         | 4/50 [05:08<55:48, 72.79s/it]  Regime: volatile:  10%|█         | 5/50 [06:32<57:37, 76.83s/it]Regime: volatile:  12%|█▏        | 6/50 [07:32<52:10, 71.14s/it]Regime: volatile:  14%|█▍        | 7/50 [08:33<48:32, 67.73s/it]Regime: volatile:  16%|█▌        | 8/50 [10:10<53:53, 76.99s/it]Regime: volatile:  18%|█▊        | 9/50 [11:39<55:18, 80.93s/it]Regime: volatile:  20%|██        | 10/50 [13:02<54:20, 81.51s/it]Regime: volatile:  22%|██▏       | 11/50 [14:10<50:17, 77.36s/it]Regime: volatile:  24%|██▍       | 12/50 [15:52<53:38, 84.71s/it]Regime: volatile:  26%|██▌       | 13/50 [17:18<52:38, 85.35s/it]Regime: volatile:  28%|██▊       | 14/50 [18:38<50:11, 83.65s/it]Regime: volatile:  30%|███       | 15/50 [20:20<52:03, 89.24s/it]Regime: volatile:  32%|███▏      | 16/50 [21:17<44:58, 79.38s/it]Regime: volatile:  34%|███▍      | 17/50 [22:16<40:19, 73.33s/it]Regime: volatile:  36%|███▌      | 18/50 [23:42<41:04, 77.01s/it]Regime: volatile:  38%|███▊      | 19/50 [25:14<42:11, 81.67s/it]Regime: volatile:  40%|████      | 20/50 [26:10<36:59, 73.98s/it]Regime: volatile:  42%|████▏     | 21/50 [27:22<35:25, 73.30s/it]Regime: volatile:  44%|████▍     | 22/50 [28:45<35:38, 76.37s/it]Regime: volatile:  46%|████▌     | 23/50 [30:00<34:05, 75.75s/it]Regime: volatile:  48%|████▊     | 24/50 [31:08<31:49, 73.43s/it]Regime: volatile:  50%|█████     | 25/50 [32:20<30:27, 73.09s/it]Regime: volatile:  52%|█████▏    | 26/50 [33:20<27:40, 69.18s/it]Regime: volatile:  54%|█████▍    | 27/50 [34:58<29:50, 77.85s/it]Regime: volatile:  56%|█████▌    | 28/50 [35:54<26:09, 71.36s/it]Regime: volatile:  58%|█████▊    | 29/50 [36:50<23:20, 66.68s/it]Regime: volatile:  60%|██████    | 30/50 [37:55<22:05, 66.26s/it]Regime: volatile:  62%|██████▏   | 31/50 [38:52<20:02, 63.28s/it]Regime: volatile:  64%|██████▍   | 32/50 [39:50<18:29, 61.64s/it]Regime: volatile:  66%|██████▌   | 33/50 [40:54<17:40, 62.40s/it]Regime: volatile:  68%|██████▊   | 34/50 [41:52<16:17, 61.11s/it]Regime: volatile:  70%|███████   | 35/50 [43:24<17:35, 70.33s/it]Regime: volatile:  72%|███████▏  | 36/50 [44:22<15:34, 66.76s/it]Regime: volatile:  74%|███████▍  | 37/50 [46:00<16:27, 75.97s/it]Regime: volatile:  76%|███████▌  | 38/50 [47:26<15:48, 79.07s/it]Regime: volatile:  78%|███████▊  | 39/50 [48:31<13:44, 74.96s/it]Regime: volatile:  80%|████████  | 40/50 [49:55<12:57, 77.73s/it]Regime: volatile:  82%|████████▏ | 41/50 [51:27<12:15, 81.76s/it]Regime: volatile:  84%|████████▍ | 42/50 [53:07<11:38, 87.25s/it]Regime: volatile:  86%|████████▌ | 43/50 [54:06<09:11, 78.75s/it]Regime: volatile:  88%|████████▊ | 44/50 [55:29<08:00, 80.06s/it]Regime: volatile:  90%|█████████ | 45/50 [57:06<07:06, 85.27s/it]Regime: volatile:  92%|█████████▏| 46/50 [58:14<05:20, 80.13s/it]Regime: volatile:  94%|█████████▍| 47/50 [59:56<04:19, 86.59s/it]Regime: volatile:  96%|█████████▌| 48/50 [1:00:54<02:36, 78.06s/it]Regime: volatile:  98%|█████████▊| 49/50 [1:01:48<01:10, 70.84s/it]Regime: volatile: 100%|██████████| 50/50 [1:02:59<00:00, 70.95s/it]Regime: volatile: 100%|██████████| 50/50 [1:02:59<00:00, 75.60s/it]
+Loading cached processed data from data/processed/binance_XRPUSDT_20240120_20240120.parquet
+Queue Simulator: avg arrival rate λ = 0.62 events/s
+Queue Simulator: setting service rate μ = 0.83 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_ETHUSDT_20240107_20240107.parquet
+Queue Simulator: avg arrival rate λ = 3.03 events/s
+Queue Simulator: setting service rate μ = 4.04 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BNBUSDT_20240121_20240121.parquet
+Queue Simulator: avg arrival rate λ = 1.02 events/s
+Queue Simulator: setting service rate μ = 1.36 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BNBUSDT_20240105_20240105.parquet
+Queue Simulator: avg arrival rate λ = 2.40 events/s
+Queue Simulator: setting service rate μ = 3.20 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_ETHUSDT_20240119_20240119.parquet
+Queue Simulator: avg arrival rate λ = 5.34 events/s
+Queue Simulator: setting service rate μ = 7.12 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BNBUSDT_20240127_20240127.parquet
+Queue Simulator: avg arrival rate λ = 0.96 events/s
+Queue Simulator: setting service rate μ = 1.29 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BNBUSDT_20240127_20240127.parquet
+Queue Simulator: avg arrival rate λ = 0.96 events/s
+Queue Simulator: setting service rate μ = 1.29 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_ETHUSDT_20240123_20240123.parquet
+Queue Simulator: avg arrival rate λ = 5.02 events/s
+Queue Simulator: setting service rate μ = 6.70 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BTCUSDT_20240106_20240106.parquet
+Queue Simulator: avg arrival rate λ = 10.10 events/s
+Queue Simulator: setting service rate μ = 13.47 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_ETHUSDT_20240120_20240120.parquet
+Queue Simulator: avg arrival rate λ = 3.97 events/s
+Queue Simulator: setting service rate μ = 5.30 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_XRPUSDT_20240122_20240122.parquet
+Queue Simulator: avg arrival rate λ = 1.10 events/s
+Queue Simulator: setting service rate μ = 1.47 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BTCUSDT_20240103_20240103.parquet
+Queue Simulator: avg arrival rate λ = 13.25 events/s
+Queue Simulator: setting service rate μ = 17.67 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_SOLUSDT_20240104_20240104.parquet
+Queue Simulator: avg arrival rate λ = 4.05 events/s
+Queue Simulator: setting service rate μ = 5.40 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_SOLUSDT_20240121_20240121.parquet
+Queue Simulator: avg arrival rate λ = 1.18 events/s
+Queue Simulator: setting service rate μ = 1.57 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BTCUSDT_20240103_20240103.parquet
+Queue Simulator: avg arrival rate λ = 13.25 events/s
+Queue Simulator: setting service rate μ = 17.67 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BNBUSDT_20240109_20240109.parquet
+Queue Simulator: avg arrival rate λ = 2.05 events/s
+Queue Simulator: setting service rate μ = 2.73 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BNBUSDT_20240104_20240104.parquet
+Queue Simulator: avg arrival rate λ = 1.99 events/s
+Queue Simulator: setting service rate μ = 2.65 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_ETHUSDT_20240119_20240119.parquet
+Queue Simulator: avg arrival rate λ = 5.34 events/s
+Queue Simulator: setting service rate μ = 7.12 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_SOLUSDT_20240108_20240108.parquet
+Queue Simulator: avg arrival rate λ = 5.35 events/s
+Queue Simulator: setting service rate μ = 7.13 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BNBUSDT_20240130_20240130.parquet
+Queue Simulator: avg arrival rate λ = 1.13 events/s
+Queue Simulator: setting service rate μ = 1.50 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_XRPUSDT_20240129_20240129.parquet
+Queue Simulator: avg arrival rate λ = 0.82 events/s
+Queue Simulator: setting service rate μ = 1.10 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_ETHUSDT_20240120_20240120.parquet
+Queue Simulator: avg arrival rate λ = 3.97 events/s
+Queue Simulator: setting service rate μ = 5.30 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_XRPUSDT_20240113_20240113.parquet
+Queue Simulator: avg arrival rate λ = 0.83 events/s
+Queue Simulator: setting service rate μ = 1.11 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_XRPUSDT_20240131_20240131.parquet
+Queue Simulator: avg arrival rate λ = 1.07 events/s
+Queue Simulator: setting service rate μ = 1.42 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_XRPUSDT_20240102_20240102.parquet
+Queue Simulator: avg arrival rate λ = 1.36 events/s
+Queue Simulator: setting service rate μ = 1.81 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BNBUSDT_20240104_20240104.parquet
+Queue Simulator: avg arrival rate λ = 1.99 events/s
+Queue Simulator: setting service rate μ = 2.65 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_ETHUSDT_20240107_20240107.parquet
+Queue Simulator: avg arrival rate λ = 3.03 events/s
+Queue Simulator: setting service rate μ = 4.04 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BNBUSDT_20240106_20240106.parquet
+Queue Simulator: avg arrival rate λ = 5.76 events/s
+Queue Simulator: setting service rate μ = 7.68 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BNBUSDT_20240106_20240106.parquet
+Queue Simulator: avg arrival rate λ = 5.76 events/s
+Queue Simulator: setting service rate μ = 7.68 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_XRPUSDT_20240109_20240109.parquet
+Queue Simulator: avg arrival rate λ = 1.28 events/s
+Queue Simulator: setting service rate μ = 1.71 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BNBUSDT_20240106_20240106.parquet
+Queue Simulator: avg arrival rate λ = 5.76 events/s
+Queue Simulator: setting service rate μ = 7.68 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_XRPUSDT_20240119_20240119.parquet
+Queue Simulator: avg arrival rate λ = 0.94 events/s
+Queue Simulator: setting service rate μ = 1.25 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_XRPUSDT_20240125_20240125.parquet
+Queue Simulator: avg arrival rate λ = 0.81 events/s
+Queue Simulator: setting service rate μ = 1.08 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BNBUSDT_20240109_20240109.parquet
+Queue Simulator: avg arrival rate λ = 2.05 events/s
+Queue Simulator: setting service rate μ = 2.73 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BTCUSDT_20240106_20240106.parquet
+Queue Simulator: avg arrival rate λ = 10.10 events/s
+Queue Simulator: setting service rate μ = 13.47 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_XRPUSDT_20240119_20240119.parquet
+Queue Simulator: avg arrival rate λ = 0.94 events/s
+Queue Simulator: setting service rate μ = 1.25 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BTCUSDT_20240117_20240117.parquet
+Queue Simulator: avg arrival rate λ = 7.45 events/s
+Queue Simulator: setting service rate μ = 9.93 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_ETHUSDT_20240119_20240119.parquet
+Queue Simulator: avg arrival rate λ = 5.34 events/s
+Queue Simulator: setting service rate μ = 7.12 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BNBUSDT_20240123_20240123.parquet
+Queue Simulator: avg arrival rate λ = 1.46 events/s
+Queue Simulator: setting service rate μ = 1.95 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_SOLUSDT_20240125_20240125.parquet
+Queue Simulator: avg arrival rate λ = 2.11 events/s
+Queue Simulator: setting service rate μ = 2.81 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_ETHUSDT_20240112_20240112.parquet
+Queue Simulator: avg arrival rate λ = 9.24 events/s
+Queue Simulator: setting service rate μ = 12.31 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BTCUSDT_20240109_20240109.parquet
+Queue Simulator: avg arrival rate λ = 22.28 events/s
+Queue Simulator: setting service rate μ = 29.70 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BNBUSDT_20240104_20240104.parquet
+Queue Simulator: avg arrival rate λ = 1.99 events/s
+Queue Simulator: setting service rate μ = 2.65 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_ETHUSDT_20240106_20240106.parquet
+Queue Simulator: avg arrival rate λ = 3.37 events/s
+Queue Simulator: setting service rate μ = 4.50 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BTCUSDT_20240123_20240123.parquet
+Queue Simulator: avg arrival rate λ = 7.86 events/s
+Queue Simulator: setting service rate μ = 10.48 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_XRPUSDT_20240122_20240122.parquet
+Queue Simulator: avg arrival rate λ = 1.10 events/s
+Queue Simulator: setting service rate μ = 1.47 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BTCUSDT_20240103_20240103.parquet
+Queue Simulator: avg arrival rate λ = 13.25 events/s
+Queue Simulator: setting service rate μ = 17.67 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BNBUSDT_20240104_20240104.parquet
+Queue Simulator: avg arrival rate λ = 1.99 events/s
+Queue Simulator: setting service rate μ = 2.65 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BNBUSDT_20240120_20240120.parquet
+Queue Simulator: avg arrival rate λ = 1.05 events/s
+Queue Simulator: setting service rate μ = 1.40 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_XRPUSDT_20240105_20240105.parquet
+Queue Simulator: avg arrival rate λ = 1.48 events/s
+Queue Simulator: setting service rate μ = 1.98 events/s (target ρ = 0.75)
+Regime: mean_reverting:   0%|          | 0/50 [00:00<?, ?it/s]Regime: mean_reverting:   2%|▏         | 1/50 [01:06<54:00, 66.14s/it]Regime: mean_reverting:   4%|▍         | 2/50 [02:40<1:05:58, 82.46s/it]Regime: mean_reverting:   6%|▌         | 3/50 [04:13<1:08:41, 87.69s/it]Regime: mean_reverting:   8%|▊         | 4/50 [05:32<1:04:19, 83.90s/it]Regime: mean_reverting:  10%|█         | 5/50 [06:55<1:02:44, 83.65s/it]Regime: mean_reverting:  12%|█▏        | 6/50 [08:16<1:00:42, 82.79s/it]Regime: mean_reverting:  14%|█▍        | 7/50 [09:48<1:01:30, 85.83s/it]Regime: mean_reverting:  16%|█▌        | 8/50 [11:22<1:01:53, 88.42s/it]Regime: mean_reverting:  18%|█▊        | 9/50 [12:30<56:08, 82.16s/it]  Regime: mean_reverting:  20%|██        | 10/50 [13:22<48:31, 72.78s/it]Regime: mean_reverting:  22%|██▏       | 11/50 [14:30<46:21, 71.31s/it]Regime: mean_reverting:  24%|██▍       | 12/50 [16:02<49:09, 77.62s/it]Regime: mean_reverting:  26%|██▌       | 13/50 [17:27<49:18, 79.96s/it]Regime: mean_reverting:  28%|██▊       | 14/50 [19:03<50:48, 84.68s/it]Regime: mean_reverting:  30%|███       | 15/50 [20:11<46:29, 79.69s/it]Regime: mean_reverting:  32%|███▏      | 16/50 [21:06<40:58, 72.32s/it]Regime: mean_reverting:  34%|███▍      | 17/50 [22:39<43:05, 78.34s/it]Regime: mean_reverting:  36%|███▌      | 18/50 [23:59<42:01, 78.80s/it]Regime: mean_reverting:  38%|███▊      | 19/50 [24:58<37:38, 72.84s/it]Regime: mean_reverting:  40%|████      | 20/50 [26:29<39:11, 78.37s/it]Regime: mean_reverting:  42%|████▏     | 21/50 [27:54<38:54, 80.49s/it]Regime: mean_reverting:  44%|████▍     | 22/50 [29:05<36:13, 77.64s/it]Regime: mean_reverting:  46%|████▌     | 23/50 [30:21<34:42, 77.12s/it]Regime: mean_reverting:  48%|████▊     | 24/50 [31:25<31:38, 73.02s/it]Regime: mean_reverting:  50%|█████     | 25/50 [32:51<32:08, 77.16s/it]Regime: mean_reverting:  52%|█████▏    | 26/50 [34:27<33:02, 82.61s/it]Regime: mean_reverting:  54%|█████▍    | 27/50 [35:57<32:34, 84.96s/it]Regime: mean_reverting:  56%|█████▌    | 28/50 [36:54<28:05, 76.62s/it]Regime: mean_reverting:  58%|█████▊    | 29/50 [38:22<27:56, 79.83s/it]Regime: mean_reverting:  60%|██████    | 30/50 [39:41<26:33, 79.68s/it]Regime: mean_reverting:  62%|██████▏   | 31/50 [41:16<26:40, 84.22s/it]Regime: mean_reverting:  64%|██████▍   | 32/50 [42:43<25:31, 85.09s/it]Regime: mean_reverting:  66%|██████▌   | 33/50 [44:16<24:47, 87.53s/it]Regime: mean_reverting:  68%|██████▊   | 34/50 [45:26<21:53, 82.12s/it]Regime: mean_reverting:  70%|███████   | 35/50 [47:01<21:32, 86.17s/it]Regime: mean_reverting:  72%|███████▏  | 36/50 [48:36<20:40, 88.64s/it]Regime: mean_reverting:  74%|███████▍  | 37/50 [49:44<17:51, 82.43s/it]Regime: mean_reverting:  76%|███████▌  | 38/50 [51:15<17:03, 85.27s/it]Regime: mean_reverting:  78%|███████▊  | 39/50 [52:34<15:15, 83.24s/it]Regime: mean_reverting:  80%|████████  | 40/50 [53:37<12:52, 77.22s/it]Regime: mean_reverting:  82%|████████▏ | 41/50 [55:04<12:00, 80.04s/it]Regime: mean_reverting:  84%|████████▍ | 42/50 [56:35<11:07, 83.44s/it]Regime: mean_reverting:  86%|████████▌ | 43/50 [57:26<08:35, 73.68s/it]Regime: mean_reverting:  88%|████████▊ | 44/50 [58:57<07:53, 78.99s/it]Regime: mean_reverting:  90%|█████████ | 45/50 [1:00:20<06:40, 80.01s/it]Regime: mean_reverting:  92%|█████████▏| 46/50 [1:01:12<04:46, 71.61s/it]Regime: mean_reverting:  94%|█████████▍| 47/50 [1:02:40<03:49, 76.47s/it]Regime: mean_reverting:  96%|█████████▌| 48/50 [1:04:14<02:43, 81.89s/it]Regime: mean_reverting:  98%|█████████▊| 49/50 [1:05:38<01:22, 82.33s/it]Regime: mean_reverting: 100%|██████████| 50/50 [1:07:05<00:00, 83.95s/it]Regime: mean_reverting: 100%|██████████| 50/50 [1:07:05<00:00, 80.52s/it]
+============================= test session starts ==============================
+platform darwin -- Python 3.12.8, pytest-9.1.0, pluggy-1.6.0 -- /Users/adi/Desktop/DSP Mini Project/load-adaptive-iir/.myenv/bin/python3
+cachedir: .pytest_cache
+rootdir: /Users/adi/Desktop/DSP Mini Project/load-adaptive-iir
+collecting ... collected 5 items
+
+tests/test_numba_parity.py::test_fixed_ema_numba_parity PASSED           [ 20%]
+tests/test_numba_parity.py::test_load_adaptive_ema_numba_parity PASSED   [ 40%]
+tests/test_numba_parity.py::test_kama_numba_parity PASSED                [ 60%]
+tests/test_numba_parity.py::test_butterworth_numba_parity PASSED         [ 80%]
+tests/test_numba_parity.py::test_all_four_filters_produce_finite_output PASSED [100%]
+
+============================== 5 passed in 1.12s ===============================
+Loading cached processed data from data/processed/binance_XRPUSDT_20240124_20240124.parquet
+Queue Simulator: avg arrival rate λ = 0.90 events/s
+Queue Simulator: setting service rate μ = 1.20 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_ETHUSDT_20240127_20240127.parquet
+Queue Simulator: avg arrival rate λ = 3.82 events/s
+Queue Simulator: setting service rate μ = 5.10 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BTCUSDT_20240124_20240124.parquet
+Queue Simulator: avg arrival rate λ = 15.69 events/s
+Queue Simulator: setting service rate μ = 20.92 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_SOLUSDT_20240120_20240120.parquet
+Queue Simulator: avg arrival rate λ = 1.53 events/s
+Queue Simulator: setting service rate μ = 2.04 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_SOLUSDT_20240115_20240115.parquet
+Queue Simulator: avg arrival rate λ = 2.09 events/s
+Queue Simulator: setting service rate μ = 2.79 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_SOLUSDT_20240130_20240130.parquet
+Queue Simulator: avg arrival rate λ = 3.04 events/s
+Queue Simulator: setting service rate μ = 4.05 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_ETHUSDT_20240102_20240102.parquet
+Queue Simulator: avg arrival rate λ = 16.54 events/s
+Queue Simulator: setting service rate μ = 22.05 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_ETHUSDT_20240102_20240102.parquet
+Queue Simulator: avg arrival rate λ = 16.54 events/s
+Queue Simulator: setting service rate μ = 22.05 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_XRPUSDT_20240104_20240104.parquet
+Queue Simulator: avg arrival rate λ = 1.36 events/s
+Queue Simulator: setting service rate μ = 1.82 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BNBUSDT_20240125_20240125.parquet
+Queue Simulator: avg arrival rate λ = 1.45 events/s
+Queue Simulator: setting service rate μ = 1.93 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_XRPUSDT_20240104_20240104.parquet
+Queue Simulator: avg arrival rate λ = 1.36 events/s
+Queue Simulator: setting service rate μ = 1.82 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BTCUSDT_20240110_20240110.parquet
+Queue Simulator: avg arrival rate λ = 18.29 events/s
+Queue Simulator: setting service rate μ = 24.39 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_SOLUSDT_20240123_20240123.parquet
+Queue Simulator: avg arrival rate λ = 1.80 events/s
+Queue Simulator: setting service rate μ = 2.40 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BTCUSDT_20240107_20240107.parquet
+Queue Simulator: avg arrival rate λ = 10.25 events/s
+Queue Simulator: setting service rate μ = 13.67 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_XRPUSDT_20240104_20240104.parquet
+Queue Simulator: avg arrival rate λ = 1.36 events/s
+Queue Simulator: setting service rate μ = 1.82 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BNBUSDT_20240101_20240101.parquet
+Queue Simulator: avg arrival rate λ = 1.79 events/s
+Queue Simulator: setting service rate μ = 2.38 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BTCUSDT_20240107_20240107.parquet
+Queue Simulator: avg arrival rate λ = 10.25 events/s
+Queue Simulator: setting service rate μ = 13.67 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_SOLUSDT_20240120_20240120.parquet
+Queue Simulator: avg arrival rate λ = 1.53 events/s
+Queue Simulator: setting service rate μ = 2.04 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BNBUSDT_20240108_20240108.parquet
+Queue Simulator: avg arrival rate λ = 2.77 events/s
+Queue Simulator: setting service rate μ = 3.69 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_ETHUSDT_20240105_20240105.parquet
+Queue Simulator: avg arrival rate λ = 7.53 events/s
+Queue Simulator: setting service rate μ = 10.04 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_SOLUSDT_20240123_20240123.parquet
+Queue Simulator: avg arrival rate λ = 1.80 events/s
+Queue Simulator: setting service rate μ = 2.40 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_XRPUSDT_20240111_20240111.parquet
+Queue Simulator: avg arrival rate λ = 2.05 events/s
+Queue Simulator: setting service rate μ = 2.73 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_XRPUSDT_20240115_20240115.parquet
+Queue Simulator: avg arrival rate λ = 1.06 events/s
+Queue Simulator: setting service rate μ = 1.42 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_XRPUSDT_20240116_20240116.parquet
+Queue Simulator: avg arrival rate λ = 0.95 events/s
+Queue Simulator: setting service rate μ = 1.26 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_ETHUSDT_20240128_20240128.parquet
+Queue Simulator: avg arrival rate λ = 4.27 events/s
+Queue Simulator: setting service rate μ = 5.69 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_ETHUSDT_20240127_20240127.parquet
+Queue Simulator: avg arrival rate λ = 3.82 events/s
+Queue Simulator: setting service rate μ = 5.10 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BTCUSDT_20240110_20240110.parquet
+Queue Simulator: avg arrival rate λ = 18.29 events/s
+Queue Simulator: setting service rate μ = 24.39 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BNBUSDT_20240128_20240128.parquet
+Queue Simulator: avg arrival rate λ = 1.11 events/s
+Queue Simulator: setting service rate μ = 1.48 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BTCUSDT_20240120_20240120.parquet
+Queue Simulator: avg arrival rate λ = 9.50 events/s
+Queue Simulator: setting service rate μ = 12.67 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_SOLUSDT_20240120_20240120.parquet
+Queue Simulator: avg arrival rate λ = 1.53 events/s
+Queue Simulator: setting service rate μ = 2.04 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BTCUSDT_20240125_20240125.parquet
+Queue Simulator: avg arrival rate λ = 8.08 events/s
+Queue Simulator: setting service rate μ = 10.78 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_SOLUSDT_20240110_20240110.parquet
+Queue Simulator: avg arrival rate λ = 2.87 events/s
+Queue Simulator: setting service rate μ = 3.83 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BTCUSDT_20240111_20240111.parquet
+Queue Simulator: avg arrival rate λ = 21.48 events/s
+Queue Simulator: setting service rate μ = 28.64 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_XRPUSDT_20240111_20240111.parquet
+Queue Simulator: avg arrival rate λ = 2.05 events/s
+Queue Simulator: setting service rate μ = 2.73 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_ETHUSDT_20240124_20240124.parquet
+Queue Simulator: avg arrival rate λ = 9.85 events/s
+Queue Simulator: setting service rate μ = 13.14 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BTCUSDT_20240125_20240125.parquet
+Queue Simulator: avg arrival rate λ = 8.08 events/s
+Queue Simulator: setting service rate μ = 10.78 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_XRPUSDT_20240114_20240114.parquet
+Queue Simulator: avg arrival rate λ = 0.72 events/s
+Queue Simulator: setting service rate μ = 0.96 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BTCUSDT_20240107_20240107.parquet
+Queue Simulator: avg arrival rate λ = 10.25 events/s
+Queue Simulator: setting service rate μ = 13.67 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_SOLUSDT_20240119_20240119.parquet
+Queue Simulator: avg arrival rate λ = 2.33 events/s
+Queue Simulator: setting service rate μ = 3.11 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_XRPUSDT_20240116_20240116.parquet
+Queue Simulator: avg arrival rate λ = 0.95 events/s
+Queue Simulator: setting service rate μ = 1.26 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BTCUSDT_20240120_20240120.parquet
+Queue Simulator: avg arrival rate λ = 9.50 events/s
+Queue Simulator: setting service rate μ = 12.67 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BTCUSDT_20240124_20240124.parquet
+Queue Simulator: avg arrival rate λ = 15.69 events/s
+Queue Simulator: setting service rate μ = 20.92 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BNBUSDT_20240119_20240119.parquet
+Queue Simulator: avg arrival rate λ = 1.57 events/s
+Queue Simulator: setting service rate μ = 2.09 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_ETHUSDT_20240124_20240124.parquet
+Queue Simulator: avg arrival rate λ = 9.85 events/s
+Queue Simulator: setting service rate μ = 13.14 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_SOLUSDT_20240109_20240109.parquet
+Queue Simulator: avg arrival rate λ = 5.10 events/s
+Queue Simulator: setting service rate μ = 6.80 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BNBUSDT_20240125_20240125.parquet
+Queue Simulator: avg arrival rate λ = 1.45 events/s
+Queue Simulator: setting service rate μ = 1.93 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BTCUSDT_20240111_20240111.parquet
+Queue Simulator: avg arrival rate λ = 21.48 events/s
+Queue Simulator: setting service rate μ = 28.64 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BTCUSDT_20240107_20240107.parquet
+Queue Simulator: avg arrival rate λ = 10.25 events/s
+Queue Simulator: setting service rate μ = 13.67 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BTCUSDT_20240119_20240119.parquet
+Queue Simulator: avg arrival rate λ = 8.27 events/s
+Queue Simulator: setting service rate μ = 11.03 events/s (target ρ = 0.75)
+Loading cached processed data from data/processed/binance_BTCUSDT_20240111_20240111.parquet
+Queue Simulator: avg arrival rate λ = 21.48 events/s
+Queue Simulator: setting service rate μ = 28.64 events/s (target ρ = 0.75)
+Running DeLong statistical tests on aggregated results...
+Warning: Could not find scores for comparison Load-Adaptive EMA + Shedding vs Fixed EMA + Shedding
+Warning: Could not find scores for comparison Load-Adaptive EMA + Shedding vs Butterworth
+Saved DeLong test results to results/tables/delong_test_results.csv
+
+=================================================================
+  COMPUTE EXPERIMENTS (--with-compute-experiments)
+=================================================================
+
+[Gate] Running tests/test_numba_parity.py before any timing...
+[Gate] Numba parity tests PASSED. Proceeding to experiments.
+
+
+===== Experiment A: Controlled Per-Sample Compute Cost =====
+Platform: macOS-26.5.1-arm64-arm-64bit
+Processor: arm
+Python: 3.12.8 (v3.12.8:2dc476bcb91, Dec  3 2024, 14:43:19) [Clang 13.0.0 (clang-1300.0.29.30)]
+Loading cached processed data from data/processed/binance_BTCUSDT_20240101_20240101.parquet
+Queue Simulator: avg arrival rate λ = 9.28 events/s
+Queue Simulator: setting service rate μ = 12.37 events/s (target ρ = 0.75)
+Full data length: 801,718 samples  (timing capped at 200,000)
+  [1/21] Fixed EMA                            n= 10,000  reps=20 ... median=0.0025 ms/1k
+  [2/21] KAMA                                 n= 10,000  reps=20 ... median=0.0067 ms/1k
+  [3/21] KAMA                                 n=200,000  reps=5 ... median=0.0076 ms/1k
+  [4/21] Fixed EMA + Shedding                 n= 10,000  reps=20 ... median=0.0044 ms/1k
+  [5/21] Butterworth                          n=100,000  reps=10 ... median=0.0100 ms/1k
+  [6/21] Load-Adaptive EMA (Bandwidth-Matched)  n=200,000  reps=5 ... median=0.0055 ms/1k
+  [7/21] Butterworth                          n=200,000  reps=5 ... median=0.0121 ms/1k
+  [8/21] Load-Adaptive EMA + Shedding         n=200,000  reps=5 ... median=0.0094 ms/1k
+  [9/21] Fixed EMA                            n=100,000  reps=10 ... median=0.0023 ms/1k
+  [10/21] Butterworth                          n= 10,000  reps=20 ... median=0.0182 ms/1k
+  [11/21] Fixed EMA + Shedding                 n=100,000  reps=10 ... median=0.0053 ms/1k
+  [12/21] Load-Adaptive EMA                    n= 10,000  reps=20 ... median=0.0056 ms/1k
+  [13/21] Fixed EMA                            n=200,000  reps=5 ... median=0.0029 ms/1k
+  [14/21] Load-Adaptive EMA                    n=100,000  reps=10 ... median=0.0050 ms/1k
+  [15/21] Load-Adaptive EMA + Shedding         n=100,000  reps=10 ... median=0.0092 ms/1k
+  [16/21] Load-Adaptive EMA (Bandwidth-Matched)  n=100,000  reps=10 ... median=0.0049 ms/1k
+  [17/21] Load-Adaptive EMA (Bandwidth-Matched)  n= 10,000  reps=20 ... median=0.0056 ms/1k
+  [18/21] KAMA                                 n=100,000  reps=10 ... median=0.0066 ms/1k
+  [19/21] Load-Adaptive EMA                    n=200,000  reps=5 ... median=0.0055 ms/1k
+  [20/21] Load-Adaptive EMA + Shedding         n= 10,000  reps=20 ... median=0.0075 ms/1k
+  [21/21] Fixed EMA + Shedding                 n=200,000  reps=5 ... median=0.0059 ms/1k
+
+  Attempting CPU power measurement via powermetrics...
+  powermetrics unavailable (sudo not granted non-interactively); skipping power column.
+
+  Saved: results/tables/experiment_a_compute_cost.csv
+  Saved: results/tables/experiment_metadata.json
+  Saved: results/figures/experiment_a_compute_cost.png
+
+===== Experiment A Complete =====
+                               config  samples  median_time_per_1k_ms   iqr_ms avg_cpu_power_mw
+                          Butterworth    10000               0.018238 0.001092             None
+                            Fixed EMA    10000               0.002521 0.000098             None
+                 Fixed EMA + Shedding    10000               0.004406 0.000044             None
+                                 KAMA    10000               0.006733 0.000135             None
+                    Load-Adaptive EMA    10000               0.005648 0.000317             None
+Load-Adaptive EMA (Bandwidth-Matched)    10000               0.005644 0.000377             None
+         Load-Adaptive EMA + Shedding    10000               0.007523 0.000086             None
+                          Butterworth   100000               0.010015 0.000613             None
+                            Fixed EMA   100000               0.002340 0.000444             None
+                 Fixed EMA + Shedding   100000               0.005345 0.000395             None
+                                 KAMA   100000               0.006585 0.000556             None
+                    Load-Adaptive EMA   100000               0.004951 0.000493             None
+Load-Adaptive EMA (Bandwidth-Matched)   100000               0.004903 0.000439             None
+         Load-Adaptive EMA + Shedding   100000               0.009242 0.000112             None
+                          Butterworth   200000               0.012056 0.000448             None
+                            Fixed EMA   200000               0.002894 0.000055             None
+                 Fixed EMA + Shedding   200000               0.005896 0.000102             None
+                                 KAMA   200000               0.007610 0.000157             None
+                    Load-Adaptive EMA   200000               0.005527 0.000020             None
+Load-Adaptive EMA (Bandwidth-Matched)   200000               0.005467 0.000097             None
+         Load-Adaptive EMA + Shedding   200000               0.009362 0.000307             None
+
+===== Experiment B: Sustainable Throughput Under Overload =====
+Loading cached processed data from data/processed/binance_BTCUSDT_20240101_20240101.parquet
+Queue Simulator: avg arrival rate λ = 8.66 events/s
+Queue Simulator: setting service rate μ = 11.55 events/s (target ρ = 0.75)
+[Experiment B] Empirical arrival rate λ = 8.663 events/s
+  Loaded measured DOWNSTREAM_COST_S: 3.38µs
+
+  Raw service rates (events/s):
+    Butterworth                             : μ_raw = 294,704
+    Fixed EMA                               : μ_raw = 296,075
+    Fixed EMA + Shedding                    : μ_raw = 295,910
+    KAMA                                    : μ_raw = 295,706
+    Load-Adaptive EMA                       : μ_raw = 295,801
+    Load-Adaptive EMA (Bandwidth-Matched)   : μ_raw = 295,802
+    Load-Adaptive EMA + Shedding            : μ_raw = 295,637
+  Fixed EMA: no shedding, μ_eff=μ_raw=296,075
+  Fixed EMA + Shedding: shed_fraction=0.443, μ_eff=531,447
+  KAMA: no shedding, μ_eff=μ_raw=295,706
+  Butterworth: no shedding, μ_eff=μ_raw=294,704
+  Load-Adaptive EMA: no shedding, μ_eff=μ_raw=295,801
+  Load-Adaptive EMA + Shedding: shed_fraction=0.443, μ_eff=530,958
+  Load-Adaptive EMA (Bandwidth-Matched): no shedding, μ_eff=μ_raw=295,802
+
+  λ sweep: 8.66 → 637736.96 events/s (100 points)
+
+  Running stability sweep...
+
+  Saved: results/tables/experiment_b_throughput.csv
+                               config  max_stable_lambda_events_per_sec  rho_at_empirical_lambda  mu_raw_events_per_sec  mu_eff_events_per_sec
+                 Fixed EMA + Shedding                     508533.159356                 0.000016          295909.949009          531447.465892
+         Load-Adaptive EMA + Shedding                     508533.159356                 0.000016          295637.293767          530957.783347
+                            Fixed EMA                     288744.354773                 0.000029          296075.127474          296075.127474
+                                 KAMA                     288744.354773                 0.000029          295706.322035          295706.322035
+                          Butterworth                     288744.354773                 0.000029          294703.779696          294703.779696
+                    Load-Adaptive EMA                     288744.354773                 0.000029          295801.266670          295801.266670
+Load-Adaptive EMA (Bandwidth-Matched)                     288744.354773                 0.000029          295801.629807          295801.629807
+  Saved: results/figures/experiment_b_queue_stability.png
+  Saved: results/figures/experiment_b_max_throughput_bar.png
+  Saved: results/figures/experiment_b_max_throughput_bar.png
+
+===== Running Downstream Sensitivity Sweep =====
+  Saved: results/tables/experiment_b_sensitivity.csv
+  Saved: results/figures/experiment_b_sensitivity.png
+
+===== Experiment B Complete =====
+
+===== Experiment C: Detection Quality vs. Compute Cost Pareto Curve =====
+
+  Evaluating detection quality (ROC-AUC) and shedding delays...
+Loading cached processed data from data/processed/binance_BTCUSDT_20240101_20240101.parquet
+Queue Simulator: avg arrival rate λ = 8.66 events/s
+Queue Simulator: setting service rate μ = 11.55 events/s (target ρ = 0.75)
+
+  Resolved ROC-AUC per config: {'Fixed EMA': 0.7557025200906835, 'Fixed EMA + Shedding': 0.6497479188000939, 'KAMA': 0.760676232600028, 'Butterworth': 0.7625547762951314, 'Load-Adaptive EMA': 0.701849434522059, 'Load-Adaptive EMA + Shedding': 0.6558576754408633, 'Load-Adaptive EMA (Bandwidth-Matched)': 0.7157336902184627}
+
+  Loaded max stable λ from Experiment B: {'Fixed EMA + Shedding': 508533.1593555883, 'Load-Adaptive EMA + Shedding': 508533.1593555883, 'Fixed EMA': 288744.3547727266, 'KAMA': 288744.3547727266, 'Butterworth': 288744.3547727266, 'Load-Adaptive EMA': 288744.3547727266, 'Load-Adaptive EMA (Bandwidth-Matched)': 288744.3547727266}
+
+  Saved: results/figures/experiment_c_pareto.png
+  Saved: results/compute_benefit_summary.md
+
+--- Pareto Summary ---
+  Pareto-optimal configs: Butterworth, Load-Adaptive EMA + Shedding
+  Load-Adaptive EMA + Shedding on Pareto frontier: True
+  **ON the Pareto frontier** — no other configuration simultaneously achieves higher throughput AND higher ROC-AUC.
+
+===== Experiment C Complete =====
+
+=================================================================
+  All compute experiments completed successfully.
+  New outputs:
+  ✓  results/tables/experiment_a_compute_cost.csv
+  ✓  results/tables/experiment_metadata.json
+  ✓  results/figures/experiment_a_compute_cost.png
+  ✓  results/tables/experiment_b_throughput.csv
+  ✓  results/figures/experiment_b_queue_stability.png
+  ✓  results/figures/experiment_b_max_throughput_bar.png
+  ✓  results/figures/experiment_c_pareto.png
+  ✓  results/compute_benefit_summary.md
+=================================================================
+

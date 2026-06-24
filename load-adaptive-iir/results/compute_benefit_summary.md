@@ -19,17 +19,17 @@ The following configurations are **NOT strictly dominated** by any other on both
 
 | Metric | Load-Adaptive EMA + Shedding | Fixed EMA (baseline) |
 |---|---|---|
-| Max stable λ (ev/s) | 346155.86 | 179737.04 |
+| Max stable λ (ev/s) | 508533.16 | 288744.35 |
 | ROC-AUC | 0.6559 | 0.7557 |
 | Mean Shedding Delay (ticks) | 0.6 | 0.0 |
-| Throughput gain vs. Fixed EMA | +92.6% | — |
+| Throughput gain vs. Fixed EMA | +76.1% | — |
 | AUC change vs. Fixed EMA | -0.0998 | — |
 
 **Pareto status:** **ON the Pareto frontier** — no other configuration simultaneously achieves higher throughput AND higher ROC-AUC.
 
 ### Interpretation (Honest, Numeric)
 
-Load-Adaptive EMA + Shedding achieves a throughput of **346155.86 events/s** compared to the Fixed EMA baseline's **179737.04 events/s** (+92.6%). The detection quality (ROC-AUC) is **lower** at 0.6559 versus 0.7557 for Fixed EMA (-0.0998 absolute difference).
+Load-Adaptive EMA + Shedding achieves a throughput of **508533.16 events/s** compared to the Fixed EMA baseline's **288744.35 events/s** (+76.1%). The detection quality (ROC-AUC) is **lower** at 0.6559 versus 0.7557 for Fixed EMA (-0.0998 absolute difference).
 
 The load-adaptive configuration **does** sit on the Pareto frontier, meaning it offers a genuinely better tradeoff than all baselines on at least one axis without being worse on the other.
 
