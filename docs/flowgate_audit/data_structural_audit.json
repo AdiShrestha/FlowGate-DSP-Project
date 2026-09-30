@@ -1,0 +1,3882 @@
+{
+  "scope": "all ZIP CRCs; every processed timestamp/price; no ground-truth or independence validation",
+  "raw": [
+    {
+      "path": "load-adaptive-iir/data/raw/BNBUSDT-trades-2024-01-01.zip",
+      "members": [
+        {
+          "name": "BNBUSDT-trades-2024-01-01.csv",
+          "bytes": 18628936
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BNBUSDT-trades-2024-01-02.zip",
+      "members": [
+        {
+          "name": "BNBUSDT-trades-2024-01-02.csv",
+          "bytes": 24559401
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BNBUSDT-trades-2024-01-03.zip",
+      "members": [
+        {
+          "name": "BNBUSDT-trades-2024-01-03.csv",
+          "bytes": 56925044
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BNBUSDT-trades-2024-01-04.zip",
+      "members": [
+        {
+          "name": "BNBUSDT-trades-2024-01-04.csv",
+          "bytes": 29817467
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BNBUSDT-trades-2024-01-05.zip",
+      "members": [
+        {
+          "name": "BNBUSDT-trades-2024-01-05.csv",
+          "bytes": 27694385
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BNBUSDT-trades-2024-01-06.zip",
+      "members": [
+        {
+          "name": "BNBUSDT-trades-2024-01-06.csv",
+          "bytes": 23446807
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BNBUSDT-trades-2024-01-07.zip",
+      "members": [
+        {
+          "name": "BNBUSDT-trades-2024-01-07.csv",
+          "bytes": 14660834
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BNBUSDT-trades-2024-01-08.zip",
+      "members": [
+        {
+          "name": "BNBUSDT-trades-2024-01-08.csv",
+          "bytes": 25022072
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BNBUSDT-trades-2024-01-09.zip",
+      "members": [
+        {
+          "name": "BNBUSDT-trades-2024-01-09.csv",
+          "bytes": 30176956
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BNBUSDT-trades-2024-01-10.zip",
+      "members": [
+        {
+          "name": "BNBUSDT-trades-2024-01-10.csv",
+          "bytes": 26071076
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BNBUSDT-trades-2024-01-11.zip",
+      "members": [
+        {
+          "name": "BNBUSDT-trades-2024-01-11.csv",
+          "bytes": 29174279
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BNBUSDT-trades-2024-01-12.zip",
+      "members": [
+        {
+          "name": "BNBUSDT-trades-2024-01-12.csv",
+          "bytes": 25137681
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BNBUSDT-trades-2024-01-13.zip",
+      "members": [
+        {
+          "name": "BNBUSDT-trades-2024-01-13.csv",
+          "bytes": 13202868
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BNBUSDT-trades-2024-01-14.zip",
+      "members": [
+        {
+          "name": "BNBUSDT-trades-2024-01-14.csv",
+          "bytes": 13679089
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BNBUSDT-trades-2024-01-15.zip",
+      "members": [
+        {
+          "name": "BNBUSDT-trades-2024-01-15.csv",
+          "bytes": 36179426
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BNBUSDT-trades-2024-01-16.zip",
+      "members": [
+        {
+          "name": "BNBUSDT-trades-2024-01-16.csv",
+          "bytes": 20322349
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BNBUSDT-trades-2024-01-17.zip",
+      "members": [
+        {
+          "name": "BNBUSDT-trades-2024-01-17.csv",
+          "bytes": 21612399
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BNBUSDT-trades-2024-01-18.zip",
+      "members": [
+        {
+          "name": "BNBUSDT-trades-2024-01-18.csv",
+          "bytes": 21405037
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BNBUSDT-trades-2024-01-19.zip",
+      "members": [
+        {
+          "name": "BNBUSDT-trades-2024-01-19.csv",
+          "bytes": 18704072
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BNBUSDT-trades-2024-01-20.zip",
+      "members": [
+        {
+          "name": "BNBUSDT-trades-2024-01-20.csv",
+          "bytes": 9888769
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BNBUSDT-trades-2024-01-21.zip",
+      "members": [
+        {
+          "name": "BNBUSDT-trades-2024-01-21.csv",
+          "bytes": 10147417
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BNBUSDT-trades-2024-01-22.zip",
+      "members": [
+        {
+          "name": "BNBUSDT-trades-2024-01-22.csv",
+          "bytes": 17074099
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BNBUSDT-trades-2024-01-23.zip",
+      "members": [
+        {
+          "name": "BNBUSDT-trades-2024-01-23.csv",
+          "bytes": 21469066
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BNBUSDT-trades-2024-01-24.zip",
+      "members": [
+        {
+          "name": "BNBUSDT-trades-2024-01-24.csv",
+          "bytes": 16254133
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BNBUSDT-trades-2024-01-25.zip",
+      "members": [
+        {
+          "name": "BNBUSDT-trades-2024-01-25.csv",
+          "bytes": 19780038
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BNBUSDT-trades-2024-01-26.zip",
+      "members": [
+        {
+          "name": "BNBUSDT-trades-2024-01-26.csv",
+          "bytes": 15274120
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BNBUSDT-trades-2024-01-27.zip",
+      "members": [
+        {
+          "name": "BNBUSDT-trades-2024-01-27.csv",
+          "bytes": 8828112
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BNBUSDT-trades-2024-01-28.zip",
+      "members": [
+        {
+          "name": "BNBUSDT-trades-2024-01-28.csv",
+          "bytes": 10428757
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BNBUSDT-trades-2024-01-29.zip",
+      "members": [
+        {
+          "name": "BNBUSDT-trades-2024-01-29.csv",
+          "bytes": 11961538
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BNBUSDT-trades-2024-01-30.zip",
+      "members": [
+        {
+          "name": "BNBUSDT-trades-2024-01-30.csv",
+          "bytes": 10898311
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BNBUSDT-trades-2024-01-31.zip",
+      "members": [
+        {
+          "name": "BNBUSDT-trades-2024-01-31.csv",
+          "bytes": 12904620
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BTCUSDT-trades-2024-01-01.zip",
+      "members": [
+        {
+          "name": "BTCUSDT-trades-2024-01-01.csv",
+          "bytes": 82411197
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BTCUSDT-trades-2024-01-02.zip",
+      "members": [
+        {
+          "name": "BTCUSDT-trades-2024-01-02.csv",
+          "bytes": 166291005
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BTCUSDT-trades-2024-01-03.zip",
+      "members": [
+        {
+          "name": "BTCUSDT-trades-2024-01-03.csv",
+          "bytes": 196591368
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BTCUSDT-trades-2024-01-04.zip",
+      "members": [
+        {
+          "name": "BTCUSDT-trades-2024-01-04.csv",
+          "bytes": 134493633
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BTCUSDT-trades-2024-01-05.zip",
+      "members": [
+        {
+          "name": "BTCUSDT-trades-2024-01-05.csv",
+          "bytes": 152469930
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BTCUSDT-trades-2024-01-06.zip",
+      "members": [
+        {
+          "name": "BTCUSDT-trades-2024-01-06.csv",
+          "bytes": 70703703
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BTCUSDT-trades-2024-01-07.zip",
+      "members": [
+        {
+          "name": "BTCUSDT-trades-2024-01-07.csv",
+          "bytes": 82001329
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BTCUSDT-trades-2024-01-08.zip",
+      "members": [
+        {
+          "name": "BTCUSDT-trades-2024-01-08.csv",
+          "bytes": 175058324
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BTCUSDT-trades-2024-01-09.zip",
+      "members": [
+        {
+          "name": "BTCUSDT-trades-2024-01-09.csv",
+          "bytes": 195127606
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BTCUSDT-trades-2024-01-10.zip",
+      "members": [
+        {
+          "name": "BTCUSDT-trades-2024-01-10.csv",
+          "bytes": 231868514
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BTCUSDT-trades-2024-01-11.zip",
+      "members": [
+        {
+          "name": "BTCUSDT-trades-2024-01-11.csv",
+          "bytes": 222170859
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BTCUSDT-trades-2024-01-12.zip",
+      "members": [
+        {
+          "name": "BTCUSDT-trades-2024-01-12.csv",
+          "bytes": 208019044
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BTCUSDT-trades-2024-01-13.zip",
+      "members": [
+        {
+          "name": "BTCUSDT-trades-2024-01-13.csv",
+          "bytes": 106141734
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BTCUSDT-trades-2024-01-14.zip",
+      "members": [
+        {
+          "name": "BTCUSDT-trades-2024-01-14.csv",
+          "bytes": 91344601
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BTCUSDT-trades-2024-01-15.zip",
+      "members": [
+        {
+          "name": "BTCUSDT-trades-2024-01-15.csv",
+          "bytes": 122428696
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BTCUSDT-trades-2024-01-16.zip",
+      "members": [
+        {
+          "name": "BTCUSDT-trades-2024-01-16.csv",
+          "bytes": 126857471
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BTCUSDT-trades-2024-01-17.zip",
+      "members": [
+        {
+          "name": "BTCUSDT-trades-2024-01-17.csv",
+          "bytes": 106212231
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BTCUSDT-trades-2024-01-18.zip",
+      "members": [
+        {
+          "name": "BTCUSDT-trades-2024-01-18.csv",
+          "bytes": 108454844
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BTCUSDT-trades-2024-01-19.zip",
+      "members": [
+        {
+          "name": "BTCUSDT-trades-2024-01-19.csv",
+          "bytes": 121422637
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BTCUSDT-trades-2024-01-20.zip",
+      "members": [
+        {
+          "name": "BTCUSDT-trades-2024-01-20.csv",
+          "bytes": 59685296
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BTCUSDT-trades-2024-01-21.zip",
+      "members": [
+        {
+          "name": "BTCUSDT-trades-2024-01-21.csv",
+          "bytes": 48604197
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BTCUSDT-trades-2024-01-22.zip",
+      "members": [
+        {
+          "name": "BTCUSDT-trades-2024-01-22.csv",
+          "bytes": 158584825
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BTCUSDT-trades-2024-01-23.zip",
+      "members": [
+        {
+          "name": "BTCUSDT-trades-2024-01-23.csv",
+          "bytes": 150860123
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BTCUSDT-trades-2024-01-24.zip",
+      "members": [
+        {
+          "name": "BTCUSDT-trades-2024-01-24.csv",
+          "bytes": 123411856
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BTCUSDT-trades-2024-01-25.zip",
+      "members": [
+        {
+          "name": "BTCUSDT-trades-2024-01-25.csv",
+          "bytes": 95158665
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BTCUSDT-trades-2024-01-26.zip",
+      "members": [
+        {
+          "name": "BTCUSDT-trades-2024-01-26.csv",
+          "bytes": 119818478
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BTCUSDT-trades-2024-01-27.zip",
+      "members": [
+        {
+          "name": "BTCUSDT-trades-2024-01-27.csv",
+          "bytes": 55396164
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BTCUSDT-trades-2024-01-28.zip",
+      "members": [
+        {
+          "name": "BTCUSDT-trades-2024-01-28.csv",
+          "bytes": 76125524
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BTCUSDT-trades-2024-01-29.zip",
+      "members": [
+        {
+          "name": "BTCUSDT-trades-2024-01-29.csv",
+          "bytes": 88357091
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BTCUSDT-trades-2024-01-30.zip",
+      "members": [
+        {
+          "name": "BTCUSDT-trades-2024-01-30.csv",
+          "bytes": 97175069
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/BTCUSDT-trades-2024-01-31.zip",
+      "members": [
+        {
+          "name": "BTCUSDT-trades-2024-01-31.csv",
+          "bytes": 110494535
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/ETHUSDT-trades-2024-01-01.zip",
+      "members": [
+        {
+          "name": "ETHUSDT-trades-2024-01-01.csv",
+          "bytes": 39184343
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/ETHUSDT-trades-2024-01-02.zip",
+      "members": [
+        {
+          "name": "ETHUSDT-trades-2024-01-02.csv",
+          "bytes": 75087686
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/ETHUSDT-trades-2024-01-03.zip",
+      "members": [
+        {
+          "name": "ETHUSDT-trades-2024-01-03.csv",
+          "bytes": 98900726
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/ETHUSDT-trades-2024-01-04.zip",
+      "members": [
+        {
+          "name": "ETHUSDT-trades-2024-01-04.csv",
+          "bytes": 57170380
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/ETHUSDT-trades-2024-01-05.zip",
+      "members": [
+        {
+          "name": "ETHUSDT-trades-2024-01-05.csv",
+          "bytes": 55599936
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/ETHUSDT-trades-2024-01-06.zip",
+      "members": [
+        {
+          "name": "ETHUSDT-trades-2024-01-06.csv",
+          "bytes": 32956722
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/ETHUSDT-trades-2024-01-07.zip",
+      "members": [
+        {
+          "name": "ETHUSDT-trades-2024-01-07.csv",
+          "bytes": 37734135
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/ETHUSDT-trades-2024-01-08.zip",
+      "members": [
+        {
+          "name": "ETHUSDT-trades-2024-01-08.csv",
+          "bytes": 78244771
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/ETHUSDT-trades-2024-01-09.zip",
+      "members": [
+        {
+          "name": "ETHUSDT-trades-2024-01-09.csv",
+          "bytes": 87476743
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/ETHUSDT-trades-2024-01-10.zip",
+      "members": [
+        {
+          "name": "ETHUSDT-trades-2024-01-10.csv",
+          "bytes": 147153683
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/ETHUSDT-trades-2024-01-11.zip",
+      "members": [
+        {
+          "name": "ETHUSDT-trades-2024-01-11.csv",
+          "bytes": 124092873
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/ETHUSDT-trades-2024-01-12.zip",
+      "members": [
+        {
+          "name": "ETHUSDT-trades-2024-01-12.csv",
+          "bytes": 136129649
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/ETHUSDT-trades-2024-01-13.zip",
+      "members": [
+        {
+          "name": "ETHUSDT-trades-2024-01-13.csv",
+          "bytes": 65866256
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/ETHUSDT-trades-2024-01-14.zip",
+      "members": [
+        {
+          "name": "ETHUSDT-trades-2024-01-14.csv",
+          "bytes": 53557061
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/ETHUSDT-trades-2024-01-15.zip",
+      "members": [
+        {
+          "name": "ETHUSDT-trades-2024-01-15.csv",
+          "bytes": 57666519
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/ETHUSDT-trades-2024-01-16.zip",
+      "members": [
+        {
+          "name": "ETHUSDT-trades-2024-01-16.csv",
+          "bytes": 83212632
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/ETHUSDT-trades-2024-01-17.zip",
+      "members": [
+        {
+          "name": "ETHUSDT-trades-2024-01-17.csv",
+          "bytes": 83215183
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/ETHUSDT-trades-2024-01-18.zip",
+      "members": [
+        {
+          "name": "ETHUSDT-trades-2024-01-18.csv",
+          "bytes": 65405889
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/ETHUSDT-trades-2024-01-19.zip",
+      "members": [
+        {
+          "name": "ETHUSDT-trades-2024-01-19.csv",
+          "bytes": 62553437
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/ETHUSDT-trades-2024-01-20.zip",
+      "members": [
+        {
+          "name": "ETHUSDT-trades-2024-01-20.csv",
+          "bytes": 30544374
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/ETHUSDT-trades-2024-01-21.zip",
+      "members": [
+        {
+          "name": "ETHUSDT-trades-2024-01-21.csv",
+          "bytes": 26307178
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/ETHUSDT-trades-2024-01-22.zip",
+      "members": [
+        {
+          "name": "ETHUSDT-trades-2024-01-22.csv",
+          "bytes": 68233319
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/ETHUSDT-trades-2024-01-23.zip",
+      "members": [
+        {
+          "name": "ETHUSDT-trades-2024-01-23.csv",
+          "bytes": 88015650
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/ETHUSDT-trades-2024-01-24.zip",
+      "members": [
+        {
+          "name": "ETHUSDT-trades-2024-01-24.csv",
+          "bytes": 58436663
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/ETHUSDT-trades-2024-01-25.zip",
+      "members": [
+        {
+          "name": "ETHUSDT-trades-2024-01-25.csv",
+          "bytes": 55139625
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/ETHUSDT-trades-2024-01-26.zip",
+      "members": [
+        {
+          "name": "ETHUSDT-trades-2024-01-26.csv",
+          "bytes": 60105003
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/ETHUSDT-trades-2024-01-27.zip",
+      "members": [
+        {
+          "name": "ETHUSDT-trades-2024-01-27.csv",
+          "bytes": 30399143
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/ETHUSDT-trades-2024-01-28.zip",
+      "members": [
+        {
+          "name": "ETHUSDT-trades-2024-01-28.csv",
+          "bytes": 41288947
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/ETHUSDT-trades-2024-01-29.zip",
+      "members": [
+        {
+          "name": "ETHUSDT-trades-2024-01-29.csv",
+          "bytes": 49794184
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/ETHUSDT-trades-2024-01-30.zip",
+      "members": [
+        {
+          "name": "ETHUSDT-trades-2024-01-30.csv",
+          "bytes": 56233066
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/ETHUSDT-trades-2024-01-31.zip",
+      "members": [
+        {
+          "name": "ETHUSDT-trades-2024-01-31.csv",
+          "bytes": 67247062
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/SOLUSDT-trades-2024-01-01.zip",
+      "members": [
+        {
+          "name": "SOLUSDT-trades-2024-01-01.csv",
+          "bytes": 40247701
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/SOLUSDT-trades-2024-01-02.zip",
+      "members": [
+        {
+          "name": "SOLUSDT-trades-2024-01-02.csv",
+          "bytes": 73534531
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/SOLUSDT-trades-2024-01-03.zip",
+      "members": [
+        {
+          "name": "SOLUSDT-trades-2024-01-03.csv",
+          "bytes": 101210260
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/SOLUSDT-trades-2024-01-04.zip",
+      "members": [
+        {
+          "name": "SOLUSDT-trades-2024-01-04.csv",
+          "bytes": 58921563
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/SOLUSDT-trades-2024-01-05.zip",
+      "members": [
+        {
+          "name": "SOLUSDT-trades-2024-01-05.csv",
+          "bytes": 56257767
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/SOLUSDT-trades-2024-01-06.zip",
+      "members": [
+        {
+          "name": "SOLUSDT-trades-2024-01-06.csv",
+          "bytes": 43243854
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/SOLUSDT-trades-2024-01-07.zip",
+      "members": [
+        {
+          "name": "SOLUSDT-trades-2024-01-07.csv",
+          "bytes": 42992617
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/SOLUSDT-trades-2024-01-08.zip",
+      "members": [
+        {
+          "name": "SOLUSDT-trades-2024-01-08.csv",
+          "bytes": 71339145
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/SOLUSDT-trades-2024-01-09.zip",
+      "members": [
+        {
+          "name": "SOLUSDT-trades-2024-01-09.csv",
+          "bytes": 89503389
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/SOLUSDT-trades-2024-01-10.zip",
+      "members": [
+        {
+          "name": "SOLUSDT-trades-2024-01-10.csv",
+          "bytes": 82692930
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/SOLUSDT-trades-2024-01-11.zip",
+      "members": [
+        {
+          "name": "SOLUSDT-trades-2024-01-11.csv",
+          "bytes": 92005574
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/SOLUSDT-trades-2024-01-12.zip",
+      "members": [
+        {
+          "name": "SOLUSDT-trades-2024-01-12.csv",
+          "bytes": 61576657
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/SOLUSDT-trades-2024-01-13.zip",
+      "members": [
+        {
+          "name": "SOLUSDT-trades-2024-01-13.csv",
+          "bytes": 34039769
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/SOLUSDT-trades-2024-01-14.zip",
+      "members": [
+        {
+          "name": "SOLUSDT-trades-2024-01-14.csv",
+          "bytes": 53379793
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/SOLUSDT-trades-2024-01-15.zip",
+      "members": [
+        {
+          "name": "SOLUSDT-trades-2024-01-15.csv",
+          "bytes": 30622711
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/SOLUSDT-trades-2024-01-16.zip",
+      "members": [
+        {
+          "name": "SOLUSDT-trades-2024-01-16.csv",
+          "bytes": 31255086
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/SOLUSDT-trades-2024-01-17.zip",
+      "members": [
+        {
+          "name": "SOLUSDT-trades-2024-01-17.csv",
+          "bytes": 63271312
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/SOLUSDT-trades-2024-01-18.zip",
+      "members": [
+        {
+          "name": "SOLUSDT-trades-2024-01-18.csv",
+          "bytes": 50580367
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/SOLUSDT-trades-2024-01-19.zip",
+      "members": [
+        {
+          "name": "SOLUSDT-trades-2024-01-19.csv",
+          "bytes": 48278445
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/SOLUSDT-trades-2024-01-20.zip",
+      "members": [
+        {
+          "name": "SOLUSDT-trades-2024-01-20.csv",
+          "bytes": 21281162
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/SOLUSDT-trades-2024-01-21.zip",
+      "members": [
+        {
+          "name": "SOLUSDT-trades-2024-01-21.csv",
+          "bytes": 16192618
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/SOLUSDT-trades-2024-01-22.zip",
+      "members": [
+        {
+          "name": "SOLUSDT-trades-2024-01-22.csv",
+          "bytes": 49988962
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/SOLUSDT-trades-2024-01-23.zip",
+      "members": [
+        {
+          "name": "SOLUSDT-trades-2024-01-23.csv",
+          "bytes": 58526723
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/SOLUSDT-trades-2024-01-24.zip",
+      "members": [
+        {
+          "name": "SOLUSDT-trades-2024-01-24.csv",
+          "bytes": 41692305
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/SOLUSDT-trades-2024-01-25.zip",
+      "members": [
+        {
+          "name": "SOLUSDT-trades-2024-01-25.csv",
+          "bytes": 33441723
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/SOLUSDT-trades-2024-01-26.zip",
+      "members": [
+        {
+          "name": "SOLUSDT-trades-2024-01-26.csv",
+          "bytes": 39439245
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/SOLUSDT-trades-2024-01-27.zip",
+      "members": [
+        {
+          "name": "SOLUSDT-trades-2024-01-27.csv",
+          "bytes": 21274739
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/SOLUSDT-trades-2024-01-28.zip",
+      "members": [
+        {
+          "name": "SOLUSDT-trades-2024-01-28.csv",
+          "bytes": 45673395
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/SOLUSDT-trades-2024-01-29.zip",
+      "members": [
+        {
+          "name": "SOLUSDT-trades-2024-01-29.csv",
+          "bytes": 44876211
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/SOLUSDT-trades-2024-01-30.zip",
+      "members": [
+        {
+          "name": "SOLUSDT-trades-2024-01-30.csv",
+          "bytes": 53127155
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/SOLUSDT-trades-2024-01-31.zip",
+      "members": [
+        {
+          "name": "SOLUSDT-trades-2024-01-31.csv",
+          "bytes": 64839781
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/XRPUSDT-trades-2024-01-01.zip",
+      "members": [
+        {
+          "name": "XRPUSDT-trades-2024-01-01.csv",
+          "bytes": 8341837
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/XRPUSDT-trades-2024-01-02.zip",
+      "members": [
+        {
+          "name": "XRPUSDT-trades-2024-01-02.csv",
+          "bytes": 16119877
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/XRPUSDT-trades-2024-01-03.zip",
+      "members": [
+        {
+          "name": "XRPUSDT-trades-2024-01-03.csv",
+          "bytes": 52538103
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/XRPUSDT-trades-2024-01-04.zip",
+      "members": [
+        {
+          "name": "XRPUSDT-trades-2024-01-04.csv",
+          "bytes": 17349114
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/XRPUSDT-trades-2024-01-05.zip",
+      "members": [
+        {
+          "name": "XRPUSDT-trades-2024-01-05.csv",
+          "bytes": 17543247
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/XRPUSDT-trades-2024-01-06.zip",
+      "members": [
+        {
+          "name": "XRPUSDT-trades-2024-01-06.csv",
+          "bytes": 10863679
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/XRPUSDT-trades-2024-01-07.zip",
+      "members": [
+        {
+          "name": "XRPUSDT-trades-2024-01-07.csv",
+          "bytes": 15143473
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/XRPUSDT-trades-2024-01-08.zip",
+      "members": [
+        {
+          "name": "XRPUSDT-trades-2024-01-08.csv",
+          "bytes": 26831807
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/XRPUSDT-trades-2024-01-09.zip",
+      "members": [
+        {
+          "name": "XRPUSDT-trades-2024-01-09.csv",
+          "bytes": 23258610
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/XRPUSDT-trades-2024-01-10.zip",
+      "members": [
+        {
+          "name": "XRPUSDT-trades-2024-01-10.csv",
+          "bytes": 30568034
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/XRPUSDT-trades-2024-01-11.zip",
+      "members": [
+        {
+          "name": "XRPUSDT-trades-2024-01-11.csv",
+          "bytes": 28552206
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/XRPUSDT-trades-2024-01-12.zip",
+      "members": [
+        {
+          "name": "XRPUSDT-trades-2024-01-12.csv",
+          "bytes": 23985679
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/XRPUSDT-trades-2024-01-13.zip",
+      "members": [
+        {
+          "name": "XRPUSDT-trades-2024-01-13.csv",
+          "bytes": 8399697
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/XRPUSDT-trades-2024-01-14.zip",
+      "members": [
+        {
+          "name": "XRPUSDT-trades-2024-01-14.csv",
+          "bytes": 11541468
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/XRPUSDT-trades-2024-01-15.zip",
+      "members": [
+        {
+          "name": "XRPUSDT-trades-2024-01-15.csv",
+          "bytes": 12640086
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/XRPUSDT-trades-2024-01-16.zip",
+      "members": [
+        {
+          "name": "XRPUSDT-trades-2024-01-16.csv",
+          "bytes": 10862072
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/XRPUSDT-trades-2024-01-17.zip",
+      "members": [
+        {
+          "name": "XRPUSDT-trades-2024-01-17.csv",
+          "bytes": 9391673
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/XRPUSDT-trades-2024-01-18.zip",
+      "members": [
+        {
+          "name": "XRPUSDT-trades-2024-01-18.csv",
+          "bytes": 11500386
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/XRPUSDT-trades-2024-01-19.zip",
+      "members": [
+        {
+          "name": "XRPUSDT-trades-2024-01-19.csv",
+          "bytes": 15463451
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/XRPUSDT-trades-2024-01-20.zip",
+      "members": [
+        {
+          "name": "XRPUSDT-trades-2024-01-20.csv",
+          "bytes": 7311788
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/XRPUSDT-trades-2024-01-21.zip",
+      "members": [
+        {
+          "name": "XRPUSDT-trades-2024-01-21.csv",
+          "bytes": 5473741
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/XRPUSDT-trades-2024-01-22.zip",
+      "members": [
+        {
+          "name": "XRPUSDT-trades-2024-01-22.csv",
+          "bytes": 14394300
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/XRPUSDT-trades-2024-01-23.zip",
+      "members": [
+        {
+          "name": "XRPUSDT-trades-2024-01-23.csv",
+          "bytes": 19162597
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/XRPUSDT-trades-2024-01-24.zip",
+      "members": [
+        {
+          "name": "XRPUSDT-trades-2024-01-24.csv",
+          "bytes": 9582709
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/XRPUSDT-trades-2024-01-25.zip",
+      "members": [
+        {
+          "name": "XRPUSDT-trades-2024-01-25.csv",
+          "bytes": 9989934
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/XRPUSDT-trades-2024-01-26.zip",
+      "members": [
+        {
+          "name": "XRPUSDT-trades-2024-01-26.csv",
+          "bytes": 11442506
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/XRPUSDT-trades-2024-01-27.zip",
+      "members": [
+        {
+          "name": "XRPUSDT-trades-2024-01-27.csv",
+          "bytes": 5104888
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/XRPUSDT-trades-2024-01-28.zip",
+      "members": [
+        {
+          "name": "XRPUSDT-trades-2024-01-28.csv",
+          "bytes": 5983673
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/XRPUSDT-trades-2024-01-29.zip",
+      "members": [
+        {
+          "name": "XRPUSDT-trades-2024-01-29.csv",
+          "bytes": 10713461
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/XRPUSDT-trades-2024-01-30.zip",
+      "members": [
+        {
+          "name": "XRPUSDT-trades-2024-01-30.csv",
+          "bytes": 20491905
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/raw/XRPUSDT-trades-2024-01-31.zip",
+      "members": [
+        {
+          "name": "XRPUSDT-trades-2024-01-31.csv",
+          "bytes": 18535274
+        }
+      ],
+      "crc_bad_member": null,
+      "status": "PASS"
+    }
+  ],
+  "processed": [
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BNBUSDT_20240101_20240101.parquet",
+      "rows": 147910,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 885,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BNBUSDT_20240102_20240102.parquet",
+      "rows": 165603,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 1959,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BNBUSDT_20240103_20240103.parquet",
+      "rows": 365136,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 14917,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BNBUSDT_20240104_20240104.parquet",
+      "rows": 210196,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 1913,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BNBUSDT_20240105_20240105.parquet",
+      "rows": 185629,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 1728,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BNBUSDT_20240106_20240106.parquet",
+      "rows": 166892,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 1399,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BNBUSDT_20240107_20240107.parquet",
+      "rows": 113883,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 586,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BNBUSDT_20240108_20240108.parquet",
+      "rows": 181435,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 1477,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BNBUSDT_20240109_20240109.parquet",
+      "rows": 220896,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 2966,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BNBUSDT_20240110_20240110.parquet",
+      "rows": 200095,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 2037,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BNBUSDT_20240111_20240111.parquet",
+      "rows": 211670,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 2122,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BNBUSDT_20240112_20240112.parquet",
+      "rows": 180696,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 1351,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BNBUSDT_20240113_20240113.parquet",
+      "rows": 115561,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 456,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BNBUSDT_20240114_20240114.parquet",
+      "rows": 112703,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 433,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BNBUSDT_20240115_20240115.parquet",
+      "rows": 247602,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 3117,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BNBUSDT_20240116_20240116.parquet",
+      "rows": 171343,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 928,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BNBUSDT_20240117_20240117.parquet",
+      "rows": 159129,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 1511,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BNBUSDT_20240118_20240118.parquet",
+      "rows": 163400,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 762,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BNBUSDT_20240119_20240119.parquet",
+      "rows": 146210,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 650,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BNBUSDT_20240120_20240120.parquet",
+      "rows": 89779,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 232,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BNBUSDT_20240121_20240121.parquet",
+      "rows": 88545,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 206,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BNBUSDT_20240122_20240122.parquet",
+      "rows": 121111,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 602,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BNBUSDT_20240123_20240123.parquet",
+      "rows": 146852,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 1306,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BNBUSDT_20240124_20240124.parquet",
+      "rows": 118975,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 803,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BNBUSDT_20240125_20240125.parquet",
+      "rows": 147363,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 932,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BNBUSDT_20240126_20240126.parquet",
+      "rows": 121940,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 650,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BNBUSDT_20240127_20240127.parquet",
+      "rows": 80779,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 229,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BNBUSDT_20240128_20240128.parquet",
+      "rows": 87441,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 487,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BNBUSDT_20240129_20240129.parquet",
+      "rows": 106497,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 297,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BNBUSDT_20240130_20240130.parquet",
+      "rows": 98831,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 244,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BNBUSDT_20240131_20240131.parquet",
+      "rows": 107437,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 304,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BTCUSDT_20240101_20240101.parquet",
+      "rows": 801718,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 256260,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BTCUSDT_20240102_20240102.parquet",
+      "rows": 1625748,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 713634,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BTCUSDT_20240103_20240103.parquet",
+      "rows": 1885957,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 672184,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BTCUSDT_20240104_20240104.parquet",
+      "rows": 1284982,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 509397,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BTCUSDT_20240105_20240105.parquet",
+      "rows": 1454053,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 621219,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BTCUSDT_20240106_20240106.parquet",
+      "rows": 697577,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 206210,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BTCUSDT_20240107_20240107.parquet",
+      "rows": 778607,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 266749,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BTCUSDT_20240108_20240108.parquet",
+      "rows": 1648401,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 692109,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BTCUSDT_20240109_20240109.parquet",
+      "rows": 1878561,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 882693,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BTCUSDT_20240110_20240110.parquet",
+      "rows": 2212167,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 1034513,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BTCUSDT_20240111_20240111.parquet",
+      "rows": 2113650,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 912570,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BTCUSDT_20240112_20240112.parquet",
+      "rows": 1955778,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 770992,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BTCUSDT_20240113_20240113.parquet",
+      "rows": 1001160,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 353887,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BTCUSDT_20240114_20240114.parquet",
+      "rows": 849612,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 312216,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BTCUSDT_20240115_20240115.parquet",
+      "rows": 1042905,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 374984,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BTCUSDT_20240116_20240116.parquet",
+      "rows": 1101608,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 433087,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BTCUSDT_20240117_20240117.parquet",
+      "rows": 889506,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 310403,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BTCUSDT_20240118_20240118.parquet",
+      "rows": 945251,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 282930,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BTCUSDT_20240119_20240119.parquet",
+      "rows": 1113330,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 370295,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BTCUSDT_20240120_20240120.parquet",
+      "rows": 560580,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 136680,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BTCUSDT_20240121_20240121.parquet",
+      "rows": 459638,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 87092,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BTCUSDT_20240122_20240122.parquet",
+      "rows": 1330637,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 486140,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BTCUSDT_20240123_20240123.parquet",
+      "rows": 1331912,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 444956,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BTCUSDT_20240124_20240124.parquet",
+      "rows": 1068907,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 399481,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BTCUSDT_20240125_20240125.parquet",
+      "rows": 830506,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 274444,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BTCUSDT_20240126_20240126.parquet",
+      "rows": 1091558,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 422565,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BTCUSDT_20240127_20240127.parquet",
+      "rows": 565364,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 153870,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BTCUSDT_20240128_20240128.parquet",
+      "rows": 722629,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 252206,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BTCUSDT_20240129_20240129.parquet",
+      "rows": 864528,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 332633,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BTCUSDT_20240130_20240130.parquet",
+      "rows": 969137,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 361352,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_BTCUSDT_20240131_20240131.parquet",
+      "rows": 1127214,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 462487,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_ETHUSDT_20240101_20240101.parquet",
+      "rows": 370737,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 117974,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_ETHUSDT_20240102_20240102.parquet",
+      "rows": 705436,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 266478,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_ETHUSDT_20240103_20240103.parquet",
+      "rows": 926265,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 306654,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_ETHUSDT_20240104_20240104.parquet",
+      "rows": 546669,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 128414,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_ETHUSDT_20240105_20240105.parquet",
+      "rows": 530862,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 119556,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_ETHUSDT_20240106_20240106.parquet",
+      "rows": 317784,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 47234,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_ETHUSDT_20240107_20240107.parquet",
+      "rows": 353915,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 75252,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_ETHUSDT_20240108_20240108.parquet",
+      "rows": 730979,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 210273,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_ETHUSDT_20240109_20240109.parquet",
+      "rows": 809658,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 295072,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_ETHUSDT_20240110_20240110.parquet",
+      "rows": 1357508,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 534177,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_ETHUSDT_20240111_20240111.parquet",
+      "rows": 1192263,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 446779,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_ETHUSDT_20240112_20240112.parquet",
+      "rows": 1295325,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 527142,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_ETHUSDT_20240113_20240113.parquet",
+      "rows": 631299,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 189663,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_ETHUSDT_20240114_20240114.parquet",
+      "rows": 517155,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 158574,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_ETHUSDT_20240115_20240115.parquet",
+      "rows": 551041,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 208585,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_ETHUSDT_20240116_20240116.parquet",
+      "rows": 778300,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 361072,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_ETHUSDT_20240117_20240117.parquet",
+      "rows": 738196,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 343461,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_ETHUSDT_20240118_20240118.parquet",
+      "rows": 608963,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 183912,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_ETHUSDT_20240119_20240119.parquet",
+      "rows": 589440,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 146529,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_ETHUSDT_20240120_20240120.parquet",
+      "rows": 299071,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 55292,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_ETHUSDT_20240121_20240121.parquet",
+      "rows": 255598,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 42006,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_ETHUSDT_20240122_20240122.parquet",
+      "rows": 621610,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 152627,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_ETHUSDT_20240123_20240123.parquet",
+      "rows": 803225,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 222500,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_ETHUSDT_20240124_20240124.parquet",
+      "rows": 536564,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 146573,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_ETHUSDT_20240125_20240125.parquet",
+      "rows": 505064,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 139133,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_ETHUSDT_20240126_20240126.parquet",
+      "rows": 553415,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 171534,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_ETHUSDT_20240127_20240127.parquet",
+      "rows": 289295,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 70538,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_ETHUSDT_20240128_20240128.parquet",
+      "rows": 383289,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 112792,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_ETHUSDT_20240129_20240129.parquet",
+      "rows": 460607,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 135896,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_ETHUSDT_20240130_20240130.parquet",
+      "rows": 518967,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 156338,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_ETHUSDT_20240131_20240131.parquet",
+      "rows": 594839,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 192840,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_SOLUSDT_20240101_20240101.parquet",
+      "rows": 248306,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 20443,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_SOLUSDT_20240102_20240102.parquet",
+      "rows": 445921,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 42318,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_SOLUSDT_20240103_20240103.parquet",
+      "rows": 676203,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 113597,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_SOLUSDT_20240104_20240104.parquet",
+      "rows": 368092,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 35536,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_SOLUSDT_20240105_20240105.parquet",
+      "rows": 351752,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 40480,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_SOLUSDT_20240106_20240106.parquet",
+      "rows": 279956,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 26501,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_SOLUSDT_20240107_20240107.parquet",
+      "rows": 267035,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 27788,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_SOLUSDT_20240108_20240108.parquet",
+      "rows": 458830,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 49928,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_SOLUSDT_20240109_20240109.parquet",
+      "rows": 567955,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 74194,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_SOLUSDT_20240110_20240110.parquet",
+      "rows": 542247,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 73743,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_SOLUSDT_20240111_20240111.parquet",
+      "rows": 614282,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 59880,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_SOLUSDT_20240112_20240112.parquet",
+      "rows": 397644,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 39519,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_SOLUSDT_20240113_20240113.parquet",
+      "rows": 218675,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 14495,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_SOLUSDT_20240114_20240114.parquet",
+      "rows": 314193,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 25823,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_SOLUSDT_20240115_20240115.parquet",
+      "rows": 198382,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 12872,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_SOLUSDT_20240116_20240116.parquet",
+      "rows": 197201,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 13993,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_SOLUSDT_20240117_20240117.parquet",
+      "rows": 357031,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 29692,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_SOLUSDT_20240118_20240118.parquet",
+      "rows": 305334,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 23845,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_SOLUSDT_20240119_20240119.parquet",
+      "rows": 298435,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 20926,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_SOLUSDT_20240120_20240120.parquet",
+      "rows": 135465,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 7859,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_SOLUSDT_20240121_20240121.parquet",
+      "rows": 107344,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 5354,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_SOLUSDT_20240122_20240122.parquet",
+      "rows": 313561,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 27886,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_SOLUSDT_20240123_20240123.parquet",
+      "rows": 347355,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 29417,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_SOLUSDT_20240124_20240124.parquet",
+      "rows": 238629,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 17638,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_SOLUSDT_20240125_20240125.parquet",
+      "rows": 197268,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 13752,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_SOLUSDT_20240126_20240126.parquet",
+      "rows": 235386,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 15088,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_SOLUSDT_20240127_20240127.parquet",
+      "rows": 139028,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 6914,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_SOLUSDT_20240128_20240128.parquet",
+      "rows": 256576,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 20977,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_SOLUSDT_20240129_20240129.parquet",
+      "rows": 253676,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 19758,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_SOLUSDT_20240130_20240130.parquet",
+      "rows": 302871,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 21564,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_SOLUSDT_20240131_20240131.parquet",
+      "rows": 363042,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 30797,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_XRPUSDT_20240101_20240101.parquet",
+      "rows": 62306,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 561,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_XRPUSDT_20240102_20240102.parquet",
+      "rows": 111817,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 2102,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_XRPUSDT_20240103_20240103.parquet",
+      "rows": 337556,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 35761,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_XRPUSDT_20240104_20240104.parquet",
+      "rows": 123662,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 3153,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_XRPUSDT_20240105_20240105.parquet",
+      "rows": 127872,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 5224,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_XRPUSDT_20240106_20240106.parquet",
+      "rows": 96029,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 1245,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_XRPUSDT_20240107_20240107.parquet",
+      "rows": 141746,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 1855,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_XRPUSDT_20240108_20240108.parquet",
+      "rows": 178048,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 6196,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_XRPUSDT_20240109_20240109.parquet",
+      "rows": 163405,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 9606,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_XRPUSDT_20240110_20240110.parquet",
+      "rows": 206221,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 13128,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_XRPUSDT_20240111_20240111.parquet",
+      "rows": 192629,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 6489,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_XRPUSDT_20240112_20240112.parquet",
+      "rows": 162233,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 5894,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_XRPUSDT_20240113_20240113.parquet",
+      "rows": 65864,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 959,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_XRPUSDT_20240114_20240114.parquet",
+      "rows": 86242,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 1475,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_XRPUSDT_20240115_20240115.parquet",
+      "rows": 92053,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 1495,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_XRPUSDT_20240116_20240116.parquet",
+      "rows": 82616,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 1205,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_XRPUSDT_20240117_20240117.parquet",
+      "rows": 73539,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 859,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_XRPUSDT_20240118_20240118.parquet",
+      "rows": 87020,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 1127,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_XRPUSDT_20240119_20240119.parquet",
+      "rows": 110929,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 1439,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_XRPUSDT_20240120_20240120.parquet",
+      "rows": 54398,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 543,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_XRPUSDT_20240121_20240121.parquet",
+      "rows": 44785,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 509,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_XRPUSDT_20240122_20240122.parquet",
+      "rows": 103992,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 1767,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_XRPUSDT_20240123_20240123.parquet",
+      "rows": 125689,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 1740,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_XRPUSDT_20240124_20240124.parquet",
+      "rows": 69022,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 903,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_XRPUSDT_20240125_20240125.parquet",
+      "rows": 67771,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 1316,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_XRPUSDT_20240126_20240126.parquet",
+      "rows": 78847,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 904,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_XRPUSDT_20240127_20240127.parquet",
+      "rows": 41646,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 221,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_XRPUSDT_20240128_20240128.parquet",
+      "rows": 47111,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 245,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_XRPUSDT_20240129_20240129.parquet",
+      "rows": 75814,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 1018,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_XRPUSDT_20240130_20240130.parquet",
+      "rows": 142747,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 2751,
+      "status": "PASS"
+    },
+    {
+      "path": "load-adaptive-iir/data/processed/binance_XRPUSDT_20240131_20240131.parquet",
+      "rows": 121218,
+      "columns": [
+        "timestamp",
+        "price"
+      ],
+      "nonfinite_timestamp": 0,
+      "nonfinite_price": 0,
+      "nonpositive_price": 0,
+      "decreasing_timestamp": 0,
+      "equal_adjacent_timestamp": 3384,
+      "status": "PASS"
+    }
+  ]
+}

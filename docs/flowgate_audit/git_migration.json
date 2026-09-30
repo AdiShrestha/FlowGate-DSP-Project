@@ -1,0 +1,22 @@
+{
+  "remote": "git@github.com:AdiShrestha/FlowGate-DSP-Project.git",
+  "published_legacy_commit": "f73dc1eca9e7e7b413f12d491342049d0936111c",
+  "published_legacy_tag": "legacy-published-2026-09-30",
+  "workspace_snapshot_commit": "cf66fb33e58793e66aa00845f2bf8b01414efc7b",
+  "workspace_snapshot_tag": "legacy-workspace-2026-09-30",
+  "snapshot_files": 215,
+  "snapshot_excludes": [
+    "bulk raw/processed data",
+    "vendor environments",
+    "Git internals",
+    "generated caches",
+    "deleted notebook; retained by published tag"
+  ],
+  "strategy": "normal descendant commit replaces main tree; no force push, repository deletion, history rewrite or old local folder removal",
+  "remote_verified": true,
+  "verification_scope": "both annotated legacy tags and their peeled commit IDs; active main verified separately after final commit/push",
+  "remote_tag_objects": {
+    "legacy-published-2026-09-30": "2443569470c4717b05d2dd0ea9e6acc95725dee7",
+    "legacy-workspace-2026-09-30": "d2b5903e5d1b96ef5b901e7ccf7ba85500d11fe8"
+  }
+}

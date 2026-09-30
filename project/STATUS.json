@@ -1,0 +1,10 @@
+{
+  "project_id": "flowgate-dsp",
+  "status": "REHABILITATION_FOUNDATION_ONLY",
+  "methodology_frozen": false,
+  "research_certified": false,
+  "legacy_results_admissible": false,
+  "domain_adapter_required": true,
+  "active_factory": "3.3.0",
+  "primary_instruction": "Read root plan.md. Populate and challenge methodology before freeze. Do not manufacture labels, epochs, telemetry, or binary probabilities."
+}

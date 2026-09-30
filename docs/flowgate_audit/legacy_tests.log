@@ -1,0 +1,13 @@
+........................................................................ [ 74%]
+.........................                                                [100%]
+=============================== warnings summary ===============================
+tests/test_statistical_tests.py::test_paired_ttest_delta_direction_positive
+tests/test_statistical_tests.py::test_paired_ttest_delta_direction_negative
+tests/test_statistical_tests.py::test_paired_ttest_output_keys_complete
+tests/test_statistical_tests.py::test_paired_ttest_n_seeds_correct
+tests/test_statistical_tests.py::test_paired_ttest_mean_auc_values_correct
+  /Users/adi/Desktop/Projects/Using Older Factories/DSP Mini Project/load-adaptive-iir/.myenv/lib/python3.12/site-packages/scipy/stats/_axis_nan_policy.py:430: RuntimeWarning: Precision loss occurred in moment calculation due to catastrophic cancellation. This occurs when the data are nearly identical. Results may be unreliable.
+    return hypotest_fun_in(*args, **kwds)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+97 passed, 5 warnings in 21.90s

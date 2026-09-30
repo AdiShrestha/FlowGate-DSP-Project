@@ -1,0 +1,4 @@
+# Baseline direct and transitive core versions observed during the migration.
+# This pins versions; it is not a hash-locked wheel/environment attestation.
+numpy==2.5.0
+scipy==1.18.0

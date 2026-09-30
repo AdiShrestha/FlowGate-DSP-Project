@@ -1,0 +1,16 @@
+{
+  "python": "3.12.8",
+  "machine": "arm64",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "packages": {
+    "numpy": "2.5.0",
+    "scipy": "1.18.0",
+    "pytest": "9.1.1",
+    "scikit-learn": "1.9.0",
+    "pyarrow": "24.0.0",
+    "pandas": "3.0.3",
+    "numba": "0.65.1"
+  },
+  "numba_import_status": "incompatible_with_installed_numpy_2.5.0",
+  "engine_claim_status": "numerical primitives tested; no empirical efficacy or efficiency claim"
+}

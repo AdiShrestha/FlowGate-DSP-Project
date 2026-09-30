@@ -1,0 +1,270 @@
+{
+  "scope": "Forensic findings; source of authority is root plan.md",
+  "plan_sha256": "2fb5415cfb10821c018c831ee8d011d29347d072653c47ad85e215c9927c426b",
+  "findings": [
+    {
+      "id": "FG-001",
+      "priority_and_certainty": "P0 verified defect",
+      "legacy_evidence": "`evaluate.py:6\u201354`",
+      "finding_and_disposition": "Tolerance-expanded TP numerator is divided by original positive count; ordinary recall/F1 labels become invalid. Replace with strict point metrics and separately named event metrics."
+    },
+    {
+      "id": "FG-002",
+      "priority_and_certainty": "P0 verified defect",
+      "legacy_evidence": "`evaluate.py:56\u2013102`",
+      "finding_and_disposition": "ROC uses expanded positives with original-positive denominator, clips TPR, thins thresholds to 200, omits a proper endpoint policy; reported AUROC is not standard AUROC. Replace with exact grouped ranking/curve arithmetic."
+    },
+    {
+      "id": "FG-003",
+      "priority_and_certainty": "P0 verified defect",
+      "legacy_evidence": "`evaluate.py:56\u2013102`",
+      "finding_and_disposition": "Trapezoidal \u201cPR AUC\u201d inherits the inconsistent recall axis and is ambiguous relative to AP. Specify and independently recompute average precision; report PR area only under a separately defined convention."
+    },
+    {
+      "id": "FG-004",
+      "priority_and_certainty": "P0 verified defect",
+      "legacy_evidence": "`experiment_b_throughput_stability.py:93\u2013111`",
+      "finding_and_disposition": "Queue update subtracts `service_time/inter_arrival`, reversing the physical relationship. Replace with exact FCFS service/wait recurrence or a explicitly modeled valid queue."
+    },
+    {
+      "id": "FG-005",
+      "priority_and_certainty": "P0 verified design defect",
+      "legacy_evidence": "`experiment_a_compute_cost.py:101\u2013129`, Experiment B `:82\u201390,206\u2013417`",
+      "finding_and_disposition": "Shedding was already included in timed work per original input sample, then applied again through `mu/(1-shed_fraction)`. Whole pipeline costs require direct measurement; no second shedding bonus."
+    },
+    {
+      "id": "FG-006",
+      "priority_and_certainty": "P0 verified defect",
+      "legacy_evidence": "`queue_simulator.py:20\u201371`",
+      "finding_and_disposition": "Whole-trace arrival-rate calibration, inserted mean first interval, and whole-trace 99th-percentile queue normalization use future data. A deployed controller needs current telemetry and calibration learned before evaluation."
+    },
+    {
+      "id": "FG-007",
+      "priority_and_certainty": "P0 verified contamination path",
+      "legacy_evidence": "`run_all.py`, Experiments A/B/C, `fp_paradox.py`",
+      "finding_and_disposition": "Acquisition errors can substitute random prices and still generate ordinary result files. Remove fallback from empirical reachability; fail with retained error evidence."
+    },
+    {
+      "id": "FG-008",
+      "priority_and_certainty": "P0 evidence mismatch",
+      "legacy_evidence": "`anomaly_injection.py:42\u201380`, multi-seed CSV",
+      "finding_and_disposition": "Requested 100 events of each type silently degrades when space is exhausted. A reproduced seed has 100 points, 23 shifts, zero volatility bursts. Existing table has no burst rows. Withdraw the \u201c300/three-type\u201d experimental description."
+    },
+    {
+      "id": "FG-009",
+      "priority_and_certainty": "P0 unsupported independence",
+      "legacy_evidence": "`multi_seed_evaluation.py:112\u2013180`",
+      "finding_and_disposition": "Days sampled with replacement; 150 trials reuse only 96 distinct asset-days and 50 seed labels. Independent population inference cannot use row count as N. Rebuild hierarchical/unit-key design."
+    },
+    {
+      "id": "FG-010",
+      "priority_and_certainty": "P0 fragile pairing",
+      "legacy_evidence": "`statistical_tests.py:121\u2013154`",
+      "finding_and_disposition": "Sorts only by seed and truncates unequal lengths; seed repeats across regimes. Join exact unit keys, reject duplicates/missing pairs, and aggregate within independent units before inference."
+    },
+    {
+      "id": "FG-011",
+      "priority_and_certainty": "P0 unsupported system claim",
+      "legacy_evidence": "Experiment B/C outputs, manuscript",
+      "finding_and_disposition": "Analytical/simulated maxima are described as sustainable system throughput, without a measured streaming runtime. Register modeling and runtime measurement as separate evidence tiers."
+    },
+    {
+      "id": "FG-012",
+      "priority_and_certainty": "P0 presentation leakage",
+      "legacy_evidence": "`Isolated-Backend/main.py`, `Dashboard.jsx`",
+      "finding_and_disposition": "Backend precomputes injected labels and replay outputs; dashboard displays `is_anomaly` as \u201cSpike Detected.\u201d Retire this path as detector evidence."
+    },
+    {
+      "id": "FG-013",
+      "priority_and_certainty": "P1 verified loss of identity",
+      "legacy_evidence": "`data_acquisition.py:51\u201394`",
+      "finding_and_disposition": "Drops equal timestamp/price trades and provider IDs, affecting arrivals, loads, and lineage. Regenerate from raw preserving all distinct trade IDs."
+    },
+    {
+      "id": "FG-014",
+      "priority_and_certainty": "P1 verified TLS defect",
+      "legacy_evidence": "`data_acquisition.py:1\u20139`",
+      "finding_and_disposition": "Globally disables HTTPS certificate verification. Replaced by a local strict reader; downloads must use verified TLS."
+    },
+    {
+      "id": "FG-015",
+      "priority_and_certainty": "P1 verified sampling failure mode",
+      "legacy_evidence": "acquisition/expansion modules",
+      "finding_and_disposition": "Missing days/errors are skipped and caches are trusted without input/transform hash binding. Require a complete planned source manifest and retained acquisition failures."
+    },
+    {
+      "id": "FG-016",
+      "priority_and_certainty": "P1 timebase defect",
+      "legacy_evidence": "Butterworth/PSD runners",
+      "finding_and_disposition": "Irregular event arrays are labeled/filtered with assumed 100 Hz, and PSD uses 1 Hz elsewhere. Use event-domain units or an explicitly causal uniform grid."
+    },
+    {
+      "id": "FG-017",
+      "priority_and_certainty": "P1 verified baseline-design defect",
+      "legacy_evidence": "`filters.py:125\u2013169`",
+      "finding_and_disposition": "Analog cutoff passed through bilinear transform without prewarping is not exactly the requested digital cutoff; direct polynomial form is less robust than SOS. Use digital SciPy design/SOS on a verified grid."
+    },
+    {
+      "id": "FG-018",
+      "priority_and_certainty": "P1 coefficient/report mismatch",
+      "legacy_evidence": "`filters.py:94\u2013122`, `numba_filters.py:188\u2013211`",
+      "finding_and_disposition": "KAMA warmup applies alpha=1 but reports a slow-SC pole; initialization is inconsistent with steady filtering. Specify warmup and report the actual coefficient."
+    },
+    {
+      "id": "FG-019",
+      "priority_and_certainty": "P1 false canonical response",
+      "legacy_evidence": "`demo_signals.py:37\u201378`, EMA kernel",
+      "finding_and_disposition": "First-sample initialization sets y[0]=x[0]; the supposed impulse/step plots are not zero-state responses. Separate startup conventions; verify against closed forms."
+    },
+    {
+      "id": "FG-020",
+      "priority_and_certainty": "P1 theory overstatement",
+      "legacy_evidence": "`zdomain_analysis.py` trailing text, manuscript",
+      "finding_and_disposition": "Frozen pole locations and an arbitrary slew bound do not prove claimed quasi-static behavior or general time-varying stability. Give the actual first-order convexity/contraction proof and qualify frozen views."
+    },
+    {
+      "id": "FG-021",
+      "priority_and_certainty": "P1 causal-scale problem",
+      "legacy_evidence": "`detection.py:24\u201343`",
+      "finding_and_disposition": "Scale includes current residual, startup uses backfill, and unsupported estimators lack validation. Use prior-window scale/center and explicit warmup/floor policy."
+    },
+    {
+      "id": "FG-022",
+      "priority_and_certainty": "P1 hardcoded calibration",
+      "legacy_evidence": "`run_all.py`, multi-seed and shedding configs",
+      "finding_and_disposition": "`alpha_max=0.08253` is reused from one inspected load trace. It is neither a universal calibration nor proof of equal bandwidth. Remove from defaults; fit a preregistered matching criterion only on development data."
+    },
+    {
+      "id": "FG-023",
+      "priority_and_certainty": "P1 operator mismatch",
+      "legacy_evidence": "`load_shedding.py:59\u2013114`",
+      "finding_and_disposition": "Filtering a compressed subsequence changes the clock and adaptive slew semantics; generic Butterworth/KAMA use is not automatically physically valid. Define skip/update semantics per operator."
+    },
+    {
+      "id": "FG-024",
+      "priority_and_certainty": "P1 censored latency bias",
+      "legacy_evidence": "evaluation and shedding-delay modules",
+      "finding_and_disposition": "Latencies are averaged only over observed detections/admissions, silently omitting misses and often labeled as detection delay. Preserve misses/censoring and measure physical task-alert latency."
+    },
+    {
+      "id": "FG-025",
+      "priority_and_certainty": "P1 invalid task-cost proxy",
+      "legacy_evidence": "`downstream_cost_measurement.py`",
+      "finding_and_disposition": "UDP `sendto` without a receiving/acknowledged consumer measures send-call overhead, not database/alert end-to-end service. Benchmark actual downstream operators and receipt completion."
+    },
+    {
+      "id": "FG-026",
+      "priority_and_certainty": "P1 incomplete timing",
+      "legacy_evidence": "Experiment A",
+      "finding_and_disposition": "Admission-mask construction is outside the timed region; trials are batched per config; allocations and coefficient costs differ; IQR is displayed as if a symmetric interval. Measure named scopes and randomize/interleave trial blocks."
+    },
+    {
+      "id": "FG-027",
+      "priority_and_certainty": "P1 unsupported energy",
+      "legacy_evidence": "Experiment A power helper",
+      "finding_and_disposition": "Power samples before/after a short workload are not integrated energy during execution; archived power column is missing. No energy result can be claimed from those rows."
+    },
+    {
+      "id": "FG-028",
+      "priority_and_certainty": "P1 stale/mixed artifacts",
+      "legacy_evidence": "Experiment C, `report_v2.tex`, result summaries",
+      "finding_and_disposition": "Single-run quality, multi-seed CI, and separate modeled throughput are joined by names, without identical keys/configs/input hashes. One Pareto row must come from a coherent experiment bundle."
+    },
+    {
+      "id": "FG-029",
+      "priority_and_certainty": "P1 false Pareto interpretation",
+      "legacy_evidence": "Experiment C summary text",
+      "finding_and_disposition": "Nondominated membership does not mean better than every baseline without loss. Report tradeoffs and uncertainty; identical points need no invented \u201cpartially dominated\u201d state."
+    },
+    {
+      "id": "FG-030",
+      "priority_and_certainty": "P1 invalid null interpretation",
+      "legacy_evidence": "`study.md`, manuscript",
+      "finding_and_disposition": "p\u22480.67 is used to suggest no quality harm/equivalence. Nonsignificance is inconclusive; noninferiority/equivalence requires a justified margin and appropriate CI/test."
+    },
+    {
+      "id": "FG-031",
+      "priority_and_certainty": "P1 inconsistent historical statistics",
+      "legacy_evidence": "DeLong CSV vs multi-seed summary",
+      "finding_and_disposition": "Different score/label/population definitions and missing provenance produce incompatible p-values. Neither is automatically authoritative because it looks plausible. Recompute one frozen estimand from raw aligned rows."
+    },
+    {
+      "id": "FG-032",
+      "priority_and_certainty": "P1 multiple-testing omission",
+      "legacy_evidence": "statistical tests and per-type reports",
+      "finding_and_disposition": "Many configs/types/regimes/scales are tested without a prospectively registered family. Use declared primary comparisons and Holm correction; mark exploratory analyses."
+    },
+    {
+      "id": "FG-033",
+      "priority_and_certainty": "P1 test-oracle deficiency",
+      "legacy_evidence": "queue stability/parity suites",
+      "finding_and_disposition": "One queue test tests its own local implementation; other tests combine an analytical rho verdict with a broken empirical trace. Parity with old code preserves old errors. Add independent operator counterexamples."
+    },
+    {
+      "id": "FG-034",
+      "priority_and_certainty": "P1 ungrounded anomaly truth",
+      "legacy_evidence": "injection pipeline/manuscript",
+      "finding_and_disposition": "Real prices do not supply labels for natural anomalies; injected labels establish only the declared artificial perturbation task. Separate simulation claims, external labeled tasks, and unlabeled fidelity studies."
+    },
+    {
+      "id": "FG-035",
+      "priority_and_certainty": "P1 confounded mechanism",
+      "legacy_evidence": "default filtering/shed configs",
+      "finding_and_disposition": "Smaller alpha still costs an O(1) update. No demonstrated resource-saving mechanism connects pole motion alone to reduced downstream work. Measure counts and factorial effects against matched controls."
+    },
+    {
+      "id": "FG-036",
+      "priority_and_certainty": "P1 baseline insufficiency",
+      "legacy_evidence": "RRCF wrapper/parameter settings",
+      "finding_and_disposition": "Only a few unbalanced defaults; RRCF seed/RNG and FIFO behavior require inspection, and it is not included in common system costs. Tune a justified baseline set on validation with equal budgets."
+    },
+    {
+      "id": "FG-037",
+      "priority_and_certainty": "P1 reproducibility defect",
+      "legacy_evidence": "requirements and import-time warmup",
+      "finding_and_disposition": "Unpinned dependency/environment breaks Numba import; JIT warms on import and costs are excluded without complete disclosure. Produce compatible locked environments; separate cold and steady execution."
+    },
+    {
+      "id": "FG-038",
+      "priority_and_certainty": "P1 factory domain mismatch",
+      "legacy_evidence": "active `engine/plan.py:21+`",
+      "finding_and_disposition": "Only binary profile and `seed_fixed_test` inference are supported; task scores must be probabilities for six metrics. Do not translate DSP/queue evidence into fake binary records. Build a reviewed adapter."
+    },
+    {
+      "id": "FG-039",
+      "priority_and_certainty": "P1 factory assurance overstatement",
+      "legacy_evidence": "active supervisor and runner",
+      "finding_and_disposition": "Same-user worker access is not an OS-separated trust boundary; HMAC \u201cpublic\u201d info contains the symmetric key; receipt CPU/memory fields contain elapsed time/zero placeholders. These are not measured hardware or independent attestation. Fix or narrow assurances before release."
+    },
+    {
+      "id": "FG-040",
+      "priority_and_certainty": "P2 incomplete provenance",
+      "legacy_evidence": "all legacy output producers",
+      "finding_and_disposition": "No immutable raw per-event prediction/trace bundle linked to code, dependency lock, config, source hashes, and failures. Implement the bundle before expensive runs."
+    },
+    {
+      "id": "FG-041",
+      "priority_and_certainty": "P2 plot omissions",
+      "legacy_evidence": "`visualize.py`, `demo_signals.py`",
+      "finding_and_disposition": "Five fixed colors silently omit configurations; injected data are titled \u201creal\u201d; frozen heatmap labeled as actual response; RRCF zero signal used as a filter output. Rebuild plots from validated typed artifacts."
+    },
+    {
+      "id": "FG-042",
+      "priority_and_certainty": "P2 old governance mismatch",
+      "legacy_evidence": "old project contracts and intake notes",
+      "finding_and_disposition": "Keyword bans conflate legitimate tests/simulation with fabricated empirical data; obsolete C01 contracts require behavior preservation. This plan supersedes those historical migration directives."
+    },
+    {
+      "id": "FG-043",
+      "priority_and_certainty": "P2 unsupported venue novelty",
+      "legacy_evidence": "literature review, manuscript",
+      "finding_and_disposition": "General claims of a new paradigm/first method are not established by the archive. Create a primary-source related-work matrix and a precise contribution/falsification statement."
+    },
+    {
+      "id": "FG-044",
+      "priority_and_certainty": "P2 incomplete lifecycle",
+      "legacy_evidence": "empty new source/data/control template at intake",
+      "finding_and_disposition": "The new folder initially contained factory scaffolding rather than a research implementation. Core migration is now present; runtime/study/adapters still require implementation."
+    }
+  ]
+}

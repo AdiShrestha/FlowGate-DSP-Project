@@ -1,0 +1,46 @@
+{
+  "scope": "Forensic legacy defects and historical table counts; not new empirical efficacy evidence",
+  "counterexample": {
+    "description": "Only alert at 499; true label at 500. Nearby alert is not a point true positive. Missing legacy detected latency is serialized as null, not zero.",
+    "legacy_precision_recall_f1_latency_fp_per_1k": [
+      1.0,
+      1.0,
+      1.0,
+      null,
+      0.0
+    ],
+    "legacy_roc_auc_pr_auc": [
+      1.0,
+      0.0
+    ],
+    "correct_point_tp": 0,
+    "correct_point_fp": 1
+  },
+  "multiseed": {
+    "rows": 3150,
+    "types": {
+      "all": 1050,
+      "level_shift": 1050,
+      "point": 1050
+    },
+    "unique_days": 96,
+    "unique_seed_labels": 50,
+    "duplicate_seed_config_rows": 700,
+    "independence_status": "not_established"
+  },
+  "injection_feasibility_probe": {
+    "source_sha256": "a312617d895cdae43a58551f05fc9bc6b97285fab2e5d0daf774b4fb61e0a0c0",
+    "source_id": "binance:spot:BTCUSDT:2024-01-01",
+    "observations": 50000,
+    "seed": 0,
+    "requested_each_type": 100,
+    "actual_events": 123,
+    "actual_by_type": {
+      "point": 100,
+      "level_shift": 23,
+      "volatility_burst": 0
+    },
+    "generated_series_saved": false,
+    "limitations": "Real background, deliberate legacy perturbation; no natural labels or task-quality conclusion"
+  }
+}
