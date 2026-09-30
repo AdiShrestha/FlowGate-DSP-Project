@@ -127,11 +127,7 @@ def run_multi_seed_evaluation(
     f_c_matched = 0.06 * fs_assumed / (2 * np.pi)
     
     results = []
-    
-    # For aggregating scores for DeLong test
-    global_mask_list = []
-    global_z_scores_dict = {}
-    
+
     for regime in unique_regimes:
         regime_pool = regimes_df[regimes_df['regime'] == regime]
         
@@ -141,13 +137,8 @@ def run_multi_seed_evaluation(
         for idx, row in tqdm(sampled_days.iterrows(), total=n_seeds, desc=f"Regime: {regime}"):
             out = process_single_run(idx, row, idx, regime, n_anomalies_per_type, fs_assumed, f_c_matched)
             if out is not None:
-                run_res, y_true_bin, z_scs = out
+                run_res, _, _ = out
                 results.extend(run_res)
-                global_mask_list.append(y_true_bin)
-                for name, z in z_scs.items():
-                    if name not in global_z_scores_dict:
-                        global_z_scores_dict[name] = []
-                    global_z_scores_dict[name].append(z)
 
     df_results = pd.DataFrame(results)
     
@@ -172,13 +163,20 @@ def run_multi_seed_evaluation(
     df_summary = pd.DataFrame(summary_list)
     df_summary.to_csv("results/tables/multi_seed_summary.csv", index=False)
     
-    # Run DeLong test
-    print("Running DeLong statistical tests on aggregated results...")
-    y_true_agg = np.concatenate(global_mask_list)
-    z_scores_agg = {k: np.abs(np.concatenate(v)) for k, v in global_z_scores_dict.items()}
-    from src.statistical_tests import batch_delong_comparisons
-    batch_delong_comparisons(y_true_agg, z_scores_agg)
-    
+    # Run paired t-test on per-seed AUC arrays (primary significance test).
+    # NOTE: The previous global-concatenation DeLong call was removed because
+    # concatenating z-scores across assets/days destroys the rank ordering and
+    # produces a global AUC ≈ 0.50 regardless of true detection quality.
+    # The correct test is a paired t-test on the per-seed AUC values, where
+    # each pair shares the same random seed (same anomaly locations).
+    print("Running paired t-tests on per-seed ROC-AUC results...")
+    from src.statistical_tests import batch_paired_ttests
+    batch_paired_ttests(
+        csv_path="results/tables/multi_seed_roc_auc.csv",
+        reference="Fixed EMA",
+        anomaly_type="all",
+    )
+
     return df_results, df_summary
 
 if __name__ == "__main__":

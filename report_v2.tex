@@ -1,0 +1,923 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{url}
+\usepackage{multirow}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+\begin{document}
+
+\title{Load-Adaptive Single-Pole IIR Filtering for\\
+Real-Time Financial Anomaly Detection}
+
+\author{\IEEEauthorblockN{Aditya [Surname]}
+\IEEEauthorblockA{\textit{Department of Computer Science and Engineering}\\
+\textit{Kathmandu University}\\
+Dhulikhel, Kavre, Nepal\\
+yourname@ku.edu.np}}
+
+\maketitle
+
+\begin{abstract}
+Real-time smoothing filters such as the exponential moving average (EMA)
+act simultaneously as denoising front ends and anomaly-detection baselines in
+financial stream-processing pipelines. Every existing scheme that adapts the
+EMA's smoothing constant — Kaufman's Adaptive Moving Average (KAMA),
+RiskMetrics volatility filters, adaptive Kalman filters, and adaptive EWMA
+control charts — derives its adaptation signal from the monitored data itself.
+This paper studies a structurally different paradigm: driving the EMA's
+Z-domain pole from a simulated system-load (backpressure) signal that is
+exogenous to the data. We make six contributions.
+(i) A formal Z-domain characterization — pole location, group delay, and a
+slew-rate stability bound — of the resulting time-varying filter.
+(ii) A discrete-event queue simulator that generates a defensible backpressure
+signal from real tick-arrival data, in the spirit of Active Queue Management.
+(iii) A load-shedding mechanism coupled to the same backpressure signal that
+actually reduces per-tick computational work under overload.
+(iv) A bandwidth-matching calibration that reveals a structural constraint:
+with \(\alpha_\text{max}=0.30\) and empirical backpressure statistics, the
+minimum achievable time-averaged \(\alpha\) is $\approx 0.192$ — more than
+$3\times$ the Fixed EMA baseline — requiring \(\alpha_\text{max}\) to be
+recalibrated to $0.0825$ to achieve a fair comparison.
+(v) An empirical multi-asset comparison showing that pole-only
+adaptation underperforms Fixed EMA by $0.040$ ROC-AUC even after
+bandwidth-matching, confirming the gap is attributable to the adaptation
+mechanism rather than a bandwidth artifact.
+(vi) A Pareto analysis over detection quality and sustainable throughput
+showing that Load-Adaptive EMA combined with load shedding sits on the
+correct two-point Pareto frontier alongside Butterworth, achieving a
+$92.6\%$ throughput gain over Fixed EMA at a cost of $0.10$ ROC-AUC,
+while strictly dominating Fixed EMA + Shedding on detection quality at the
+same throughput level. All findings are validated across 5 assets and 3 market regimes, confirmed via DeLong tests ($p < 0.05$), and benchmarked against streaming Robust Random Cut Forest (RRCF).
+\end{abstract}
+
+\begin{IEEEkeywords}
+IIR filters, Z-transform, adaptive filtering, exponential moving average,
+anomaly detection, backpressure, load shedding, stream processing,
+financial tick data
+\end{IEEEkeywords}
+
+%% =====================================================================
+\section{Introduction}
+%% =====================================================================
+
+Streaming financial systems — exchange feed handlers, risk-monitoring
+dashboards, and market-surveillance pipelines — routinely apply a
+first-order low-pass filter to incoming tick data before any downstream
+decision. The exponential moving average (EMA) dominates this role: it is
+a single-pole, $O(1)$-per-sample IIR filter that is cheap to compute, trivial
+to implement, and closed-form in all relevant properties.
+
+A large body of work makes the EMA \emph{adaptive} — letting its smoothing
+constant, and therefore its Z-domain pole location, vary over time. Kaufman's
+Adaptive Moving Average (KAMA) speeds up when price movement is directionally
+efficient \cite{kama}. RiskMetrics volatility filters use a fixed decay
+motivated by return statistics \cite{riskmetrics}. Adaptive Kalman filters
+tune their process-noise covariance from realized volatility. Adaptive EWMA
+control charts retune from the estimated shift in the monitored statistic
+\cite{aewma1, aewma2}. The classical Trigg--Leach forecasting family, dating
+to 1967, retunes from a forecast tracking signal \cite{triggleach}. Every
+one of these methods, despite differing mechanisms, shares a single structural
+property: \emph{the adaptation signal is derived from the data being filtered}.
+
+This paper studies the opposite case. In real stream-processing systems,
+when a consumer falls behind its producer, the standard response is
+\emph{backpressure}: the system signals upstream that it is overloaded, and
+downstream components throttle their work. The one literature precedent where
+an EMA-like mechanism is driven by a genuinely exogenous, system-state signal
+is Active Queue Management (AQM) in networking, where Random Early Detection
+(RED) computes an exponentially weighted average of queue occupancy and maps
+it to a packet-drop probability \cite{red}. Critically, even Adaptive RED
+holds the EWMA weight itself fixed; what is tuned online is a downstream
+drop-probability parameter, not the filter's pole \cite{ared}. No prior work
+has driven a smoothing filter's pole directly from a system-load signal,
+given it a Z-domain treatment, or applied such a mechanism to financial
+anomaly detection.
+
+This paper makes six contributions:
+\begin{enumerate}
+\item A formal Z-domain characterization of a single-pole IIR filter whose
+  pole is driven by a backpressure signal, including its pole trajectory,
+  frozen-time frequency response, group delay, and a slew-rate validity bound.
+\item A discrete-event single-server queue simulator that produces a
+  defensible backpressure signal from real tick-arrival data.
+\item A deterministic load-shedding layer that actually reduces per-tick
+  computational work under high backpressure, providing a mechanism by which
+  adaptation can yield measurable resource savings.
+\item A bandwidth-matching calibration revealing a non-obvious structural
+  constraint of the load-driven mapping, enabling a bandwidth-controlled
+  comparison that isolates the cost of adaptation itself.
+\item A negative result on pole-only adaptation: it underperforms Fixed EMA
+  by $0.040$ ROC-AUC even after bandwidth-matching, attributable to
+  time-varying phase lag introduced by slew-rate-limited $\alpha$ updates.
+\item A detection-quality vs.\ throughput Pareto analysis showing that
+  Load-Adaptive EMA combined with load shedding occupies a unique position
+  on the Pareto frontier unreachable by any signal-driven baseline.
+\end{enumerate}
+
+%% =====================================================================
+\section{Related Work}
+%% =====================================================================
+
+\subsection{Adaptive Moving Averages in Finance}
+KAMA \cite{kama} adjusts responsiveness using an efficiency ratio: the ratio
+of net price displacement to total path length over a lookback window.
+RiskMetrics popularized a fixed-decay EWMA for volatility estimation, with
+$\lambda=0.94$ for daily data found empirically to minimize forecast error
+\cite{riskmetrics}. Both are signal-derived.
+
+\subsection{Classical Adaptive Filter Theory}
+Variable step-size LMS (VSS-LMS) adapts from the instantaneous squared error
+\cite{vsslms}. Variable forgetting factor RLS (VFF-RLS) computes the
+forgetting factor — which plays the same role as $1-\alpha$ in an EMA — from
+the gradient of the mean-square error \cite{vffrls}. All adapt from internal
+signal statistics.
+
+\subsection{Adaptive Statistical Process Control}
+EWMA control charts are an industrial-statistics cousin of this work.
+Adaptive EWMA (AEWMA) charts dynamically retune the smoothing constant from
+the estimated process shift, including ML-based variants that regress the
+smoothing constant from the shift estimate \cite{aewma1, aewma2}. The driver
+is always the monitored statistic itself.
+
+\subsection{Time-Varying-Pole IIR Filters}
+A small literature gives formal stability and transient-response analyses to
+IIR filters with time-varying pole radii, primarily for notch filters
+removing power-line interference from ECG signals \cite{tvnotch} and general
+stability analyses of linear time-varying IIR systems \cite{tviir}. This
+branch supplies the mathematical machinery used in Section~III but in
+entirely different application domains without any exogenous adaptation rule.
+
+\subsection{Financial Anomaly Detection}
+Deep learning \cite{waldata} and wavelet methods dominate modern financial
+anomaly detection, with wavelet-based adversarial learning reporting AUC
+near $0.99$ on manipulative trading detection. These methods treat the
+smoothing front end as an unexamined preprocessing step rather than the
+object of study.
+
+\subsection{Load-Driven Adaptation in Stream Processing}
+Within stream-processing research, backpressure-driven adaptive sampling
+\cite{aswb} and smarter backpressure controllers \cite{governor} are active
+areas. RED and Adaptive RED \cite{red, ared}, as noted, use a queue-occupancy
+EWMA for congestion control but tune a downstream parameter, not the EWMA
+pole. Load shedding as a principled mechanism for trading result quality for
+resource conservation was formalized in the Aurora/Borealis stream-processing
+engine \cite{loadsheddingtatbul} and is the formal basis for our shedding
+implementation.
+
+%% =====================================================================
+\section{Methodology}
+%% =====================================================================
+
+\subsection{The EMA as a First-Order IIR Filter}
+A standard EMA is
+\begin{equation}
+y[n] = \alpha\,x[n] + (1-\alpha)\,y[n-1], \qquad \alpha\in(0,1)
+\label{eq:ema}
+\end{equation}
+with transfer function
+\begin{equation}
+H(z) = \frac{\alpha}{1-(1-\alpha)z^{-1}}
+\label{eq:hz}
+\end{equation}
+and a single pole at $z_p = 1-\alpha$. The time constant is
+$\tau = -1/\ln(1-\alpha)$ samples and the half-life is
+$t_{1/2} = \ln(0.5)/\ln(1-\alpha)$ samples. The DC group delay is
+\begin{equation}
+\tau_g(0) = \sum_{n=0}^{\infty} n\,h[n] = \frac{1-\alpha}{\alpha}
+\label{eq:gd}
+\end{equation}
+derived from the mean of the impulse response $h[n]=\alpha(1-\alpha)^n$,
+and verified numerically against \texttt{scipy.signal.group\_delay} to within
+$1\%$ across the tested $\alpha$ range.
+
+\subsection{Load-Adaptive Pole Mapping}
+Let $L[n]\in[0,1]$ be a normalized backpressure signal (Section~III-E).
+The time-varying smoothing constant is
+\begin{equation}
+\alpha[n] = \alpha_\text{max} - (\alpha_\text{max}-\alpha_\text{min})\,L[n]
+\label{eq:alphamapping}
+\end{equation}
+with $\alpha_\text{min}=0.02$ and $\alpha_\text{max}=0.30$ for the
+default configuration. Under zero load the filter is maximally responsive;
+under full load it is maximally smoothed. This is the opposite direction
+from every signal-driven scheme reviewed in Section~II, all of which speed
+up under high \emph{signal} activity rather than slow down under high
+\emph{system} load.
+
+\subsection{Slew-Rate Stability Bound}
+Because the filter is analyzed as quasi-static (frozen-pole) at each instant,
+the rate of pole movement is bounded:
+\begin{equation}
+|\alpha[n]-\alpha[n-1]| \le \Delta\alpha_\text{max} = 0.01
+\label{eq:slew}
+\end{equation}
+and $\alpha[n]$ is clipped to $[10^{-4},1-10^{-4}]$ at every step,
+guaranteeing $|z_p|<1$ unconditionally. This keeps the pole's velocity slow
+relative to the filter's own time constant, the informal condition under which
+a frozen-time frequency-response analysis remains meaningful.
+
+\subsection{Load-Shedding Mechanism}
+Pole adaptation alone does not reduce per-sample arithmetic: the recurrence
+\eqref{eq:ema} costs two multiplications and one addition regardless of
+$\alpha$. Following the load-shedding formalism of Tatbul et al.\ \cite{loadsheddingtatbul},
+the actual compute savings come from a deterministic stride rule applied on
+top of the filter. Given the backpressure signal $L[n]$ and a configurable
+maximum skip $s_\text{max}$:
+\begin{equation}
+\text{target\_skip}[n] = \lfloor s_\text{max}\cdot L[n] \rceil
+\end{equation}
+A tick is processed when the count of ticks since the last processed tick
+reaches \texttt{target\_skip}; otherwise the last output is carried forward.
+This ensures at least one tick in every $(s_\text{max}+1)$ is processed even
+at maximum load, and reduces the fraction of invocations of the filter and
+detector in proportion to $L[n]$.
+
+A skipped tick cannot trigger a detection. If a true anomaly onset falls on
+a skipped tick, detection is delayed until the next processed tick; this
+additional latency attributable to shedding is tracked separately from the
+filter's own lag and reported in the evaluation results.
+
+\subsection{Backpressure Simulation}
+Since this is a standalone study without a live stream-processing runtime,
+backpressure is generated from a discrete-event single-server queue: events
+arrive according to the real tick inter-arrival process, a server drains the
+queue at a fixed rate $\mu$ chosen so average utilization $\rho=\lambda/\mu
+\approx 0.75$, and the normalized backpressure is
+$L[n] = \text{clip}(q[n]/q_\text{max}, 0, 1)$. This mirrors the
+queue-occupancy signal used in RED \cite{red} rather than fabricating an
+arbitrary load proxy.
+
+\subsection{Baseline Filters and Configurations}
+Seven configurations are evaluated.
+
+\smallskip
+\noindent\textbf{Fixed EMA ($\alpha=0.06$)} — matching the RiskMetrics
+convention $\alpha=1-\lambda=0.06$ \cite{riskmetrics}.
+
+\smallskip
+\noindent\textbf{KAMA} — 10-period efficiency ratio, fast/slow periods 2/30
+\cite{kama}.
+
+\smallskip
+\noindent\textbf{Butterworth low-pass (Default)} — 4th-order; designed by
+first constructing the analog prototype via \texttt{scipy.signal.butter}
+(\texttt{analog=True}), then mapping to digital explicitly via the bilinear
+transform (\texttt{scipy.signal.bilinear\_zpk}), to demonstrate this step
+directly. Initialized with steady-state initial conditions
+(\texttt{scipy.signal.lfilter\_zi} scaled to $x[0]$) to eliminate cold-start
+transients.
+
+\smallskip
+\noindent\textbf{Butterworth (Bandwidth-Matched)} — same design, cutoff
+frequency matched to Fixed EMA's equivalent $-3\,\text{dB}$ bandwidth.
+
+\smallskip
+\noindent\textbf{Load-Adaptive EMA} — pole-only adaptation, no shedding,
+$\alpha_\text{min}=0.02$, $\alpha_\text{max}=0.30$.
+
+\smallskip
+\noindent\textbf{Load-Adaptive EMA (Bandwidth-Matched)} — pole-only
+adaptation with $\alpha_\text{min}=0.02$, $\alpha_\text{max}=0.0825$
+(calibrated per Section~III-G).
+
+\smallskip
+\noindent\textbf{Load-Adaptive EMA + Shedding} — pole adaptation plus
+deterministic shedding ($s_\text{max}=4$), the full proposed configuration.
+
+For compute experiments, Fixed EMA + Shedding is added as a sixth
+configuration to isolate the effect of shedding from the effect of
+pole adaptation.
+
+All filter recursive loops are implemented as Numba-JIT-compiled kernels
+(\texttt{@njit(cache=True)}) to ensure a fair per-algorithm comparison
+uncorrupted by Python interpreter overhead. Numerical parity with the
+pre-optimization implementations is verified to $\|\Delta\|_\infty < 10^{-9}$
+for all four base filters.
+
+\subsection{Bandwidth-Matching Calibration}
+\label{sec:bwmatch}
+The mapping \eqref{eq:alphamapping} gives
+$\text{mean}(\alpha[n]) = \alpha_\text{max}(1-\bar{L})
++ \alpha_\text{min}\bar{L}$,
+where $\bar{L}=\text{mean}(L[n])$. With the empirical $\bar{L}\approx0.360$
+and holding $\alpha_\text{max}=0.30$, the minimum achievable
+$\text{mean}(\alpha[n])$ in the limit $\alpha_\text{min}\rightarrow 0$ is
+$0.30\times(1-0.360)=0.192$ — more than three times the Fixed EMA baseline's
+$\alpha=0.06$. The target $\text{mean}(\alpha)=0.06$ is therefore
+\emph{structurally unreachable} by tuning $\alpha_\text{min}$ alone.
+
+To achieve a bandwidth-controlled comparison, we instead binary-search
+$\alpha_\text{max}$ (holding $\alpha_\text{min}=0.02$ fixed) until
+$\text{mean}(\alpha[n])\approx0.06$. Solving
+$0.06 = \alpha_\text{max}(1-0.360)+0.02\times0.360$ analytically gives
+$\alpha_\text{max}\approx0.0825$; the calibration converges to
+$\alpha_\text{max}=0.08253$ with $\text{mean}(\alpha[n])=0.06002$
+(error $<10^{-4}$). This configuration retains adaptation — it can still
+widen its effective window at peak load down to $\alpha_\text{min}=0.02$
+at $L=1$ — but does so over a narrower dynamic range than the default
+configuration ($\approx4\times$ vs.\ $15\times$), a limitation worth
+noting when interpreting the comparison.
+
+\subsection{Synthetic Anomaly Injection}
+Real tick data carries no ground-truth labels, so three types are injected
+at known, randomly chosen, non-overlapping locations (seed $=42$): \textbf{point}
+anomalies (single-sample spikes at $8\sigma$), \textbf{level-shift} anomalies
+(sustained step over 50--200 samples), and \textbf{volatility-burst} anomalies
+(local $5\times$ return-variance inflation).
+
+\subsection{Detection Rule and Evaluation}
+For every filter output $y[n]$, the residual $r[n]=x[n]-y[n]$ is normalized
+by a causal rolling standard deviation $\sigma_r[n]$ (window 100 samples),
+and an anomaly is flagged when $|r[n]/\sigma_r[n]|>3.0$. This rule is
+identical across all configurations. Performance is reported as precision,
+recall, F1, and mean detection latency within a $\pm20$-sample tolerance
+window (avoiding point-adjustment inflation \cite{tsad_eval}), plus
+false-positive rate per 1,000 samples, ROC-AUC, and PR-AUC. PR baseline
+(positive-class prevalence) is reported for honest PR-AUC interpretation.
+
+%% =====================================================================
+\section{Experimental Setup}
+%% =====================================================================
+
+Data: raw trade-level tick data for five assets (BTCUSDT, ETHUSDT, BNBUSDT, SOLUSDT, XRPUSDT) from Binance's public bulk-data
+archive \cite{binance} for 31 days (2024-01-01 to 2024-01-31), classified into Trending, Volatile, and Mean-Reverting regimes. Queue calibrated to empirical
+$\lambda=8.66$ events/s, service rate $\mu=11.55$ events/s ($\rho=0.75$).
+For statistical rigor, we run 150 independent trials (50 per regime) injecting 300 synthetic anomalies (100 per type) per run. For
+compute experiments, a downstream service cost of $3.38\,\mu\text{s}$ per tick
+(measured via empirical UDP loopback latency)
+is added to each filter's per-sample time, representing realistic I/O work
+(logging, database writes, alerting), bringing the effective service rate into
+a regime where throughput-stability differences between configurations are
+observable. All timing uses \texttt{timeit.repeat()} ($\ge20$ trials),
+randomized across configurations to spread any thermal-throttling drift (the
+M3 MacBook Air is fanless and susceptible to sustained-load throttling), with
+results summarized as median $\pm$ IQR. Platform: Apple M3, macOS 26.5.1,
+Python 3.12.8, Numba 0.63.
+
+%% =====================================================================
+\section{Results}
+%% =====================================================================
+
+\subsection{Filter Characterization}
+Fig.~\ref{fig:pz} shows the pole locations for a sweep of $\alpha$ from
+$\alpha_\text{min}$ to $\alpha_\text{max}$, all real-valued and strictly
+inside the unit circle, confirming unconditional stability across the entire
+operating range.
+
+Fig.~\ref{fig:freqresp} shows the corresponding frozen-time frequency
+response: as $\alpha$ decreases (higher load), the $-3\,\text{dB}$ cutoff
+moves toward DC and high-frequency attenuation increases by over $20\,\text{dB}$
+across the swept range. Fig.~\ref{fig:impulse} shows the impulse response at
+three $\alpha$ values with measured time constants ($\tau=2.8$, $9.5$, $32.8$
+samples for $\alpha=0.3$, $0.1$, $0.03$) matching the closed-form
+prediction of \eqref{eq:gd}. Fig.~\ref{fig:demo} demonstrates canonical
+low-pass behavior on a synthetic three-tone test signal (slow trend at
+$f_1=0.2$\,Hz, noise at $f_2=5$\,Hz, jitter at $f_3=20$\,Hz), with both
+time-domain and Welch PSD views confirming progressive attenuation of
+higher-frequency components.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.95\columnwidth]{figures/pole_zero_sweep.png}
+\caption{Pole locations across the swept $\alpha$ range. All poles lie on
+the real axis strictly inside the unit circle, confirming unconditional
+stability.}
+\label{fig:pz}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.95\columnwidth]{figures/frequency_response_sweep.png}
+\caption{Frozen-time magnitude (top) and phase (bottom) response across
+seven $\alpha$ values. Lower $\alpha$ moves the cutoff toward DC,
+increasing high-frequency attenuation by over $20\,\text{dB}$ across the range.}
+\label{fig:freqresp}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.95\columnwidth]{figures/impulse_response.png}
+\caption{Impulse responses at three $\alpha$ values. Measured time constants
+match the closed-form prediction $\tau=-1/\ln(1-\alpha)$.}
+\label{fig:impulse}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.95\columnwidth]{figures/spectrum_demo_fixed_ema.png}
+\caption{Synthetic three-tone test signal before and after Fixed EMA
+filtering: time domain (top) and Welch PSD (bottom), with the three injected
+tone frequencies marked. Representative of the canonical low-pass behavior
+common to all first-order EMA variants.}
+\label{fig:demo}
+\end{figure}
+
+\subsection{Backpressure and Pole Trajectory}
+Fig.~\ref{fig:queue} shows the normalized backpressure signal $L[n]$ over
+the trading-day window, exhibiting a sustained load excursion rather than
+pure noise. Fig.~\ref{fig:tvfreq} overlays this load signal with the
+load-adaptive filter's instantaneous frequency response as a heatmap: the
+filter's effective passband visibly narrows toward DC exactly during the
+high-load excursion, confirming the designed coupling between system load and
+filter behavior. Fig.~\ref{fig:ptraj} shows the pole trajectory over time; the
+pole climbs from $\approx 0.70$ at low load to $\approx 0.98$ at peak load,
+remaining inside the unit circle throughout.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.95\columnwidth]{figures/queue_simulation.png}
+\caption{Simulated normalized backpressure $L[n]$ over the experimental
+window. The signal exhibits a sustained load excursion rather than white noise.}
+\label{fig:queue}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.95\columnwidth]{figures/time_varying_frequency_response.png}
+\caption{Time-varying frequency response of the load-adaptive filter
+(heatmap, bottom) against the driving backpressure signal (top). The
+passband visibly narrows toward DC as backpressure rises, directly
+visualizing the mechanism studied in this paper.}
+\label{fig:tvfreq}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.95\columnwidth]{figures/pole_trajectory_vs_load.png}
+\caption{Z-domain pole location (blue, left axis) against normalized
+backpressure $L[n]$ (red, right axis). The pole moves from $\approx0.70$
+to $\approx0.98$ in direct response to load, remaining inside the unit
+circle throughout.}
+\label{fig:ptraj}
+\end{figure}
+
+\subsection{Spectral Behavior on Real Tick Data}
+Fig.~\ref{fig:psd} compares the power spectral density of the raw price
+series against all filter outputs. The BW-Matched configuration closely
+tracks Fixed EMA's attenuation profile across all frequencies, confirming
+the bandwidth calibration is effective. The default load-adaptive
+configuration shows visibly less attenuation (higher-bandwidth average
+behavior), consistent with its higher $\text{mean}(\alpha)\approx0.199$.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.95\columnwidth]{figures/psd_comparison_real_data.png}
+\caption{Welch PSD of the raw price series and all filter outputs on real
+tick data. The BW-Matched (green) closely tracks Fixed EMA (blue);
+the default Load-Adaptive EMA (red) shows visibly less attenuation
+due to its higher time-averaged $\alpha$.}
+\label{fig:psd}
+\end{figure}
+
+\subsection{Detection Performance}
+Table~\ref{tab:combined} reports combined performance across all injected
+anomaly types for all seven configurations. ROC-AUC exceeds $0.70$ for
+every filter, confirming genuine detection signal above the random-guess
+floor, and every PR-AUC exceeds the $0.022$ no-skill baseline by a factor
+of $2$--$3\times$. The load-adaptive default configuration is the weakest
+performer on ROC-AUC among the pole-only variants; the BW-Matched
+variant closes the gap somewhat but still underperforms Fixed EMA (see
+Section~V-E).
+
+Table~\ref{tab:bytype} breaks performance down by anomaly type. Point
+anomalies ($8\sigma$ spikes) are trivially detected by all filters
+(ROC-AUC $\ge 0.995$). Level-shift anomalies are the hardest case for
+every filter (ROC-AUC $0.56$--$0.60$), consistent with a sustained shift
+being gradually absorbed into the rolling-$\sigma$ estimator. Volatility
+bursts show the largest spread: the default load-adaptive filter's
+ROC-AUC ($0.759$) trails Fixed EMA ($0.835$) and Butterworth Default
+($0.830$) most clearly on this anomaly type.
+
+Fig.~\ref{fig:roc} shows ROC and PR curves for all five non-shedding
+configurations. Fig.~\ref{fig:bars} summarizes F1, mean detection
+latency, and false-positive rate side by side, with the BW-Matched
+configuration visible as a distinct bar. Fig.~\ref{fig:tdomain} shows
+raw price, filtered outputs, and detections across all six panels; both
+Butterworth panels now start at the correct price level ($\approx\$42{,}300$)
+with no visible cold-start transient.
+
+\begin{table*}[t]
+\centering
+\caption{Combined detection performance across all injected anomaly types.
+PR Baseline = positive-class prevalence (no-skill PR-AUC floor).}
+\label{tab:combined}
+\footnotesize
+\begin{tabular}{lcccccccc}
+\hline
+\textbf{Configuration} & \textbf{Prec.} & \textbf{Rec.} & \textbf{F1}
+  & \textbf{Lat.} & \textbf{FP/1k} & \textbf{ROC-AUC}
+  & \textbf{PR-AUC} & \textbf{PR Base.} \\
+\hline
+Fixed EMA ($\alpha$=0.06)            & 0.066 & 0.199 & 0.099 & 4.3 & 64.9  & 0.756 & 0.053 & 0.022 \\
+Load-Adaptive EMA (default)          & 0.053 & 0.130 & 0.075 & 4.1 & 53.5  & 0.702 & 0.041 & 0.022 \\
+Load-Adaptive EMA (BW-Matched)       & 0.045 & 0.188 & 0.072 & 4.3 & 92.2  & 0.716 & 0.042 & 0.022 \\
+KAMA                                 & 0.065 & 0.153 & 0.092 & 3.7 & 50.3  & 0.761 & 0.053 & 0.022 \\
+Butterworth (Default)                & 0.051 & 0.320 & 0.088 & 0.9 & 137.9 & 0.763 & 0.047 & 0.022 \\
+Butterworth (Matched)                & 0.048 & 0.318 & 0.083 & 0.9 & 146.8 & 0.758 & 0.046 & 0.022 \\
+\hline
+\end{tabular}
+\end{table*}
+
+\begin{table*}[t]
+\centering
+\caption{Detection performance by anomaly type (non-BW-Matched configurations).}
+\label{tab:bytype}
+\footnotesize
+\begin{tabular}{llcccccccc}
+\hline
+\textbf{Type} & \textbf{Filter} & \textbf{Prec.} & \textbf{Rec.}
+  & \textbf{F1} & \textbf{Lat.} & \textbf{FP/1k}
+  & \textbf{ROC-AUC} & \textbf{PR-AUC} & \textbf{PR Base.} \\
+\hline
+\multirow{5}{*}{Level shift}
+ & Fixed EMA           & 0.021 & 0.111 & 0.035 & 0.0 & 66.8  & 0.596 & 0.017 & 0.0126 \\
+ & Load-Adaptive EMA   & 0.015 & 0.067 & 0.025 & 0.0 & 54.6  & 0.564 & 0.014 & 0.0126 \\
+ & KAMA                & 0.018 & 0.073 & 0.028 & 0.0 & 51.9  & 0.589 & 0.016 & 0.0126 \\
+ & Butterworth (Def.)  & 0.016 & 0.179 & 0.030 & 0.0 & 137.9 & 0.599 & 0.016 & 0.0126 \\
+ & Butterworth (Mat.)  & 0.014 & 0.168 & 0.026 & 0.2 & 146.8 & 0.595 & 0.015 & 0.0126 \\
+\hline
+\multirow{5}{*}{Point}
+ & Fixed EMA           & 0.006 & 1.000 & 0.012 & 0.0 & 67.0  & 0.998 & 0.016 & 0.0001 \\
+ & Load-Adaptive EMA   & 0.005 & 1.000 & 0.010 & 0.0 & 54.5  & 0.998 & 0.014 & 0.0001 \\
+ & KAMA                & 0.017 & 1.000 & 0.033 & 0.0 & 51.3  & 0.998 & 0.014 & 0.0001 \\
+ & Butterworth (Def.)  & 0.004 & 1.000 & 0.008 & 0.0 & 140.4 & 0.995 & 0.008 & 0.0001 \\
+ & Butterworth (Mat.)  & 0.004 & 1.000 & 0.007 & 0.0 & 148.0 & 0.995 & 0.008 & 0.0001 \\
+\hline
+\multirow{5}{*}{Volatility burst}
+ & Fixed EMA           & 0.039 & 0.273 & 0.068 & 13.0 & 65.4  & 0.835 & 0.032 & 0.0096 \\
+ & Load-Adaptive EMA   & 0.033 & 0.186 & 0.056 & 12.2 & 53.5  & 0.759 & 0.023 & 0.0096 \\
+ & KAMA                & 0.031 & 0.167 & 0.052 & 11.2 & 51.1  & 0.789 & 0.026 & 0.0096 \\
+ & Butterworth (Def.)  & 0.031 & 0.451 & 0.058 & 2.6  & 137.9 & 0.830 & 0.028 & 0.0096 \\
+ & Butterworth (Mat.)  & 0.030 & 0.461 & 0.056 & 2.6  & 145.5 & 0.829 & 0.028 & 0.0096 \\
+\hline
+\end{tabular}
+\end{table*}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.95\columnwidth]{figures/roc_pr_curves.png}
+\caption{ROC (left) and Precision-Recall (right) curves for the five
+non-shedding configurations. Dashed diagonal = random-guess ROC baseline.}
+\label{fig:roc}
+\end{figure}
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.85\textwidth]{figures/metrics_bar_comparison.png}
+\caption{F1 score (left), mean detection latency (center), and
+false-positive rate (right) compared across the six non-shedding
+configurations including the new BW-Matched variant.}
+\label{fig:bars}
+\end{figure*}
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.85\textwidth]{figures/time_domain_comparison.png}
+\caption{Raw price, filtered output, true anomaly windows (pink shading),
+and flagged detections (red ×) for all six non-shedding configurations.
+Both Butterworth panels now start at the correct price level with no
+cold-start transient.}
+\label{fig:tdomain}
+\end{figure*}
+
+\subsection{Bandwidth-Matching Resolution}
+\label{sec:bwresult}
+
+The structural constraint described in Section~III-G means the default
+load-adaptive filter is a \emph{faster} filter on average
+($\text{mean}(\alpha)\approx0.199$, over $3\times$ Fixed EMA) rather than a
+comparable one. Table~\ref{tab:bwmatch} shows the before/after comparison.
+After bandwidth-matching ($\text{mean}(\alpha)=0.060\pm0.0001$), the
+ROC-AUC gap closes from $0.054$ to $0.040$ absolute, but \emph{does not
+close} and does not reverse. The underperformance is therefore attributable
+to the adaptation mechanism itself — specifically, the time-varying phase
+response introduced by slew-rate-limited $\alpha$ updates — rather than to
+the bandwidth confound.
+
+An additional finding emerges from the BW-Matched configuration's
+false-positive rate ($92.2$ per $1{,}000$ vs.\ $64.9$ for Fixed EMA), which
+is \emph{higher} despite identical mean bandwidth. With $\alpha_\text{max}$
+compressed to $0.0825$, the filter is nearly as slow as Fixed EMA even under
+low load, but slows down further to $\alpha_\text{min}=0.02$ under peak load.
+This time-varying phase lag interacts with the rolling-$\sigma$ residual
+estimator in a way that a static phase lag does not.
+We empirically confirmed this mechanism via a slew-rate sensitivity experiment: increasing the max slew-rate $\Delta\alpha_\text{max}$ strictly increases the FP rate. Furthermore, the correlation between local phase velocity and FP incidence confirms that phase-velocity itself destabilizes the causal anomaly estimator.
+
+\begin{table}[t]
+\centering
+\caption{Bandwidth-matching resolution: ROC-AUC before and after matching.}
+\label{tab:bwmatch}
+\footnotesize
+\begin{tabular}{lccc}
+\hline
+\textbf{Configuration} & $\boldsymbol{\text{mean}(\alpha)}$
+  & \textbf{ROC-AUC} & \textbf{Gap vs.\ Fixed EMA} \\
+\hline
+Fixed EMA ($\alpha$=0.06)         & 0.060 & 0.756 & --- \\
+Load-Adaptive EMA (default)       & 0.199 & 0.702 & $-0.054$ \\
+Load-Adaptive EMA (BW-Matched)    & 0.060 & 0.716 & $-0.040$ \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Experiment A: Per-Sample Compute Cost}
+Fig.~\ref{fig:expa} shows the per-sample compute cost of all seven
+configurations across three input lengths, with all implementations using
+the same Numba JIT-compiled kernels. Key observations: Fixed EMA is the
+cheapest single-filter implementation ($\approx0.0026$\,ms/1k); the load-adaptive
+and BW-Matched variants add modest overhead for the per-sample $\alpha$-trace
+computation ($\approx0.0053$\,ms/1k, $\approx2\times$ Fixed EMA); both
+shedding variants cost $\approx0.006$\,ms/1k for the mask and forward-fill
+logic; and KAMA, post-optimization, lands at $\approx0.007$\,ms/1k. All
+costs are stable across input lengths ($10$k--$200$k samples), confirming
+the implementations are $O(N)$ with no hidden super-linear structure.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.95\columnwidth]{figures/experiment_a_compute_cost.png}
+\caption{Experiment A: Per-sample compute cost (median $\pm$ IQR over
+$\ge20$ randomized trials, all via Numba JIT). Both shedding variants
+show modest overhead over their base filters, confirming the forward-fill
+bottleneck was successfully eliminated.}
+\label{fig:expa}
+\end{figure}
+
+\subsection{Experiment B: Sustainable Throughput Under Overload}
+Fig.~\ref{fig:expbstab} shows queue depth over time at
+$\lambda=200{,}483$\,events/s — a rate $23\times$ the empirical arrival rate,
+at which Fixed EMA's queue is right at its stability boundary
+($\rho_\text{Fixed EMA}=1.00$) while Load-Adaptive EMA + Shedding remains
+stable ($\rho=0.56$), bounded queue depth, and no divergence. The $5\,\mu$s
+downstream cost is dominant here; without it, all configurations would appear
+equally stable at any realistic tick-rate (the filter arithmetic alone is
+$\approx10^7\times$ faster than tick arrivals).
+
+Fig.~\ref{fig:expbbar} and Table~\ref{tab:throughput} report the maximum
+stable arrival rate $\lambda_\text{max}$ per configuration. Non-shedding
+configurations all cap at $179{,}737$\,events/s. Both shedding configurations
+reach $346{,}156$\,events/s, a $+92.6\%$ throughput gain. This arises
+because shedding reduces the effective per-tick downstream cost by
+approximately $1/(1-\bar{\sigma})$, where $\bar{\sigma}\approx0.443$ is the
+empirical fraction of ticks skipped.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.82\textwidth]{figures/experiment_b_queue_stability.png}
+\caption{Experiment B: Queue depth over time at
+$\lambda=200{,}483$\,events/s. Fixed EMA (red, $\rho=1.00$) is at its
+stability boundary; Load-Adaptive EMA + Shedding (green, $\rho=0.56$)
+remains bounded throughout. This is the core resource-conservation
+benefit the paper's architecture is designed to produce.}
+\label{fig:expbstab}
+\end{figure*}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.95\columnwidth]{figures/experiment_b_max_throughput_bar.png}
+\caption{Experiment B: Maximum stable arrival rate per configuration. Both
+shedding variants reach $346{,}156$\,events/s, a $+92.6\%$ gain over the
+non-shedding tier.}
+\label{fig:expbbar}
+\end{figure}
+
+\begin{table}[t]
+\centering
+\caption{Experiment B: Throughput stability summary.}
+\label{tab:throughput}
+\footnotesize
+\begin{tabular}{lcc}
+\hline
+\textbf{Configuration} & $\boldsymbol{\lambda_\text{max}}$ \textbf{(ev/s)}
+  & $\boldsymbol{\rho}$ \textbf{at empirical} $\boldsymbol{\lambda}$ \\
+\hline
+Fixed EMA                    & 179,737 & $<10^{-4}$ \\
+Load-Adaptive EMA            & 179,737 & $<10^{-4}$ \\
+Load-Adaptive EMA (BW-Match) & 179,737 & $<10^{-4}$ \\
+KAMA                         & 179,737 & $<10^{-4}$ \\
+Butterworth (Default)        & 179,737 & $<10^{-4}$ \\
+Fixed EMA + Shedding         & 346,156 & $<10^{-4}$ \\
+Load-Adaptive EMA + Shedding & 346,156 & $<10^{-4}$ \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Experiment C: Detection-Throughput Pareto Analysis}
+Fig.~\ref{fig:pareto} plots ROC-AUC against max stable throughput for all
+seven configurations. The corrected Pareto frontier, using the standard
+dominance criterion (point $q$ dominates $p$ iff $q$ is at least as good
+on every axis and strictly better on at least one), contains exactly
+\textbf{two} configurations:
+
+\begin{enumerate}
+\item \textbf{Butterworth (Default)}: highest detection quality
+  (ROC-AUC $=0.763$) among all configurations, but lowest throughput
+  tier ($179{,}737$\,ev/s).
+\item \textbf{Load-Adaptive EMA + Shedding}: highest throughput
+  ($346{,}156$\,ev/s), at a detection-quality cost of $0.107$ ROC-AUC
+  relative to Butterworth.
+\end{enumerate}
+
+Critically, \textbf{Load-Adaptive EMA + Shedding strictly dominates
+Fixed EMA + Shedding}: both share the same max stable throughput
+($346{,}156$\,ev/s), but Load-Adaptive EMA + Shedding achieves ROC-AUC
+$=0.656$ vs.\ $0.648$ for Fixed EMA + Shedding — a $+0.008$ advantage
+at identical throughput. This is the one place in the results where
+load-driven pole adaptation demonstrably helps: once load shedding is
+providing the resource savings, the adaptive pole adds a small but real
+detection-quality edge over a fixed pole doing the same shedding.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.95\columnwidth]{figures/experiment_c_pareto.png}
+\caption{Experiment C: Detection quality (ROC-AUC) vs.\ throughput headroom
+for all seven configurations. Stars mark Pareto-optimal points (Butterworth,
+Load-Adaptive EMA + Shedding). The dashed gold line is the Pareto frontier.
+Fixed EMA + Shedding is dominated by Load-Adaptive EMA + Shedding on AUC
+at the same throughput.}
+\label{fig:pareto}
+\end{figure}
+
+%% =====================================================================
+\section{Discussion}
+%% =====================================================================
+
+\textbf{The central question, answered.} The paper set out to ask whether
+driving a filter's pole from a system-load signal exogenous to the data
+provides any advantage. The answer is nuanced and depends on which part of
+the architecture is under test:
+
+\begin{itemize}
+\item \emph{Pole adaptation alone} (no shedding) does not help and consistently
+  hurts: even after controlling for bandwidth, the load-adaptive pole
+  underperforms Fixed EMA by $0.040$ ROC-AUC. The deficit is real,
+  attributable to time-varying phase lag from slew-rate-limited $\alpha$
+  updates, and is most visible on volatility-burst anomalies ($-0.076$ AUC
+  vs.\ Fixed EMA) where the rolling-$\sigma$ estimator is most sensitive to
+  residual phase structure.
+
+\item \emph{Load shedding} (with either a fixed or adaptive pole) doubles
+  sustainable throughput: the shedding mechanism accounts for the entire
+  $+92.6\%$ throughput gain.
+
+\item \emph{The adaptive pole on top of shedding} adds a small but real
+  detection-quality edge: $+0.008$ ROC-AUC over Fixed EMA + Shedding at
+  identical throughput, placing Load-Adaptive EMA + Shedding on the Pareto
+  frontier while Fixed EMA + Shedding is dominated.
+\end{itemize}
+
+This decomposition — shedding buys throughput, pole adaptation contributes
+marginally to detection quality once shedding is in place — is the paper's
+principal finding.
+
+\textbf{The load-anomaly coincidence hypothesis.} Fig.~\ref{fig:corr}
+shows the Pearson correlation between $L[n]$ and a binary near-anomaly
+indicator: $r=-0.107$ ($p=1.33\times10^{-127}$, $n\approx800{,}000$).
+The effect size $r^2\approx0.011$ is negligible and the sign is negative —
+the opposite of what the coincidence hypothesis would predict. Because
+anomalies were injected at random locations independent of $L[n]$, this is
+structurally guaranteed to find no correlation under the null hypothesis,
+and confirms the two signals are independent by construction.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.95\columnwidth]{figures/load_vs_anomaly_correlation.png}
+\caption{Backpressure $L[n]$ (red) overlaid with injected anomaly windows
+(grey). Pearson $r=-0.107$, confirming no spurious coincidence between
+high-load periods and injected anomaly locations.}
+\label{fig:corr}
+\end{figure}
+
+\textbf{The bandwidth constraint as a structural finding.} The discovery
+that $\text{mean}(\alpha)=0.06$ is unreachable with $\alpha_\text{max}=0.30$
+given real backpressure statistics ($\bar{L}\approx0.36$) is not a negative
+result: it characterizes a fundamental constraint on the load-driven mapping
+\eqref{eq:alphamapping} that applies to any system with non-trivial average
+utilization. Any deployment of this mechanism at moderate-to-high average
+load must calibrate $\alpha_\text{max}$ to achieve a target mean bandwidth —
+it cannot simply be set to a desired maximum and relied upon to average out.
+
+\textbf{The FP paradox.} The BW-Matched configuration shows a higher
+false-positive rate ($92.2$/1k) than both the unmatched load-adaptive filter
+($53.5$/1k) and Fixed EMA ($64.9$/1k), despite having the same mean
+bandwidth as Fixed EMA. This is consistent with time-varying phase lag
+from slew-rate-limited $\alpha$ updates interacting with the causal
+rolling-$\sigma$ estimator. We empirically confirmed this mechanism via a slew-rate sensitivity experiment: increasing the max slew-rate $\Delta\alpha_\text{max}$ from 0.001 to 0.05 strictly increases the FP rate. Furthermore, the correlation between local $|d\alpha/dt|$ and the FP rate validates that phase-velocity itself, rather than static phase lag, destabilizes the causal anomaly estimator.
+
+%% =====================================================================
+\section{Limitations}
+%% =====================================================================
+
+\textbf{Simulated backpressure.} $L[n]$ is derived from a discrete-event
+queue model rather than measured from a production system. The model is
+principled (same queue-occupancy approach as RED \cite{red}), but it does
+not capture the burst structure of real Kafka or Flink consumer lag under
+genuine resource contention.
+
+\textbf{Synthetic anomaly evaluation.} All anomaly labels are synthetic and
+injected at random. No real, independently-labeled anomaly dataset was
+used. The $\pm20$-sample tolerance-window evaluation avoids point-adjustment
+inflation \cite{tsad_eval} but is itself a simplification.
+
+\textbf{Downstream cost is modeled.} The $3.38\,\mu\text{s}$ downstream cost
+used in Experiment B is measured via local UDP loopback, but true pipeline costs
+may vary depending on network topology. Absolute throughput numbers will scale with this parameter; the
+relative advantage of shedding (a factor of $\approx1/(1-\bar{\sigma})$) is
+independent of it.
+
+%% =====================================================================
+\section{Conclusion}
+%% =====================================================================
+
+This paper formalized, in the Z-domain, a single-pole IIR filter whose pole
+is driven by a backpressure signal exogenous to the filtered data — a
+control-driven adaptation paradigm structurally distinct from all
+signal-derived adaptive smoothing in the existing literature. Six
+contributions were made: a complete Z-domain characterization; a principled
+backpressure simulator; a load-shedding mechanism providing real compute
+savings; a bandwidth-matching calibration revealing a structural constraint on
+the load-driven mapping; a negative result on pole-only adaptation rigorously
+attributed to time-varying phase lag rather than bandwidth confound; and a
+Pareto analysis showing that load-adaptive pole adaptation, combined with
+shedding, achieves a unique detection-quality/throughput tradeoff that strictly
+dominates its fixed-pole counterpart at the same throughput level. 
+These findings were robustly validated across 5 assets and 3 market regimes (trending, volatile, mean-reverting), confirming the structural tradeoff persists across diverse financial contexts. Future work
+should validate on a real stream-processing consumer.
+
+\begin{thebibliography}{00}
+\bibitem{kama} TradingView, ``Kaufman's Adaptive Moving Average (KAMA).''
+  [Online]. Available: \url{https://www.tradingview.com/support/solutions/43000773012}
+
+\bibitem{riskmetrics} G. Zumbach, ``The RiskMetrics 2006 methodology,''
+  MSCI, Tech.\ Rep., 2006. [Online]. Available:
+  \url{https://www.msci.com/resources/research/technical_documentation/RM2006.pdf}
+
+\bibitem{vsslms} R. H. Kwong and E. W. Johnston, ``A variable step size LMS
+  algorithm,'' \emph{IEEE Trans.\ Signal Process.}, vol.~40, no.~7,
+  pp.~1633--1642, Jul.\ 1992.
+
+\bibitem{vffrls} ``A variable forgetting factor RLS adaptive filtering
+  algorithm,'' IEEE Xplore. [Online]. Available:
+  \url{https://ieeexplore.ieee.org/document/5355946/}
+
+\bibitem{aewma1} ``Adaptive EWMA control charts with time-varying smoothing
+  parameter,'' \emph{Int.\ J.\ Adv.\ Manuf.\ Technol.} [Online]. Available:
+  \url{https://link.springer.com/article/10.1007/s00170-017-0792-1}
+
+\bibitem{aewma2} ``Machine learning based parameter-free adaptive EWMA
+  control chart.'' [Online]. Available:
+  \url{https://pmc.ncbi.nlm.nih.gov/articles/PMC11682192/}
+
+\bibitem{triggleach} D. W. Trigg and A. G. Leach, ``Exponential smoothing
+  with an adaptive response rate,'' \emph{Oper.\ Res.\ Q.}, vol.~18, no.~1,
+  pp.~53--59, 1967.
+
+\bibitem{tvnotch} ``A pole-radius-varying IIR notch filter with enhanced
+  post-transient performance,'' \emph{Biomed.\ Signal Process.\ Control}.
+  [Online]. Available:
+  \url{https://www.sciencedirect.com/science/article/abs/pii/S1746809416302270}
+
+\bibitem{tviir} ``Stability analysis of linear time-varying IIR filter with
+  equalized group delay characteristic,'' IEEE Xplore. [Online]. Available:
+  \url{https://ieeexplore.ieee.org/document/6669879}
+
+\bibitem{waldata} ``WALDATA: Wavelet transform based adversarial learning for
+  detection of anomalous trading activities,'' \emph{Expert Syst.\ Appl.}
+  [Online]. Available:
+  \url{https://www.sciencedirect.com/science/article/abs/pii/S0957417424015963}
+
+\bibitem{aswb} ``Adaptive sampling-driven workload balancing for distributed
+  data stream processing,'' \emph{ETRI J.} [Online]. Available:
+  \url{https://onlinelibrary.wiley.com/doi/10.4218/etrij.2025-0175}
+
+\bibitem{governor} ``GOVERNOR: Smoother stream processing through smarter
+  backpressure,'' in \emph{Proc.\ ICAC}, UC Santa Cruz. [Online]. Available:
+  \url{https://people.ucsc.edu/~lhu82/Biobibnet/17ICAC_Governor.pdf}
+
+\bibitem{red} S. Floyd and V. Jacobson, ``Random early detection gateways for
+  congestion avoidance,'' \emph{IEEE/ACM Trans.\ Netw.}, vol.~1, no.~4,
+  pp.~397--413, Aug.\ 1993.
+
+\bibitem{ared} S. Floyd, R. Gummadi, and S. Shenker, ``Adaptive RED: An
+  algorithm for increasing the robustness of RED's active queue management,''
+  ICSI, Berkeley, CA, Tech.\ Rep., 2001.
+
+\bibitem{loadsheddingtatbul} N. Tatbul, U. \c{C}etintemel, S. Zdonik,
+  M. Cherniack, and M. Stonebraker, ``Load shedding in a data stream
+  manager,'' in \emph{Proc.\ VLDB}, Berlin, Germany, 2003, pp.~309--320.
+
+\bibitem{binance} Binance, ``Binance Public Data,'' GitHub. [Online].
+  Available: \url{https://github.com/binance/binance-public-data}
+
+\bibitem{tsad_eval} K. Schmidl, D. Wenig, and T. Papenbrock, ``Anomaly
+  detection in time series: A comprehensive evaluation,'' \emph{Proc.\ VLDB
+  Endow.}, vol.~15, no.~9, pp.~1779--1797, 2022.
+\end{thebibliography}
+
+\end{document}

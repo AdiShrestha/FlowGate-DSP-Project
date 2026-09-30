@@ -99,11 +99,21 @@ def demonstrate_fp_paradox():
     # We will simulate it by smoothing L or modifying alpha directly. 
     # Actually, load_adaptive_ema formula is alpha[n] = alpha_max - ...
     # We can just write a quick loop here to apply slew-rate limiting to alpha_trace and rerun detection
-    slew_rates = [0.001, 0.01, 0.05]
+    slew_rates = [0.001, 0.01, 0.05]  # overridden below
+
+    # Use full alpha_max=0.30 for the sweep so the raw alpha deltas are large
+    # enough (~0.28 peak-to-peak range) to be differentially clipped by the
+    # three slew-rate limits. With alpha_max=0.08253 the deltas are ~6e-5/step
+    # and none of the limits (0.001, 0.01, 0.05) ever clip anything.
+    alpha_raw = 0.30 - (0.30 - 0.02) * L
+
+    # The empirical max|d(alpha_raw)/dt| on this L trace is ~0.0015,
+    # so the sweep must include at least one limit below that threshold.
+    # 0.0005 clips 296 steps; 0.002+ clips nothing — giving one genuinely
+    # different regime vs the baseline (no clipping).
+    slew_rates = [0.0005, 0.002, 0.01, 0.05]
     sens_results = []
-    
-    alpha_raw = 0.08253 - (0.08253 - 0.02) * L
-    
+
     for max_slew in slew_rates:
         alpha_limited = np.zeros_like(alpha_raw)
         alpha_limited[0] = alpha_raw[0]
@@ -111,27 +121,32 @@ def demonstrate_fp_paradox():
             diff = alpha_raw[i] - alpha_limited[i-1]
             diff = np.clip(diff, -max_slew, max_slew)
             alpha_limited[i] = alpha_limited[i-1] + diff
-            
+
+        # Count how many steps were actually clipped by this limit
+        clipped_steps = int(np.sum(np.abs(np.diff(alpha_raw)) > max_slew))
+
         # Re-run filter with this alpha_limited
         y_lim = np.zeros_like(x_injected)
         y_lim[0] = x_injected[0]
         for i in range(1, len(x_injected)):
             y_lim[i] = alpha_limited[i] * x_injected[i] + (1 - alpha_limited[i]) * y_lim[i-1]
-            
+
         _, z_lim, det_lim = detect_anomalies(x_injected, y_lim)
         fp_mask_lim = det_lim & ~valid_windows
         n_outside = len(x_injected) - np.sum(valid_windows)
         fp_rate = (np.sum(fp_mask_lim) / n_outside) * 1000
-        
-        roc_auc, _, _, _, _, _ = compute_auc(z_lim, anomaly_info, mask)
+
+        roc_auc, _, _, _, _, _ = compute_auc(np.abs(z_lim), anomaly_info, mask)
         mean_dalpha = np.mean(np.abs(np.diff(alpha_limited)))
-        
+
         sens_results.append({
             'max_slew_rate': max_slew,
+            'clipped_steps': clipped_steps,
             'fp_rate_per_1k': fp_rate,
             'roc_auc': roc_auc,
             'mean_dalpha_dt': mean_dalpha
         })
+
         
     df_sens = pd.DataFrame(sens_results)
     df_sens.to_csv("results/tables/slew_rate_sensitivity.csv", index=False)
