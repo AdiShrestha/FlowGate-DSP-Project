@@ -1,3 +1,5 @@
+> FlowGate local audit revision (1 October 2026): read [LOCAL_AUDIT_POLICY.md](LOCAL_AUDIT_POLICY.md) before applying this supplied v3.3 policy. It narrows unsupported assurance and replaces outcome-biasing diagnostic rules. The root plan.md and the user’s research-integrity requirements govern this project.
+
 # Agent workflow (Human sees only the final gate)
 
 1. Architect makes one `research_plan.json`: claims, estimands, populations, data access, group split, seeds, stopping, baselines, factorial ablations, sensitivity grid, OOD/limits, and command paths. Implementor challenges it before freeze.

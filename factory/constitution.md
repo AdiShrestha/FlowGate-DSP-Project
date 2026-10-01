@@ -1,3 +1,5 @@
+> FlowGate local audit revision (1 October 2026): read [LOCAL_AUDIT_POLICY.md](LOCAL_AUDIT_POLICY.md) before applying this supplied v3.3 policy. It narrows unsupported assurance and replaces outcome-biasing diagnostic rules. The root plan.md and the user’s research-integrity requirements govern this project.
+
 # Constitution — Software Factory 3.3.0
 
 ## Authority and objective
@@ -146,14 +148,14 @@ The project declares what to run (runtime_id, entrypoint, arguments); the superv
 **Enforcement Level:** A — Mandatory
 **Related Rules:** C79, C04
 
-Frozen file inventories produce a Merkle root; any single byte change produces a different root. Symlinks, device files, FIFOs, sockets, and importable binaries (.pyc, .so, .dylib) are rejected.
+Frozen inventories use the compatibility field `snapshot_merkle_root`, implemented as a sorted path/digest aggregate, not a Merkle tree with inclusion proofs. Byte changes are checked by SHA-256 inventories. Symlinks, special files and importable binaries, including bytecode inside caches, are rejected.
 
 # C87 — Execution Receipts Are Supervisor-Signed
 
 **Enforcement Level:** A — Mandatory
 **Related Rules:** C01, C04
 
-Every execution receipt binds run nonce, project ID, epoch, experiment ID, source snapshot root, runtime identity, interpreter hash, dependency lock hash, seed, output root, exit status, and timestamps under a cryptographic signature the workspace cannot forge.
+Every retained completed attempt must have a verified signature and matching identity/input/output/launch bindings. Ed25519 supports portable public verification; HMAC is local-only and exports a fingerprint rather than its secret. Same-user workers are not isolated from private keys. Legacy launch binaries are explicitly unattested. Unmeasured CPU time and peak memory are null, never wall time or zero substitutes.
 
 # C88 — Evidence Validators Use Strict Typed Schemas
 
@@ -167,7 +169,7 @@ Validators reject boolean/string/integer type confusion, empty structures that s
 **Enforcement Level:** A — Mandatory
 **Related Rules:** C04, C75
 
-Zero p-values, below-chance metrics, and implausibly narrow confidence intervals are detected regardless of nesting depth in computed_runs, comparisons, derived_analyses, or any other result container.
+Nonfinite/out-of-range p values and reversed intervals are invalid. Exact zero p values and zero-width intervals are review diagnostics. A valid adverse/null result is retained. There is no universal .5 chance baseline for F1, precision, recall or raw accuracy, and no unit-dependent minimum CI width.
 
 # C90 — Reproduction Identity Is Bound
 
@@ -181,11 +183,11 @@ A reproduction must match the original's model identity, config digest, training
 **Enforcement Level:** A — Mandatory
 **Related Rules:** C11, C71
 
-The audit report and release certification declare an explicit assurance level (STRUCTURALLY_VALIDATED, SUPERVISOR_ATTESTED, SEALED_EVALUATION_ATTESTED, INDEPENDENT_REVIEW_COMPLETE, READY_FOR_HUMAN_SUBMISSION_REVIEW) with machine-checkable prerequisites for each level.
+Local audit assurance is at most SUPERVISOR_ATTESTED after every run's signature and bindings verify; otherwise it is STRUCTURALLY_VALIDATED or BLOCKED. A review declaration does not prove independence or sealed execution. READY_FOR_HUMAN_SUBMISSION_REVIEW is a scoped lifecycle status, not a scientific-validity assertion.
 
 # C92 — Every Security Invariant Has A Behavioral Mutation Test
 
 **Enforcement Level:** A — Mandatory
 **Related Rules:** C71, C78
 
-The attack registry lists 18 concrete attacks with invariant, implementation, fixture, and expected transition. A release candidate is blocked until every listed attack fails through the complete lifecycle.
+The registry lists 18 fixture descriptions. Its validator checks registry structure only; release audit does not execute all registry fixtures. Current regression execution must be recorded separately with code/environment hashes. Fixture success is not proof against arbitrary hostile same-user workers, hidden label copying, or every scientific error.

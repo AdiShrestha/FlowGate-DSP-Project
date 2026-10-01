@@ -1,3 +1,5 @@
+> Supplied factory documentation: historical descriptions and validation counts below belong to the factory package. They are not FlowGate experimental evidence. For the current local changes and checks, read [the re-audit](re_audit/REPORT.md) and [local policy](../factory/LOCAL_AUDIT_POLICY.md).
+
 # Coverage matrix: supplied findings and v2.7 proposals
 
 | Finding / proposal | v3 treatment | Hard machine gate? |

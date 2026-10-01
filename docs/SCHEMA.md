@@ -1,3 +1,5 @@
+> Supplied factory documentation: historical descriptions and validation counts below belong to the factory package. They are not FlowGate experimental evidence. For the current local changes and checks, read [the re-audit](re_audit/REPORT.md) and [local policy](../factory/LOCAL_AUDIT_POLICY.md).
+
 # v3 plan and evidence schema
 
 The only active project control file is `project/research_plan.json`. It contains the project population and license, explicit observational/simulation/fixture origin, cohort/source-record paths, methodology and dependency lock, paths to freeze, experiments, comparisons, claims, derived analysis plans, release files, and policy. Every experiment has one preregistered seed, model/config, command argv, evaluation splits, threshold, role, and training policy. A comparison gives explicit aligned pairs, the estimand metric, sampling unit (`seed_fixed_test`), alpha, minimum effect, precision target, and decision rule. A claim names its exact estimand, population, scope, and evidence experiments.

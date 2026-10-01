@@ -1,3 +1,5 @@
+> Supplied factory documentation: historical descriptions and validation counts below belong to the factory package. They are not FlowGate experimental evidence. For the current local changes and checks, read [the re-audit](re_audit/REPORT.md) and [local policy](../factory/LOCAL_AUDIT_POLICY.md).
+
 # Standards used by v3
 
 - Nature Portfolio reporting and availability policy: https://www.nature.com/nature-portfolio/editorial-policies/reporting-standards

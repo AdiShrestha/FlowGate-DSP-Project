@@ -42,6 +42,8 @@ def fcfs_schedule(arrivals_s, service_s, *, admitted=None):
         finish = start + s
         if not math.isfinite(finish):
             raise ArithmeticError("non-finite completion time")
+        if s > 0 and finish == start:
+            raise ArithmeticError("positive service time is unresolved at the supplied timestamp magnitude; use relative times")
         wait, sojourn = start - t, finish - t
         if not math.isfinite(wait) or not math.isfinite(sojourn):
             raise ArithmeticError("non-finite queue wait/sojourn")

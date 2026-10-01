@@ -1,6 +1,6 @@
 """Pair by explicit independent-unit identity. No truncation or seed-only joining."""
 import math
-from statistics import fmean, stdev
+from statistics import mean, stdev
 from .validation import finite
 
 
@@ -17,18 +17,23 @@ def paired_t_summary(a_by_unit, b_by_unit, *, confidence):
         raise ValueError("confidence must be in (0,1)")
     if set(a_by_unit) != set(b_by_unit) or len(a_by_unit) < 2:
         raise ValueError("identical unit IDs and at least two units are required")
+    if any(not isinstance(i, str) or not i.strip() for i in a_by_unit):
+        raise ValueError("unit IDs must be nonempty strings")
     ids = sorted(a_by_unit)
     differences = [finite(a_by_unit[i], "A") - finite(b_by_unit[i], "B") for i in ids]
     if not all(math.isfinite(d) for d in differences):
         raise ArithmeticError("paired differences exceed finite floating-point range")
-    estimate = fmean(differences)
+    estimate = mean(differences)
     sd = stdev(differences)
     if sd == 0:
         return {"unit_ids": ids, "n_units": len(ids), "effect": estimate,
-                "ci": None, "p_two_sided": None, "status": "degenerate_variance"}
+                "ci": None, "p_two_sided": None, "confidence": confidence,
+                "status": "degenerate_variance" if len(set(differences)) == 1 else "variance_underflow"}
     se = sd / math.sqrt(len(ids))
+    if not math.isfinite(se) or se <= 0:
+        raise ArithmeticError("standard error exceeds finite floating-point range")
     df = len(ids) - 1
-    critical = float(student_t.ppf((1 + confidence) / 2, df))
+    critical = float(student_t.isf((1 - confidence) / 2, df))
     p = float(2 * student_t.sf(abs(estimate / se), df))
     interval = [estimate - critical * se, estimate + critical * se]
     if not all(math.isfinite(v) for v in [estimate, sd, se, critical, *interval, p]) or se <= 0:

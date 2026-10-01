@@ -230,9 +230,9 @@ def test_queue_and_statistics_reject_overflowed_derived_values():
         paired_t_summary({'a':1.7e308,'b':1.7e308}, {'a':-1.7e308,'b':0.}, confidence=.95)
 
 
-def test_numerically_unresolvable_confidence_is_not_an_infinite_interval():
-    with pytest.raises(ArithmeticError):
-        paired_t_summary({'a':1.,'b':3.}, {'a':0.,'b':0.}, confidence=np.nextafter(1.,0.))
+def test_extreme_confidence_does_not_cancel_its_upper_tail():
+    m = paired_t_summary({'a':1.,'b':3.}, {'a':0.,'b':0.}, confidence=np.nextafter(1.,0.))
+    assert all(math.isfinite(x) for x in m['ci']) and m['ci'][0]<m['effect']<m['ci'][1]
 
 
 def test_full_load_preserves_an_extremely_small_positive_alpha_min():

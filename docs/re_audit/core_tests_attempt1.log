@@ -1,0 +1,368 @@
+.............................................................FFFFFFF.FFF [100%]
+=================================== FAILURES ===================================
+__________ test_manifest_rejects_missing_or_inconsistent_units[empty] __________
+
+tmp_path = PosixPath('/private/var/folders/9p/6sf6gv2144l27mm74tx4dqrr0000gn/T/pytest-of-adi/pytest-12/test_manifest_rejects_missing_0')
+mutation = 'empty'
+
+    @pytest.mark.parametrize('mutation',['empty','duplicate','wrong_unit','wrong_url','wrong_label','bad_checksum','missing_frame'])
+    def test_manifest_rejects_missing_or_inconsistent_units(tmp_path,mutation):
+>       path,obj = fixture_manifest(tmp_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+source/tests/test_reaudit.py:106: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+source/tests/test_reaudit.py:93: in fixture_manifest
+    original = json.loads((Path(__file__).parents[2]/'../data/acquisition_manifest.json').resolve().read_text())
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/adi/Desktop/Projects/Using v3.3 New projects/data/acquisition_manifest.json')
+mode = 'r', buffering = -1, encoding = 'locale', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/adi/Desktop/Projects/Using v3.3 New projects/data/acquisition_manifest.json'
+
+/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py:1013: FileNotFoundError
+________ test_manifest_rejects_missing_or_inconsistent_units[duplicate] ________
+
+tmp_path = PosixPath('/private/var/folders/9p/6sf6gv2144l27mm74tx4dqrr0000gn/T/pytest-of-adi/pytest-12/test_manifest_rejects_missing_1')
+mutation = 'duplicate'
+
+    @pytest.mark.parametrize('mutation',['empty','duplicate','wrong_unit','wrong_url','wrong_label','bad_checksum','missing_frame'])
+    def test_manifest_rejects_missing_or_inconsistent_units(tmp_path,mutation):
+>       path,obj = fixture_manifest(tmp_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+source/tests/test_reaudit.py:106: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+source/tests/test_reaudit.py:93: in fixture_manifest
+    original = json.loads((Path(__file__).parents[2]/'../data/acquisition_manifest.json').resolve().read_text())
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/adi/Desktop/Projects/Using v3.3 New projects/data/acquisition_manifest.json')
+mode = 'r', buffering = -1, encoding = 'locale', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/adi/Desktop/Projects/Using v3.3 New projects/data/acquisition_manifest.json'
+
+/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_______ test_manifest_rejects_missing_or_inconsistent_units[wrong_unit] ________
+
+tmp_path = PosixPath('/private/var/folders/9p/6sf6gv2144l27mm74tx4dqrr0000gn/T/pytest-of-adi/pytest-12/test_manifest_rejects_missing_2')
+mutation = 'wrong_unit'
+
+    @pytest.mark.parametrize('mutation',['empty','duplicate','wrong_unit','wrong_url','wrong_label','bad_checksum','missing_frame'])
+    def test_manifest_rejects_missing_or_inconsistent_units(tmp_path,mutation):
+>       path,obj = fixture_manifest(tmp_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+source/tests/test_reaudit.py:106: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+source/tests/test_reaudit.py:93: in fixture_manifest
+    original = json.loads((Path(__file__).parents[2]/'../data/acquisition_manifest.json').resolve().read_text())
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/adi/Desktop/Projects/Using v3.3 New projects/data/acquisition_manifest.json')
+mode = 'r', buffering = -1, encoding = 'locale', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/adi/Desktop/Projects/Using v3.3 New projects/data/acquisition_manifest.json'
+
+/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py:1013: FileNotFoundError
+________ test_manifest_rejects_missing_or_inconsistent_units[wrong_url] ________
+
+tmp_path = PosixPath('/private/var/folders/9p/6sf6gv2144l27mm74tx4dqrr0000gn/T/pytest-of-adi/pytest-12/test_manifest_rejects_missing_3')
+mutation = 'wrong_url'
+
+    @pytest.mark.parametrize('mutation',['empty','duplicate','wrong_unit','wrong_url','wrong_label','bad_checksum','missing_frame'])
+    def test_manifest_rejects_missing_or_inconsistent_units(tmp_path,mutation):
+>       path,obj = fixture_manifest(tmp_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+source/tests/test_reaudit.py:106: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+source/tests/test_reaudit.py:93: in fixture_manifest
+    original = json.loads((Path(__file__).parents[2]/'../data/acquisition_manifest.json').resolve().read_text())
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/adi/Desktop/Projects/Using v3.3 New projects/data/acquisition_manifest.json')
+mode = 'r', buffering = -1, encoding = 'locale', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/adi/Desktop/Projects/Using v3.3 New projects/data/acquisition_manifest.json'
+
+/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_______ test_manifest_rejects_missing_or_inconsistent_units[wrong_label] _______
+
+tmp_path = PosixPath('/private/var/folders/9p/6sf6gv2144l27mm74tx4dqrr0000gn/T/pytest-of-adi/pytest-12/test_manifest_rejects_missing_4')
+mutation = 'wrong_label'
+
+    @pytest.mark.parametrize('mutation',['empty','duplicate','wrong_unit','wrong_url','wrong_label','bad_checksum','missing_frame'])
+    def test_manifest_rejects_missing_or_inconsistent_units(tmp_path,mutation):
+>       path,obj = fixture_manifest(tmp_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+source/tests/test_reaudit.py:106: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+source/tests/test_reaudit.py:93: in fixture_manifest
+    original = json.loads((Path(__file__).parents[2]/'../data/acquisition_manifest.json').resolve().read_text())
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/adi/Desktop/Projects/Using v3.3 New projects/data/acquisition_manifest.json')
+mode = 'r', buffering = -1, encoding = 'locale', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/adi/Desktop/Projects/Using v3.3 New projects/data/acquisition_manifest.json'
+
+/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py:1013: FileNotFoundError
+______ test_manifest_rejects_missing_or_inconsistent_units[bad_checksum] _______
+
+tmp_path = PosixPath('/private/var/folders/9p/6sf6gv2144l27mm74tx4dqrr0000gn/T/pytest-of-adi/pytest-12/test_manifest_rejects_missing_5')
+mutation = 'bad_checksum'
+
+    @pytest.mark.parametrize('mutation',['empty','duplicate','wrong_unit','wrong_url','wrong_label','bad_checksum','missing_frame'])
+    def test_manifest_rejects_missing_or_inconsistent_units(tmp_path,mutation):
+>       path,obj = fixture_manifest(tmp_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+source/tests/test_reaudit.py:106: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+source/tests/test_reaudit.py:93: in fixture_manifest
+    original = json.loads((Path(__file__).parents[2]/'../data/acquisition_manifest.json').resolve().read_text())
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/adi/Desktop/Projects/Using v3.3 New projects/data/acquisition_manifest.json')
+mode = 'r', buffering = -1, encoding = 'locale', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/adi/Desktop/Projects/Using v3.3 New projects/data/acquisition_manifest.json'
+
+/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py:1013: FileNotFoundError
+______ test_manifest_rejects_missing_or_inconsistent_units[missing_frame] ______
+
+tmp_path = PosixPath('/private/var/folders/9p/6sf6gv2144l27mm74tx4dqrr0000gn/T/pytest-of-adi/pytest-12/test_manifest_rejects_missing_6')
+mutation = 'missing_frame'
+
+    @pytest.mark.parametrize('mutation',['empty','duplicate','wrong_unit','wrong_url','wrong_label','bad_checksum','missing_frame'])
+    def test_manifest_rejects_missing_or_inconsistent_units(tmp_path,mutation):
+>       path,obj = fixture_manifest(tmp_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+source/tests/test_reaudit.py:106: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+source/tests/test_reaudit.py:93: in fixture_manifest
+    original = json.loads((Path(__file__).parents[2]/'../data/acquisition_manifest.json').resolve().read_text())
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/adi/Desktop/Projects/Using v3.3 New projects/data/acquisition_manifest.json')
+mode = 'r', buffering = -1, encoding = 'locale', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/adi/Desktop/Projects/Using v3.3 New projects/data/acquisition_manifest.json'
+
+/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py:1013: FileNotFoundError
+___________ test_failed_request_retains_attempt_even_before_response ___________
+
+tmp_path = PosixPath('/private/var/folders/9p/6sf6gv2144l27mm74tx4dqrr0000gn/T/pytest-of-adi/pytest-12/test_failed_request_retains_at0')
+
+    def test_failed_request_retains_attempt_even_before_response(tmp_path):
+>       path,_ = fixture_manifest(tmp_path)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+source/tests/test_reaudit.py:126: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+source/tests/test_reaudit.py:93: in fixture_manifest
+    original = json.loads((Path(__file__).parents[2]/'../data/acquisition_manifest.json').resolve().read_text())
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/adi/Desktop/Projects/Using v3.3 New projects/data/acquisition_manifest.json')
+mode = 'r', buffering = -1, encoding = 'locale', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/adi/Desktop/Projects/Using v3.3 New projects/data/acquisition_manifest.json'
+
+/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py:1013: FileNotFoundError
+___________________ test_atomic_publish_retains_raced_target ___________________
+
+tmp_path = PosixPath('/private/var/folders/9p/6sf6gv2144l27mm74tx4dqrr0000gn/T/pytest-of-adi/pytest-12/test_atomic_publish_retains_ra0')
+
+    def test_atomic_publish_retains_raced_target(tmp_path):
+>       path,obj = fixture_manifest(tmp_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+source/tests/test_reaudit.py:138: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+source/tests/test_reaudit.py:93: in fixture_manifest
+    original = json.loads((Path(__file__).parents[2]/'../data/acquisition_manifest.json').resolve().read_text())
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/adi/Desktop/Projects/Using v3.3 New projects/data/acquisition_manifest.json')
+mode = 'r', buffering = -1, encoding = 'locale', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/adi/Desktop/Projects/Using v3.3 New projects/data/acquisition_manifest.json'
+
+/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py:1013: FileNotFoundError
+__________ test_invalid_manifest_fails_before_destination_or_network ___________
+
+tmp_path = PosixPath('/private/var/folders/9p/6sf6gv2144l27mm74tx4dqrr0000gn/T/pytest-of-adi/pytest-12/test_invalid_manifest_fails_be0')
+
+    def test_invalid_manifest_fails_before_destination_or_network(tmp_path):
+>       path,_=fixture_manifest(tmp_path);path.write_text('{}')
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+source/tests/test_reaudit.py:157: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+source/tests/test_reaudit.py:93: in fixture_manifest
+    original = json.loads((Path(__file__).parents[2]/'../data/acquisition_manifest.json').resolve().read_text())
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/adi/Desktop/Projects/Using v3.3 New projects/data/acquisition_manifest.json')
+mode = 'r', buffering = -1, encoding = 'locale', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/adi/Desktop/Projects/Using v3.3 New projects/data/acquisition_manifest.json'
+
+/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py:1013: FileNotFoundError
+=========================== short test summary info ============================
+FAILED source/tests/test_reaudit.py::test_manifest_rejects_missing_or_inconsistent_units[empty]
+FAILED source/tests/test_reaudit.py::test_manifest_rejects_missing_or_inconsistent_units[duplicate]
+FAILED source/tests/test_reaudit.py::test_manifest_rejects_missing_or_inconsistent_units[wrong_unit]
+FAILED source/tests/test_reaudit.py::test_manifest_rejects_missing_or_inconsistent_units[wrong_url]
+FAILED source/tests/test_reaudit.py::test_manifest_rejects_missing_or_inconsistent_units[wrong_label]
+FAILED source/tests/test_reaudit.py::test_manifest_rejects_missing_or_inconsistent_units[bad_checksum]
+FAILED source/tests/test_reaudit.py::test_manifest_rejects_missing_or_inconsistent_units[missing_frame]
+FAILED source/tests/test_reaudit.py::test_failed_request_retains_attempt_even_before_response
+FAILED source/tests/test_reaudit.py::test_atomic_publish_retains_raced_target
+FAILED source/tests/test_reaudit.py::test_invalid_manifest_fails_before_destination_or_network
+10 failed, 62 passed in 1.64s

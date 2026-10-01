@@ -47,6 +47,9 @@ class V31HardeningTests(unittest.TestCase):
         p = HERE / '.tmp_failures.json'
         try:
             p.write_text(json.dumps({'failures':[{'category':'a','candidate_ids':['s1'],'prevalence':0.1,'severity':'SEV-2'}]}))
+            # One observed category is valid; inventing two others is not evidence.
+            self.assertEqual(g.verify_failure_taxonomy(p), 0)
+            p.write_text(json.dumps({'failures':[{'category':'a','prevalence':0.1,'severity':'SEV-2'}]}))
             self.assertEqual(g.verify_failure_taxonomy(p), 30)
         finally:
             p.unlink(missing_ok=True)

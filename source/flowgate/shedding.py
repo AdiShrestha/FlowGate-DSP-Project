@@ -31,6 +31,7 @@ class FilterObservation:
     output: float
     alpha: float
     initialized_from_first: bool
+    effective_beta: float
 
 
 class EMAPipeline:
@@ -53,17 +54,35 @@ class EMAPipeline:
     def step(self, x, load):
         x = finite(x, "x")
         load = load_value(load)
-        a = self.controller.step(load) if self.controller is not None else self.filter.alpha
-        processed = self.shedder.step(load)
-        first = processed and self.filter.value is None
-        if processed:
-            self.filter.step(x, alpha=a)
-        observation = FilterObservation(self.events, processed, self.filter.value, a, first)
+        previous = (self.controller.value if self.controller else None,
+                    self.shedder.since, self.filter.value, self.filter.updates)
+        try:
+            a = self.controller.step(load) if self.controller is not None else self.filter.alpha
+            processed = self.shedder.step(load)
+            first = processed and self.filter.value is None
+            if processed:
+                self.filter.step(x, alpha=a)
+        except Exception:
+            if self.controller:
+                self.controller.value = previous[0]
+            self.shedder.since, self.filter.value, self.filter.updates = previous[1:]
+            raise
+        # alpha is the controller's command. First-value initialization is a
+        # state assignment (weight one); a skipped event is a hold (weight zero).
+        beta = 1.0 if first else a if processed else 0.0
+        observation = FilterObservation(self.events, processed, self.filter.value, a, first, beta)
         self.events += 1
         return observation
 
     def process(self, values, loads):
-        values, loads = list(values), list(loads)
+        values = [finite(x, "x") for x in values]
+        loads = [load_value(x) for x in loads]
         if len(values) != len(loads):
             raise ValueError("values and loads must have identical length")
-        return [self.step(x, load) for x, load in zip(values, loads)]
+        before=(self.controller.value if self.controller else None,self.shedder.since,
+                self.filter.value,self.filter.updates,self.events)
+        try:return [self.step(x, load) for x, load in zip(values, loads)]
+        except Exception:
+            if self.controller:self.controller.value=before[0]
+            self.shedder.since,self.filter.value,self.filter.updates,self.events=before[1:]
+            raise

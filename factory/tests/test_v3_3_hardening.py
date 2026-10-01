@@ -382,7 +382,7 @@ class RecursivePlausibilityTests(unittest.TestCase):
         obj = {
             'derived_analyses': {
                 'sensitivity': {
-                    'results': [{'metric': 'accuracy', 'value': 0.3, 'verdict': 'SUPPORTED'}]
+                    'results': [{'metric': 'accuracy', 'value': 0.3, 'chance_baseline':0.5,'verdict': 'SUPPORTED'}]
                 }
             }
         }
@@ -406,15 +406,17 @@ class AssuranceLevelTests(unittest.TestCase):
         out = {'errors': [], 'checks_executed': ['X'], 'computed_runs': {}}
         self.assertEqual(g._compute_assurance_level(out), 'STRUCTURALLY_VALIDATED')
 
-    def test_sealed_evaluation_with_receipts(self):
+    def test_result_path_does_not_establish_signature_or_sealing(self):
         out = {'errors': [], 'checks_executed': ['X'],
                'computed_runs': {'exp1': {'result_path': 'some/path'}}}
-        self.assertEqual(g._compute_assurance_level(out), 'SEALED_EVALUATION_ATTESTED')
+        self.assertEqual(g._compute_assurance_level(out), 'STRUCTURALLY_VALIDATED')
+        out['computed_runs']['exp1']['receipt_signature_verified']=True
+        self.assertEqual(g._compute_assurance_level(out), 'SUPERVISOR_ATTESTED')
 
-    def test_review_promotes_assurance(self):
+    def test_review_boolean_does_not_establish_independence(self):
         self.assertEqual(
-            g._assurance_with_review('SEALED_EVALUATION_ATTESTED', True),
-            'INDEPENDENT_REVIEW_COMPLETE'
+            g._assurance_with_review('SUPERVISOR_ATTESTED', True),
+            'SUPERVISOR_ATTESTED'
         )
 
     def test_blocked_stays_blocked_with_review(self):
@@ -827,7 +829,8 @@ class StandaloneVerifierTests(unittest.TestCase):
                 from engine.supervisor import init_supervisor_keys, sign_receipt
                 init_supervisor_keys(force=True)
 
-                receipt = sign_receipt({'epoch': 1, 'experiment_id': 'exp1', 'run_nonce': 'nonce1'})
+                from engine.io import digest
+                receipt = sign_receipt({'epoch': 1, 'experiment_id': 'exp1', 'run_nonce': 'nonce1','outputs':{},'output_root':digest({})})
                 receipt_file = root / 'execution.json'
                 receipt_file.write_text(json.dumps(receipt))
 
@@ -836,6 +839,9 @@ class StandaloneVerifierTests(unittest.TestCase):
 
                 # Valid signature with public key
                 res = mod.verify_bundle(archive, str(pub))
+                if receipt['signature_scheme']=='hmac-sha256':
+                    self.assertEqual(res['status'],'FAIL')
+                    return  # HMAC is explicitly local-only, never public verification.
                 self.assertEqual(res['status'], 'PASS')
                 self.assertEqual(res['signatures_verified'], 1)
 
@@ -857,4 +863,3 @@ class StandaloneVerifierTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-

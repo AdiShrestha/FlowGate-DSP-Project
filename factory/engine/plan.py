@@ -90,6 +90,8 @@ def validate(root,p):
         need(c.get('sampling_unit')=='seed_fixed_test','built-in comparison inference is conditional on fixed test corpus across seeds')
         need(c.get('assertion') in ('superiority','inferiority','inconclusive','estimate'),'unsupported assertion; equivalence is not non-significance')
         need(0<number(c.get('alpha'))<=.1,'alpha invalid')
+        if c.get('assertion') in ('superiority','inferiority') and len(c['pairs'])<=16:
+            need(2/(2**len(c['pairs']))<=number(c['alpha']),'planned two-sided exact sign-flip resolution cannot reach alpha; revise prospectively')
         need(number(c.get('minimum_effect'))>=0,'minimum_effect invalid')
         need(number(c.get('max_ci_width'))>0,'prospective precision target required')
     # A single multiplicity family is deliberate: agents cannot carve convenient subfamilies.

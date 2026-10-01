@@ -32,7 +32,12 @@ class EMA:
         return self.value
 
     def process(self, values):
-        return [self.step(x) for x in values]
+        values = [finite(x, "x") for x in values]
+        before = self.value, self.updates
+        try:return [self.step(x) for x in values]
+        except Exception:
+            self.value, self.updates = before
+            raise
 
 
 def ema(values, alpha, *, initialization):
@@ -63,10 +68,12 @@ class AdaptiveAlpha:
 
 
 class KAMA:
-    """Efficiency-ratio EMA; warmup uses slowSC squared, and reports actual alpha.
+    """Efficiency-ratio EMA; warmup uses slowSC squared, reports commanded alpha.
 
     period counts OBSERVED updates. Skipping observations changes that clock
     and must be declared by an experiment; it is not automatically corrected.
+    With 'first' initialization the first observation assigns the state;
+    subsequent observations use the reported smoothing coefficient.
     """
     def __init__(self, *, period, fast_period, slow_period, initialization):
         self.period = integer(period, "period", 1)
@@ -82,18 +89,30 @@ class KAMA:
 
     def step(self, x):
         x = finite(x, "x")
-        self.history.append(x)
+        history = deque(self.history, maxlen=self.period + 1)
+        history.append(x)
         er = 0.0
-        if len(self.history) == self.period + 1:
-            values = list(self.history)
-            variation = math.fsum(abs(b - a) for a, b in zip(values, values[1:]))
+        if len(history) == self.period + 1:
+            values = list(history)
+            # ER is scale invariant. Normalize before differencing so valid
+            # finite opposite-sign values cannot overflow the path length.
+            magnitude = max(map(abs, values))
+            normalized = [v / magnitude for v in values] if magnitude else values
+            variation = math.fsum(abs(b - a) for a, b in zip(normalized, normalized[1:]))
             if variation > 0:
-                er = abs(values[-1] - values[0]) / variation
-        self.alpha = (er * (self.fast - self.slow) + self.slow) ** 2
-        return self.filter.step(x, alpha=self.alpha)
+                er = min(1.0, abs(normalized[-1] - normalized[0]) / variation)
+        alpha = (er * (self.fast - self.slow) + self.slow) ** 2
+        result = self.filter.step(x, alpha=alpha)
+        self.history, self.alpha = history, alpha
+        return result
 
     def process(self, values):
-        return [self.step(x) for x in values]
+        values = [finite(x, "x") for x in values]
+        before = self.history.copy(), self.alpha, self.filter.value, self.filter.updates
+        try:return [self.step(x) for x in values]
+        except Exception:
+            self.history,self.alpha,self.filter.value,self.filter.updates=before
+            raise
 
 
 class ButterworthSOS:
@@ -114,6 +133,8 @@ class ButterworthSOS:
         if initialization not in {"zero", "first"}:
             raise ValueError("initialization must be 'zero' or 'first'")
         self.sos = butter(order, self.cutoff_hz, fs=self.fs_hz, output="sos")
+        if not np.isfinite(self.sos).all():
+            raise ArithmeticError("non-finite digital filter coefficients")
         self.initialization = initialization
         self.state = np.zeros((len(self.sos), 2)) if initialization == "zero" else None
 
@@ -123,9 +144,8 @@ class ButterworthSOS:
         x = np.asarray([finite(v, "x") for v in values], dtype=np.float64)
         if len(x) == 0:
             return x
-        if self.state is None:
-            self.state = sosfilt_zi(self.sos) * x[0]
-        y, state = sosfilt(self.sos, x, zi=self.state)
+        initial = sosfilt_zi(self.sos) * x[0] if self.state is None else self.state.copy()
+        y, state = sosfilt(self.sos, x, zi=initial)
         if not np.isfinite(y).all() or not np.isfinite(state).all():
             raise ArithmeticError("non-finite filter state/output")
         self.state = state
@@ -142,10 +162,21 @@ def frozen_ema_dc_delay(alpha):
 
 
 def frozen_ema_cutoff_radians(alpha):
-    """Exact LTI -3dB cutoff, or None when no crossing exists below Nyquist."""
+    """Nominal LTI -3dB cutoff, or None if no crossing exists at/below Nyquist.
+
+    This analytic diagnostic does not measure a finite-precision adaptive run.
+    """
     a = alpha_value(alpha)
     if a == 1:
         return None
     # sin(w/2)=a/(2*sqrt(1-a)); avoid catastrophic cancellation in acos(1-eps).
-    sine = a / (2.0 * math.sqrt(1.0 - a))
-    return 2.0 * math.asin(sine) if sine <= 1 else None
+    numerator,denominator=a.as_integer_ratio()
+    # Exact classification for the supplied float near the irrational boundary;
+    # avoid a rounded sqrt changing whether a crossing exists.
+    if numerator*numerator > 4*denominator*(denominator-numerator):
+        return None
+    twice_sine = min(2.0,a / math.sqrt(1.0 - a))
+    sine = twice_sine / 2.0
+    # Multiplying the ratio by 2*sin(w/2) preserves subnormal a when a/2
+    # rounds to zero. asin(s)/s tends to one; no empirical cutoff is inserted.
+    return twice_sine * (math.asin(sine) / sine if sine else 1.0)

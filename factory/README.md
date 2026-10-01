@@ -1,3 +1,5 @@
+> FlowGate local audit revision (1 October 2026): read [LOCAL_AUDIT_POLICY.md](LOCAL_AUDIT_POLICY.md) before applying this supplied v3.3 policy. It narrows unsupported assurance and replaces outcome-biasing diagnostic rules. The root plan.md and the user’s research-integrity requirements govern this project.
+
 # Active v3.3 policy
 
 Start with the root README. Authority: user brief → constitution → factory specification → frozen project methodology/plan → implementation. Only v3.3.0 files outside `legacy/` govern active projects.

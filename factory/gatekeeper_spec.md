@@ -1,3 +1,5 @@
+> FlowGate local audit revision (1 October 2026): read [LOCAL_AUDIT_POLICY.md](LOCAL_AUDIT_POLICY.md) before applying this supplied v3.3 policy. It narrows unsupported assurance and replaces outcome-biasing diagnostic rules. The root plan.md and the user’s research-integrity requirements govern this project.
+
 # Gatekeeper implementation contract — v3.3.0
 
 Implemented commands are `init`, `freeze`, `run`, `record`, `audit`, `certify`, `status`, and `handoff`. The implementation is in `gatekeeper.py`, using `engine/io.py`, `engine/plan.py`, `engine/metrics.py`, `engine/audit.py`, `engine/contract.py`, `engine/supervisor.py`, `engine/schema.py`, and `engine/attacks.py`. This list is the complete machine surface; no prose command in another document is implied to exist.

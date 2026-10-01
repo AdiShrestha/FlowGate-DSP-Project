@@ -1,0 +1,1429 @@
+{
+  "scope": "all current repository files, excluding self-referential output records and Git-ignored bulk/caches; coverage descriptions distinguish review depth",
+  "files": [
+    {
+      "path": ".gitignore",
+      "sha256": "a79da153ad35137b24632aed5e3e3e4186c92bdab1b3411d85761ccb1e594285",
+      "bytes": 202,
+      "text_lines": 19,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "LICENSE",
+      "sha256": "c97ec7c35c967d232a830fb9de01932c436d79d9ed52d9096314c51ca7c8520f",
+      "bytes": 1916,
+      "text_lines": 28,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "README.md",
+      "sha256": "0657d12bd881ae24dc1ff2b0dc4fe7e9fe634ea33486b2945e2fb7a284ab87a7",
+      "bytes": 3384,
+      "text_lines": 61,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "bootstrap.sh",
+      "sha256": "60e751321c9e474792b06023c41881fd89bbc34944eb30d7c1123a3fab6088e5",
+      "bytes": 542,
+      "text_lines": 15,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "data/README.md",
+      "sha256": "247415434497748e0894ef3bdd8de68a8a888fbad73c893e2bf874733d5d0a5b",
+      "bytes": 957,
+      "text_lines": 17,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "data/acquisition_manifest.json",
+      "sha256": "9e1e40367cf8234946e7b43e70e0704bad52e54a6addbe37d8cd0374f055d590",
+      "bytes": 126612,
+      "text_lines": 2344,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "docs/COVERAGE.md",
+      "sha256": "6faad82200fd7d6e3bd01864fabef819e2f44e3ac908afc56fc42c05d443d0ef",
+      "bytes": 2613,
+      "text_lines": 22,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "docs/FORENSIC_AUDIT.md",
+      "sha256": "fe3aaebea188b163bd814db753e0018481ac356ceef8a4fb2eae3452a84da8c7",
+      "bytes": 2811,
+      "text_lines": 20,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "docs/MIGRATION.md",
+      "sha256": "cc244c04c5a5c3524b40667d90774f5fb2883a3130529a66251b54b815c73871",
+      "bytes": 1418,
+      "text_lines": 7,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "docs/REFERENCES.md",
+      "sha256": "e08ccb1f74f830d5cebcdacdfd053ed495e922f49f0ec3388ceb4990098bcc65",
+      "bytes": 1043,
+      "text_lines": 12,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "docs/RELEASE_SCOPE.md",
+      "sha256": "c050f165bb43c97abb81a95dff4774af9e5bafb513464ed6bad672a96950bab4",
+      "bytes": 1140,
+      "text_lines": 7,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "docs/SCHEMA.md",
+      "sha256": "bf57fdac8286b87922a565f925be7faba0c9693f63178b0f6bcf923209b6168a",
+      "bytes": 1956,
+      "text_lines": 9,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "docs/VALIDATION.md",
+      "sha256": "a58fc2f634300ef9e30cf313872ea6d67407a50e88cc103b72b5921da22400da",
+      "bytes": 2634,
+      "text_lines": 29,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "docs/audit_tools/audit_v26_project.py",
+      "sha256": "a2ca09f44158376a71d0216136d00820a02d0ae19076b661f3927e1cc325c279",
+      "bytes": 3496,
+      "text_lines": 43,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "docs/flowgate_audit/README.md",
+      "sha256": "53707e4347e78923f6ee3b5b07bf02d70d35f83cbc8ddee55639adbb1336f847",
+      "bytes": 3022,
+      "text_lines": 47,
+      "kind": "text",
+      "review_scope": "Initial migration evidence/tools: historical byte identity; do not attribute old validation to current source."
+    },
+    {
+      "path": "docs/flowgate_audit/acquisition_existing_verification.log",
+      "sha256": "26688e3b538e110202403ad13096f90b83960481db000ed088cdb68a37c0cb07",
+      "bytes": 7440,
+      "text_lines": 155,
+      "kind": "text",
+      "review_scope": "Initial migration evidence/tools: historical byte identity; do not attribute old validation to current source."
+    },
+    {
+      "path": "docs/flowgate_audit/audit_data.py",
+      "sha256": "e40dec6c8f472a6fd3b650490d56b2235947182e0ee2a56ca1bd477d29d409d7",
+      "bytes": 2258,
+      "text_lines": 45,
+      "kind": "text",
+      "review_scope": "Initial migration evidence/tools: historical byte identity; do not attribute old validation to current source."
+    },
+    {
+      "path": "docs/flowgate_audit/credential_pattern_review.json",
+      "sha256": "76d4e4beca8c0a6f88cad4709a59087eeedf06a4a41efbe4bf5bb5e59ace7382",
+      "bytes": 169,
+      "text_lines": 5,
+      "kind": "text",
+      "review_scope": "Initial migration evidence/tools: historical byte identity; do not attribute old validation to current source."
+    },
+    {
+      "path": "docs/flowgate_audit/data_audit.log",
+      "sha256": "2354fe2fdc2b7fc0e444a9d9be41e7453b8ad633c59722ae3749722bfe8554f0",
+      "bytes": 751,
+      "text_lines": 6,
+      "kind": "text",
+      "review_scope": "Initial migration evidence/tools: historical byte identity; do not attribute old validation to current source."
+    },
+    {
+      "path": "docs/flowgate_audit/data_structural_audit.json",
+      "sha256": "1443123b6f8d498c8e0c6cde70cba97dc8e5b13be1a9f2656e5d8a6a844e7c4c",
+      "bytes": 100255,
+      "text_lines": 3882,
+      "kind": "text",
+      "review_scope": "Initial migration evidence/tools: historical byte identity; do not attribute old validation to current source."
+    },
+    {
+      "path": "docs/flowgate_audit/engine_tests.log",
+      "sha256": "b97fd72013c34fb17a2cac2c6097a85bd91c5e110e60ee9c7de8d480221090a8",
+      "bytes": 99,
+      "text_lines": 2,
+      "kind": "text",
+      "review_scope": "Initial migration evidence/tools: historical byte identity; do not attribute old validation to current source."
+    },
+    {
+      "path": "docs/flowgate_audit/environment.json",
+      "sha256": "b01dde7825722719824c65c0b326ae7d176b190a339a73085b7173417d7e0233",
+      "bytes": 446,
+      "text_lines": 16,
+      "kind": "text",
+      "review_scope": "Initial migration evidence/tools: historical byte identity; do not attribute old validation to current source."
+    },
+    {
+      "path": "docs/flowgate_audit/factory_tests.log",
+      "sha256": "d81027651e698340562d3d7d09daa02b6ca4a9d9c0377355fd528e22c0cac445",
+      "bytes": 33560,
+      "text_lines": 413,
+      "kind": "text",
+      "review_scope": "Initial migration evidence/tools: historical byte identity; do not attribute old validation to current source."
+    },
+    {
+      "path": "docs/flowgate_audit/factory_tests_sandboxed.log",
+      "sha256": "5fa97152d8ab0eb779b06c698bf1d8fbd1811acf99eba25160477b00ef6eb175",
+      "bytes": 34169,
+      "text_lines": 422,
+      "kind": "text",
+      "review_scope": "Initial migration evidence/tools: historical byte identity; do not attribute old validation to current source."
+    },
+    {
+      "path": "docs/flowgate_audit/file_inventory.json",
+      "sha256": "4ab735981d2ebbd0da1cf40465607c44e40f91fc6d1d67c9196f61dd91d9d896",
+      "bytes": 224036,
+      "text_lines": 5541,
+      "kind": "text",
+      "review_scope": "Initial migration evidence/tools: historical byte identity; do not attribute old validation to current source."
+    },
+    {
+      "path": "docs/flowgate_audit/findings.json",
+      "sha256": "b3d679a6ebb3b7af4cfe8de4a51295b057277f1603c88442dc0d562e653b38ce",
+      "bytes": 17180,
+      "text_lines": 270,
+      "kind": "text",
+      "review_scope": "Initial migration evidence/tools: historical byte identity; do not attribute old validation to current source."
+    },
+    {
+      "path": "docs/flowgate_audit/git_migration.json",
+      "sha256": "92f2277bc336256c5b295aa8fcc88ee9be2cd5403c7ae04f4bfc30df687c89f5",
+      "bytes": 1038,
+      "text_lines": 22,
+      "kind": "text",
+      "review_scope": "Initial migration evidence/tools: historical byte identity; do not attribute old validation to current source."
+    },
+    {
+      "path": "docs/flowgate_audit/handoff_verification.json",
+      "sha256": "fd44882959647ed3ba0eea3b8aa58dca36ccf2bdfeba3e78d19acb8fe1485f13",
+      "bytes": 45496,
+      "text_lines": 1250,
+      "kind": "text",
+      "review_scope": "Initial migration evidence/tools: historical byte identity; do not attribute old validation to current source."
+    },
+    {
+      "path": "docs/flowgate_audit/legacy_probes.log",
+      "sha256": "7fb76de0ee404dffe799c05dd7156314cf0665b76b8936a6551acd68b55c8ade",
+      "bytes": 1331,
+      "text_lines": 46,
+      "kind": "text",
+      "review_scope": "Initial migration evidence/tools: historical byte identity; do not attribute old validation to current source."
+    },
+    {
+      "path": "docs/flowgate_audit/legacy_snapshot.zip",
+      "sha256": "2ee2b5a9d983bf812faa9f34a1594c240450feb0e43987882a7c021324afcbc1",
+      "bytes": 4067952,
+      "text_lines": null,
+      "kind": "binary",
+      "review_scope": "Initial migration evidence/tools: historical byte identity; do not attribute old validation to current source."
+    },
+    {
+      "path": "docs/flowgate_audit/legacy_tests.log",
+      "sha256": "36a3a959d8e653d26e4ade2d914256c739d339c2c8f2a7aea59855d8e227b502",
+      "bytes": 1085,
+      "text_lines": 13,
+      "kind": "text",
+      "review_scope": "Initial migration evidence/tools: historical byte identity; do not attribute old validation to current source."
+    },
+    {
+      "path": "docs/flowgate_audit/provider_checksums.json",
+      "sha256": "772c58cc989e03ebe29a09182fe7c761a5cae3a4b7270e0e1d32ffff35a9072b",
+      "bytes": 111218,
+      "text_lines": 1711,
+      "kind": "text",
+      "review_scope": "Initial migration evidence/tools: historical byte identity; do not attribute old validation to current source."
+    },
+    {
+      "path": "docs/flowgate_audit/reproduce_legacy_probes.py",
+      "sha256": "1113fe91a78cef0492711db20056c9b8141c70ab9ab041a1567c3e2760452d9a",
+      "bytes": 4563,
+      "text_lines": 83,
+      "kind": "text",
+      "review_scope": "Initial migration evidence/tools: historical byte identity; do not attribute old validation to current source."
+    },
+    {
+      "path": "docs/flowgate_audit/targeted_probes.json",
+      "sha256": "7fb76de0ee404dffe799c05dd7156314cf0665b76b8936a6551acd68b55c8ade",
+      "bytes": 1331,
+      "text_lines": 46,
+      "kind": "text",
+      "review_scope": "Initial migration evidence/tools: historical byte identity; do not attribute old validation to current source."
+    },
+    {
+      "path": "docs/flowgate_audit/text_review_index.json",
+      "sha256": "01fa933218618d7751753de3bccadf874903db77f428125cde3078a8abce3879",
+      "bytes": 250994,
+      "text_lines": 7505,
+      "kind": "text",
+      "review_scope": "Initial migration evidence/tools: historical byte identity; do not attribute old validation to current source."
+    },
+    {
+      "path": "docs/flowgate_audit/verify_handoff.py",
+      "sha256": "15bec13b8a747f72fd05c839d1fe422668642b865f75ed8770d9a7b7a886829b",
+      "bytes": 5312,
+      "text_lines": 99,
+      "kind": "text",
+      "review_scope": "Initial migration evidence/tools: historical byte identity; do not attribute old validation to current source."
+    },
+    {
+      "path": "docs/flowgate_audit/verify_provider_checksums.py",
+      "sha256": "137a77b16d02b4414baba5083fb8ca322261754e03a3706a5a6fad1c73d735a9",
+      "bytes": 2252,
+      "text_lines": 49,
+      "kind": "text",
+      "review_scope": "Initial migration evidence/tools: historical byte identity; do not attribute old validation to current source."
+    },
+    {
+      "path": "docs/re_audit/REPORT.md",
+      "sha256": "aaf0fb49e1b56d26c9e374456d3200a65de6ec5d22d49e087115543238e111b1",
+      "bytes": 23874,
+      "text_lines": 101,
+      "kind": "text",
+      "review_scope": "Current report, observed audit records and scripts: provenance/structure/hash review; supplied report remains untrusted context."
+    },
+    {
+      "path": "docs/re_audit/cache_loss_comparison.json",
+      "sha256": "4f6fd288edcde3d5c6a65abd09f67200ca21978af02a6e0a52fee7debac28252",
+      "bytes": 37452,
+      "text_lines": 1250,
+      "kind": "text",
+      "review_scope": "Current report, observed audit records and scripts: provenance/structure/hash review; supplied report remains untrusted context."
+    },
+    {
+      "path": "docs/re_audit/core_tests.log",
+      "sha256": "a111b023899d6083bd963a83256738de6803dec3130ff0f2ce41168723f80976",
+      "bytes": 179,
+      "text_lines": 3,
+      "kind": "text",
+      "review_scope": "Current report, observed audit records and scripts: provenance/structure/hash review; supplied report remains untrusted context."
+    },
+    {
+      "path": "docs/re_audit/core_tests_attempt1.log",
+      "sha256": "f7023f3ab6f90139688ef2a1316119a29f8a2c20851dd090ce45136f85dce62d",
+      "bytes": 22286,
+      "text_lines": 368,
+      "kind": "text",
+      "review_scope": "Current report, observed audit records and scripts: provenance/structure/hash review; supplied report remains untrusted context."
+    },
+    {
+      "path": "docs/re_audit/core_tests_attempt2.log",
+      "sha256": "aeab968f1ac6eb0136d2a648325e99ab6dd8143cb9a012fa066a0432487c3482",
+      "bytes": 99,
+      "text_lines": 2,
+      "kind": "text",
+      "review_scope": "Current report, observed audit records and scripts: provenance/structure/hash review; supplied report remains untrusted context."
+    },
+    {
+      "path": "docs/re_audit/core_tests_attempt3.log",
+      "sha256": "a273f53cd9e1c56babd67309e50bd9fea648c0212e7adad53a1fe8f7e4757b61",
+      "bytes": 179,
+      "text_lines": 3,
+      "kind": "text",
+      "review_scope": "Current report, observed audit records and scripts: provenance/structure/hash review; supplied report remains untrusted context."
+    },
+    {
+      "path": "docs/re_audit/core_tests_attempt4.log",
+      "sha256": "7ab0796ad9006ca446845a0f18a576ee507f8bc9edeafb5f47c1705c2a919191",
+      "bytes": 179,
+      "text_lines": 3,
+      "kind": "text",
+      "review_scope": "Current report, observed audit records and scripts: provenance/structure/hash review; supplied report remains untrusted context."
+    },
+    {
+      "path": "docs/re_audit/deep_research_supplied.md",
+      "sha256": "4cad143046654d0a409e5d16f024b9303d57907b12496b2a7e00c49e3ec3b39c",
+      "bytes": 80686,
+      "text_lines": 1110,
+      "kind": "text",
+      "review_scope": "Current report, observed audit records and scripts: provenance/structure/hash review; supplied report remains untrusted context."
+    },
+    {
+      "path": "docs/re_audit/factory_pytest.log",
+      "sha256": "6a403b380b1051048cec46b5a1a12c6c209fa512c4a1fc55568a6d1cc9d4569a",
+      "bytes": 438,
+      "text_lines": 6,
+      "kind": "text",
+      "review_scope": "Current report, observed audit records and scripts: provenance/structure/hash review; supplied report remains untrusted context."
+    },
+    {
+      "path": "docs/re_audit/factory_pytest_attempt1.log",
+      "sha256": "016f8a845dc6c1d140586cf5c0154a1ccdd2a927182ce154e97c8c1c8f19983f",
+      "bytes": 981,
+      "text_lines": 16,
+      "kind": "text",
+      "review_scope": "Current report, observed audit records and scripts: provenance/structure/hash review; supplied report remains untrusted context."
+    },
+    {
+      "path": "docs/re_audit/factory_pytest_attempt2.log",
+      "sha256": "f7ddcbd52ae9aaec5aff81b386b94d411cf6fdad665ed377216db67713f23a49",
+      "bytes": 438,
+      "text_lines": 6,
+      "kind": "text",
+      "review_scope": "Current report, observed audit records and scripts: provenance/structure/hash review; supplied report remains untrusted context."
+    },
+    {
+      "path": "docs/re_audit/factory_tests.log",
+      "sha256": "95d06190a587649dfd5e012d466325dd5c43ac9fcbc506b3f857b096312e8731",
+      "bytes": 38617,
+      "text_lines": 450,
+      "kind": "text",
+      "review_scope": "Current report, observed audit records and scripts: provenance/structure/hash review; supplied report remains untrusted context."
+    },
+    {
+      "path": "docs/re_audit/factory_tests_attempt1.log",
+      "sha256": "1c63dead5c97dd8717a5e3bf8341fbdfb1538408d545b4f76a57104a5596f304",
+      "bytes": 39040,
+      "text_lines": 465,
+      "kind": "text",
+      "review_scope": "Current report, observed audit records and scripts: provenance/structure/hash review; supplied report remains untrusted context."
+    },
+    {
+      "path": "docs/re_audit/factory_tests_attempt2.log",
+      "sha256": "c9d47b5491cd14c1d5cea17e28e86d8ba9e233d75bfafc61441c235874f6980f",
+      "bytes": 38436,
+      "text_lines": 456,
+      "kind": "text",
+      "review_scope": "Current report, observed audit records and scripts: provenance/structure/hash review; supplied report remains untrusted context."
+    },
+    {
+      "path": "docs/re_audit/factory_tests_attempt3.log",
+      "sha256": "e70b82857093339056bd671ee8d52eba1682fb9ec6b49a38b0aaa2e6e3d0cc14",
+      "bytes": 36994,
+      "text_lines": 433,
+      "kind": "text",
+      "review_scope": "Current report, observed audit records and scripts: provenance/structure/hash review; supplied report remains untrusted context."
+    },
+    {
+      "path": "docs/re_audit/factory_tests_attempt4.log",
+      "sha256": "f07b510477eab7ff398a48357e089522eea327d2ca1e068aff6c86d0402997e2",
+      "bytes": 39108,
+      "text_lines": 452,
+      "kind": "text",
+      "review_scope": "Current report, observed audit records and scripts: provenance/structure/hash review; supplied report remains untrusted context."
+    },
+    {
+      "path": "docs/re_audit/fresh_core_tests.log",
+      "sha256": "c3cda07988b2858b9275391359a618cc1a834f0a8004461ea022235583c887e9",
+      "bytes": 179,
+      "text_lines": 3,
+      "kind": "text",
+      "review_scope": "Current report, observed audit records and scripts: provenance/structure/hash review; supplied report remains untrusted context."
+    },
+    {
+      "path": "docs/re_audit/fresh_core_tests_attempt1.log",
+      "sha256": "015855b403cea4fb6f632d63d78bd133fcb6c83e9e61f14efda8a8f39250f26f",
+      "bytes": 180,
+      "text_lines": 3,
+      "kind": "text",
+      "review_scope": "Current report, observed audit records and scripts: provenance/structure/hash review; supplied report remains untrusted context."
+    },
+    {
+      "path": "docs/re_audit/fresh_core_tests_attempt2.log",
+      "sha256": "67a3335889f63cc493ca27759c7f5f35ce716eac1f7d261c4fd84dc9a946da16",
+      "bytes": 179,
+      "text_lines": 3,
+      "kind": "text",
+      "review_scope": "Current report, observed audit records and scripts: provenance/structure/hash review; supplied report remains untrusted context."
+    },
+    {
+      "path": "docs/re_audit/fresh_crypto_install.log",
+      "sha256": "d4c38ca1f49ac8a87a2eda1bacc29febf647b6a1f6a82381c34d6dc535ec8106",
+      "bytes": 871,
+      "text_lines": 14,
+      "kind": "text",
+      "review_scope": "Current report, observed audit records and scripts: provenance/structure/hash review; supplied report remains untrusted context."
+    },
+    {
+      "path": "docs/re_audit/fresh_crypto_install_report.json",
+      "sha256": "3ea48150a4e9ab882daf2484d79c8a13a77e705fc120d1f650b3fd56bab9919d",
+      "bytes": 18285,
+      "text_lines": 172,
+      "kind": "text",
+      "review_scope": "Current report, observed audit records and scripts: provenance/structure/hash review; supplied report remains untrusted context."
+    },
+    {
+      "path": "docs/re_audit/fresh_factory_tests.log",
+      "sha256": "91c2519486f055672bb8306ea230b8483311522e7febb2178778ff336d86282a",
+      "bytes": 438,
+      "text_lines": 6,
+      "kind": "text",
+      "review_scope": "Current report, observed audit records and scripts: provenance/structure/hash review; supplied report remains untrusted context."
+    },
+    {
+      "path": "docs/re_audit/fresh_factory_tests_attempt1.log",
+      "sha256": "30639e3b9c2d834913f4b6fff767e6c392bd00068fcb2e77cc94085d21fc0f0b",
+      "bytes": 35694,
+      "text_lines": 733,
+      "kind": "text",
+      "review_scope": "Current report, observed audit records and scripts: provenance/structure/hash review; supplied report remains untrusted context."
+    },
+    {
+      "path": "docs/re_audit/fresh_factory_tests_fallback.log",
+      "sha256": "dd217b675006c351201ea50595d737b7472df4d7bca22bc669d81f07b3f2098e",
+      "bytes": 449,
+      "text_lines": 6,
+      "kind": "text",
+      "review_scope": "Current report, observed audit records and scripts: provenance/structure/hash review; supplied report remains untrusted context."
+    },
+    {
+      "path": "docs/re_audit/fresh_install.log",
+      "sha256": "c0084dae6950a059a0b57fe8de8d587e47bbf31690f37db3bdf701e2d33ee46f",
+      "bytes": 2876,
+      "text_lines": 38,
+      "kind": "text",
+      "review_scope": "Current report, observed audit records and scripts: provenance/structure/hash review; supplied report remains untrusted context."
+    },
+    {
+      "path": "docs/re_audit/fresh_install_report.json",
+      "sha256": "6de2609a187c62571942c79d7910c783ad8df0a64c6cfec36a444089f1d43c27",
+      "bytes": 141224,
+      "text_lines": 751,
+      "kind": "text",
+      "review_scope": "Current report, observed audit records and scripts: provenance/structure/hash review; supplied report remains untrusted context."
+    },
+    {
+      "path": "docs/re_audit/fresh_pip_check.log",
+      "sha256": "b1a91e7d293fd2953acb2b390fe14f18bd8ac76738d43f6b12cf64adca18d8da",
+      "bytes": 301,
+      "text_lines": 2,
+      "kind": "text",
+      "review_scope": "Current report, observed audit records and scripts: provenance/structure/hash review; supplied report remains untrusted context."
+    },
+    {
+      "path": "docs/re_audit/raw_parser_epoch1.py",
+      "sha256": "5f611a488cb28fc5a4e031cf534f7aa95fd2057a432832aa37c24f129aa8a5eb",
+      "bytes": 4837,
+      "text_lines": 111,
+      "kind": "text",
+      "review_scope": "Current report, observed audit records and scripts: provenance/structure/hash review; supplied report remains untrusted context."
+    },
+    {
+      "path": "docs/re_audit/raw_semantic_audit.json",
+      "sha256": "176d256fd0a7e7475afdf4a7d233a390a907cf03a00a3cd94a8f928b4ca1d55c",
+      "bytes": 81705,
+      "text_lines": 2184,
+      "kind": "text",
+      "review_scope": "Current report, observed audit records and scripts: provenance/structure/hash review; supplied report remains untrusted context."
+    },
+    {
+      "path": "docs/re_audit/raw_semantic_audit.log",
+      "sha256": "60aa2a6346f731ce1564210ee02f9bdda5bcfb147964d6d7275714ebced32dc0",
+      "bytes": 9253,
+      "text_lines": 167,
+      "kind": "text",
+      "review_scope": "Current report, observed audit records and scripts: provenance/structure/hash review; supplied report remains untrusted context."
+    },
+    {
+      "path": "docs/re_audit/raw_semantic_audit_epoch1.json",
+      "sha256": "28fe61c97679a54c04e07fd3f1cb880b366d10a8fa74739d1c64127c6123bb21",
+      "bytes": 81705,
+      "text_lines": 2184,
+      "kind": "text",
+      "review_scope": "Current report, observed audit records and scripts: provenance/structure/hash review; supplied report remains untrusted context."
+    },
+    {
+      "path": "docs/re_audit/raw_semantic_audit_epoch1.log",
+      "sha256": "3fadadcab5c7c0269ae8dc4c2c29146034cfe8d93a2bbf88804c838b52908307",
+      "bytes": 9253,
+      "text_lines": 167,
+      "kind": "text",
+      "review_scope": "Current report, observed audit records and scripts: provenance/structure/hash review; supplied report remains untrusted context."
+    },
+    {
+      "path": "docs/re_audit/validate_all_raw.py",
+      "sha256": "aa3088cb0a21e9da9b8b79b0f518c8cac4fe73dea5747586bba50f8ff60a328e",
+      "bytes": 4576,
+      "text_lines": 88,
+      "kind": "text",
+      "review_scope": "Current report, observed audit records and scripts: provenance/structure/hash review; supplied report remains untrusted context."
+    },
+    {
+      "path": "docs/re_audit/verify_reaudit.py",
+      "sha256": "91c0155cc38ca1a5df49d1456548d45cb7ab288af9a91bd74030fbe1044a3307",
+      "bytes": 9619,
+      "text_lines": 128,
+      "kind": "text",
+      "review_scope": "Current report, observed audit records and scripts: provenance/structure/hash review; supplied report remains untrusted context."
+    },
+    {
+      "path": "docs/v26_forensic_results.json",
+      "sha256": "b17bf13a1839e5a2fa5261cf827cbcbd729a7b436bbaa3398aa5bb7243cb914c",
+      "bytes": 33755,
+      "text_lines": 1092,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "factory/AGENT_WORKFLOW.md",
+      "sha256": "859fa67ddd54826d66c018d033206ba3e798f3914a54c4ac293708e6c160ade8",
+      "bytes": 1694,
+      "text_lines": 12,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "factory/CHANGELOG.md",
+      "sha256": "6ac28ac8ca2a5927223239acdbb2185874689b4d39cffcc94bd94959fac62dd8",
+      "bytes": 14168,
+      "text_lines": 194,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "factory/ClaudeInitialization.md",
+      "sha256": "c72370aa5449933b3baaaee51f2697067f9a0923b6454ea258072b75efc39798",
+      "bytes": 415,
+      "text_lines": 3,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "factory/DEEP_RESEARCH.md",
+      "sha256": "477061e718dcfd8461a93b58267d3a581b93acd8ac3dfdbd86d00324e9093368",
+      "bytes": 1276,
+      "text_lines": 7,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "factory/LOCAL_AUDIT_POLICY.md",
+      "sha256": "b221964d60599d283793ce7172d29c8de1c779ccbd215214b4a018afca904535",
+      "bytes": 8959,
+      "text_lines": 35,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "factory/README.md",
+      "sha256": "e2fe2e1677b0001e4a96866e6f871ff07c37a4b42c3c3d560adddf0498926734",
+      "bytes": 1981,
+      "text_lines": 11,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "factory/SCIENCE_PROTOCOL.md",
+      "sha256": "68232170044b234aed8d88ea7aeed00531269d8550df0e454fa995995d6e3a53",
+      "bytes": 1423,
+      "text_lines": 9,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "factory/SCIENTIFIC_CHECKS.md",
+      "sha256": "80906b5a079f17f2ea9aaccd43d4488b9b76e273cf97ae5e02a86628585adf34",
+      "bytes": 2356,
+      "text_lines": 17,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "factory/VERSION",
+      "sha256": "5eee6c0c5c6901f5e523f0a434bca4106e1ff7136deb451f982b0bb1a7b13716",
+      "bytes": 6,
+      "text_lines": 1,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "factory/architect_spec.md",
+      "sha256": "e4e7a5970f4e650cab22d711b154d4c093a32e23707b9ee6207f71f8e4cd0fa4",
+      "bytes": 1904,
+      "text_lines": 13,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "factory/bootstrap_manifest.yaml",
+      "sha256": "7557c07c249f199d8e1ddef75acdc42a6df4e96e7df93a2bf5b1430286df4be8",
+      "bytes": 377,
+      "text_lines": 12,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "factory/constitution.md",
+      "sha256": "c974cf57331c18d7943104ea3230d2c25a12383db93efb98473b8c0da3509f7f",
+      "bytes": 12173,
+      "text_lines": 193,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "factory/constitution_coverage.yaml",
+      "sha256": "b1f434f340faf8e1c7b82d50456e00aa7011658977da27a6f1592788ebc312b3",
+      "bytes": 2245,
+      "text_lines": 94,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "factory/domain_checklists.md",
+      "sha256": "9c654bc3397986e76a9620dad257c44ffa32fde0cc100b0730e378bc0f48bc31",
+      "bytes": 2130,
+      "text_lines": 21,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "factory/dynamic_rules.md",
+      "sha256": "de011200899125782b677e4a3811204e4bb47e20b65647ddb99fe1f1b4e9e83e",
+      "bytes": 11092,
+      "text_lines": 112,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "factory/engine/__init__.py",
+      "sha256": "713fca0bb8ac2d95f2319e5de5584ab516e39aea32c7aed88b73cea5b61e199b",
+      "bytes": 33,
+      "text_lines": 1,
+      "kind": "text",
+      "review_scope": "Active factory implementation: source-level integrity/statistical/applicability audit; remaining domain/trust limits documented."
+    },
+    {
+      "path": "factory/engine/__main__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "text_lines": 0,
+      "kind": "text",
+      "review_scope": "Active factory implementation: source-level integrity/statistical/applicability audit; remaining domain/trust limits documented."
+    },
+    {
+      "path": "factory/engine/attacks.py",
+      "sha256": "eb021ce6a0c20a68f26269a49b582446fcd5d0c2b6080c86ebfd7de9b893c89a",
+      "bytes": 8032,
+      "text_lines": 180,
+      "kind": "text",
+      "review_scope": "Active factory implementation: source-level integrity/statistical/applicability audit; remaining domain/trust limits documented."
+    },
+    {
+      "path": "factory/engine/audit.py",
+      "sha256": "86f5edbacc5a00b78b1584ff50eda17095141602d2f0a232ca4fffea69365009",
+      "bytes": 30545,
+      "text_lines": 370,
+      "kind": "text",
+      "review_scope": "Active factory implementation: source-level integrity/statistical/applicability audit; remaining domain/trust limits documented."
+    },
+    {
+      "path": "factory/engine/bundle.py",
+      "sha256": "dc15ba7e329b89b267520526d8815cb48441025a1c7b1a3520d74afe133241b3",
+      "bytes": 3758,
+      "text_lines": 76,
+      "kind": "text",
+      "review_scope": "Active factory implementation: source-level integrity/statistical/applicability audit; remaining domain/trust limits documented."
+    },
+    {
+      "path": "factory/engine/contract.py",
+      "sha256": "400653e215958e4f3b9502508cb4eb7169a3ddbcdcda6f10710f2eec9a5a9675",
+      "bytes": 8490,
+      "text_lines": 240,
+      "kind": "text",
+      "review_scope": "Active factory implementation: source-level integrity/statistical/applicability audit; remaining domain/trust limits documented."
+    },
+    {
+      "path": "factory/engine/io.py",
+      "sha256": "b7cfcfc199d9c33b76772dbbe2afe46fd126290cc63feedc3210e8f5042e0471",
+      "bytes": 6923,
+      "text_lines": 176,
+      "kind": "text",
+      "review_scope": "Active factory implementation: source-level integrity/statistical/applicability audit; remaining domain/trust limits documented."
+    },
+    {
+      "path": "factory/engine/metrics.py",
+      "sha256": "bc7cf8af85c2513ff33bced52e3159cbb56fb90a855551439a9a3d90bfa1ef5e",
+      "bytes": 5637,
+      "text_lines": 125,
+      "kind": "text",
+      "review_scope": "Active factory implementation: source-level integrity/statistical/applicability audit; remaining domain/trust limits documented."
+    },
+    {
+      "path": "factory/engine/plan.py",
+      "sha256": "90b7a5311fe0a55601f53c6b3e996dbd469d6f5dadccc5541e3109ea5d575241",
+      "bytes": 9251,
+      "text_lines": 119,
+      "kind": "text",
+      "review_scope": "Active factory implementation: source-level integrity/statistical/applicability audit; remaining domain/trust limits documented."
+    },
+    {
+      "path": "factory/engine/schema.py",
+      "sha256": "44b4b3e415f0de99943f316c5cb673c06333ed6050ea36cf7cdfe93613f136ad",
+      "bytes": 9134,
+      "text_lines": 220,
+      "kind": "text",
+      "review_scope": "Active factory implementation: source-level integrity/statistical/applicability audit; remaining domain/trust limits documented."
+    },
+    {
+      "path": "factory/engine/supervisor.py",
+      "sha256": "f175c5487059203c63c9fa9f532b12f5b64468595d42fe7e33c97c8dbd6a971f",
+      "bytes": 10064,
+      "text_lines": 284,
+      "kind": "text",
+      "review_scope": "Active factory implementation: source-level integrity/statistical/applicability audit; remaining domain/trust limits documented."
+    },
+    {
+      "path": "factory/factory_spec.md",
+      "sha256": "41b0541107ee5dff9de06e3d41a1ec5896bba00221c1ca29b86e0e382a65bb66",
+      "bytes": 3036,
+      "text_lines": 25,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "factory/gatekeeper.py",
+      "sha256": "7fe13ec8c045d48f2c8bdbbc7a1a1b9e5e79eb2d2eebf3d037a3035beca2741c",
+      "bytes": 69329,
+      "text_lines": 1069,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "factory/gatekeeper_spec.md",
+      "sha256": "221ad7a3ff382af83fce7b7b91f7313a8a5c1d399902d2733c674397130977a5",
+      "bytes": 2666,
+      "text_lines": 15,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "factory/gemini_spec.md",
+      "sha256": "22698a7c5e0b1215cf5261bc985cfb22a9b70bf3e426b67b293087e688553884",
+      "bytes": 417,
+      "text_lines": 3,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "factory/implementor_spec.md",
+      "sha256": "a33525161f46816a9f1f7522da264baad36fd940179e025dab72900c795389b9",
+      "bytes": 2988,
+      "text_lines": 31,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "factory/key_facts_TEMPLATE.md",
+      "sha256": "38b7fb724bdce700c4498da16572c8c22d1a6a9171371fe0da37b6333cbfd1de",
+      "bytes": 712,
+      "text_lines": 5,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "factory/legacy/v2_6_0/.gitignore",
+      "sha256": "0ce06523553681c3f31ee0d15df19348a3c2340d590d97e0ae7336d75136f9af",
+      "bytes": 36,
+      "text_lines": 5,
+      "kind": "text",
+      "review_scope": "Retained historical factory: inactive; preservation/line classification only, no new research authority."
+    },
+    {
+      "path": "factory/legacy/v2_6_0/LICENSE",
+      "sha256": "c97ec7c35c967d232a830fb9de01932c436d79d9ed52d9096314c51ca7c8520f",
+      "bytes": 1916,
+      "text_lines": 28,
+      "kind": "text",
+      "review_scope": "Retained historical factory: inactive; preservation/line classification only, no new research authority."
+    },
+    {
+      "path": "factory/legacy/v2_6_0/README.md",
+      "sha256": "f97ba76d2f290c419296cd7a8911801fc5b90ff1fd2d926abdaec345cf1cf78c",
+      "bytes": 264,
+      "text_lines": 3,
+      "kind": "text",
+      "review_scope": "Retained historical factory: inactive; preservation/line classification only, no new research authority."
+    },
+    {
+      "path": "factory/legacy/v2_6_0/bootstrap.sh",
+      "sha256": "d023d2af29f79fc45f4434d2a444a39c637849182039d053e244fda4ab4db7b3",
+      "bytes": 18880,
+      "text_lines": 558,
+      "kind": "text",
+      "review_scope": "Retained historical factory: inactive; preservation/line classification only, no new research authority."
+    },
+    {
+      "path": "factory/legacy/v2_6_0/factory.md",
+      "sha256": "e2896d824092106988d8f2ac9c3d75e730a37ff2da8c2e1ef61610c4e9db699d",
+      "bytes": 50536,
+      "text_lines": 273,
+      "kind": "text",
+      "review_scope": "Retained historical factory: inactive; preservation/line classification only, no new research authority."
+    },
+    {
+      "path": "factory/legacy/v2_6_0/factory/CHANGELOG.md",
+      "sha256": "d6fce4939cbb29295400837eeca52f0f844fc07207d981d01d6e8826ceadec4d",
+      "bytes": 170036,
+      "text_lines": 1645,
+      "kind": "text",
+      "review_scope": "Retained historical factory: inactive; preservation/line classification only, no new research authority."
+    },
+    {
+      "path": "factory/legacy/v2_6_0/factory/ClaudeInitialization.md",
+      "sha256": "d42e752e91ddde68def66c4b3a8f45043cf09c8808d27c122e550785c2e879a7",
+      "bytes": 799,
+      "text_lines": 5,
+      "kind": "text",
+      "review_scope": "Retained historical factory: inactive; preservation/line classification only, no new research authority."
+    },
+    {
+      "path": "factory/legacy/v2_6_0/factory/VERSION",
+      "sha256": "e33ccf6527ddb87b2dc894b17dd846206c5d18334710d253f7f366f2c4403fe0",
+      "bytes": 5,
+      "text_lines": 1,
+      "kind": "text",
+      "review_scope": "Retained historical factory: inactive; preservation/line classification only, no new research authority."
+    },
+    {
+      "path": "factory/legacy/v2_6_0/factory/architect_spec.md",
+      "sha256": "eb4eabade2e4a840c9141d83b3bed88e12302f0d1df03068958d65b34f37c6fe",
+      "bytes": 64145,
+      "text_lines": 331,
+      "kind": "text",
+      "review_scope": "Retained historical factory: inactive; preservation/line classification only, no new research authority."
+    },
+    {
+      "path": "factory/legacy/v2_6_0/factory/bootstrap_manifest.yaml",
+      "sha256": "1d2aa824a98f883a9044a3ce63f4f1e9ff67480f85a6c5e144a7d7ce50cfee48",
+      "bytes": 22996,
+      "text_lines": 212,
+      "kind": "text",
+      "review_scope": "Retained historical factory: inactive; preservation/line classification only, no new research authority."
+    },
+    {
+      "path": "factory/legacy/v2_6_0/factory/constitution.md",
+      "sha256": "78c05f385c0750569e45665a1487442242312986e7a05c554909c7e55f39ca2f",
+      "bytes": 58161,
+      "text_lines": 2170,
+      "kind": "text",
+      "review_scope": "Retained historical factory: inactive; preservation/line classification only, no new research authority."
+    },
+    {
+      "path": "factory/legacy/v2_6_0/factory/domain_checklists.md",
+      "sha256": "f62f447506112cf4971cbb63170e42ced2fdf37f20622f3b264d55e0a02340d2",
+      "bytes": 23609,
+      "text_lines": 109,
+      "kind": "text",
+      "review_scope": "Retained historical factory: inactive; preservation/line classification only, no new research authority."
+    },
+    {
+      "path": "factory/legacy/v2_6_0/factory/dynamic_rules.md",
+      "sha256": "526e910b5ae9b55e4f60e7924b81cca9347a6b2bb4b0571897c4710f7157a4a1",
+      "bytes": 175283,
+      "text_lines": 4055,
+      "kind": "text",
+      "review_scope": "Retained historical factory: inactive; preservation/line classification only, no new research authority."
+    },
+    {
+      "path": "factory/legacy/v2_6_0/factory/factory_spec.md",
+      "sha256": "542d221fbad7e6c51262486dc632d66b402759cdddfbbcbf81bf511230af7289",
+      "bytes": 93949,
+      "text_lines": 2002,
+      "kind": "text",
+      "review_scope": "Retained historical factory: inactive; preservation/line classification only, no new research authority."
+    },
+    {
+      "path": "factory/legacy/v2_6_0/factory/gatekeeper.py",
+      "sha256": "a66bbdc8da0e9d89fe49baf8ec2a89d43bba0f7289a70905d4f975c7fb2b479f",
+      "bytes": 344439,
+      "text_lines": 6943,
+      "kind": "text",
+      "review_scope": "Retained historical factory: inactive; preservation/line classification only, no new research authority."
+    },
+    {
+      "path": "factory/legacy/v2_6_0/factory/gatekeeper_spec.md",
+      "sha256": "810a3b2effef4230c74ffc99c7bf512a645c7e8364d9c85ef670a0ed61858c18",
+      "bytes": 53741,
+      "text_lines": 847,
+      "kind": "text",
+      "review_scope": "Retained historical factory: inactive; preservation/line classification only, no new research authority."
+    },
+    {
+      "path": "factory/legacy/v2_6_0/factory/gemini_spec.md",
+      "sha256": "40db79a933579ead84d2855b41ed1f7da3f1fdaa88a5ccea2028c9c89a202380",
+      "bytes": 701,
+      "text_lines": 5,
+      "kind": "text",
+      "review_scope": "Retained historical factory: inactive; preservation/line classification only, no new research authority."
+    },
+    {
+      "path": "factory/legacy/v2_6_0/factory/implementor_spec.md",
+      "sha256": "52aedd3f374e2e17e6786657e4175dbb17d174af336fed856e1f85e2b8e6cf4d",
+      "bytes": 50463,
+      "text_lines": 517,
+      "kind": "text",
+      "review_scope": "Retained historical factory: inactive; preservation/line classification only, no new research authority."
+    },
+    {
+      "path": "factory/legacy/v2_6_0/factory/key_facts_TEMPLATE.md",
+      "sha256": "49f0975b134a55532c5526db402cab27c8e249351dc85c7d2df44a97f4657043",
+      "bytes": 1748,
+      "text_lines": 36,
+      "kind": "text",
+      "review_scope": "Retained historical factory: inactive; preservation/line classification only, no new research authority."
+    },
+    {
+      "path": "factory/legacy/v2_6_0/factory/tests/test_gatekeeper_self_check.py",
+      "sha256": "84fbcba1020a5e8db1c6a1088793520d888b43c14686a9d5bacec45c127a3e5a",
+      "bytes": 8340,
+      "text_lines": 195,
+      "kind": "text",
+      "review_scope": "Retained historical factory: inactive; preservation/line classification only, no new research authority."
+    },
+    {
+      "path": "factory/legacy/v2_6_0/factory/tests/test_gatekeeper_v1_3_4.py",
+      "sha256": "139034d2dd5288ddb6b41e7387534e946154c59226ebe1c1905cab834b51a3bb",
+      "bytes": 11518,
+      "text_lines": 293,
+      "kind": "text",
+      "review_scope": "Retained historical factory: inactive; preservation/line classification only, no new research authority."
+    },
+    {
+      "path": "factory/legacy/v2_6_0/factory/tests/test_gatekeeper_v1_4_0.py",
+      "sha256": "580d266490d1938cc9e4b98b2d077adc30fbea15ba73c45fa941ee12d3cba601",
+      "bytes": 12902,
+      "text_lines": 311,
+      "kind": "text",
+      "review_scope": "Retained historical factory: inactive; preservation/line classification only, no new research authority."
+    },
+    {
+      "path": "factory/legacy/v2_6_0/factory/tests/test_gatekeeper_v1_4_1.py",
+      "sha256": "85801d7c443c9e15e70243e4ef72b4384373c2eb450d7e2db0432385d36ec890",
+      "bytes": 9012,
+      "text_lines": 207,
+      "kind": "text",
+      "review_scope": "Retained historical factory: inactive; preservation/line classification only, no new research authority."
+    },
+    {
+      "path": "factory/legacy/v2_6_0/factory/tests/test_gatekeeper_v1_4_2.py",
+      "sha256": "273af02e66fae9553cbaa5af32b0b548528072bf454da8904cba484673a8c50e",
+      "bytes": 12557,
+      "text_lines": 261,
+      "kind": "text",
+      "review_scope": "Retained historical factory: inactive; preservation/line classification only, no new research authority."
+    },
+    {
+      "path": "factory/legacy/v2_6_0/factory/tests/test_gatekeeper_v1_4_2_mandatory_gate.py",
+      "sha256": "6e7ea1c17ceeb4484f46d1629742573b96a1e2972f50e00b301a7acdeaacbcbb",
+      "bytes": 12163,
+      "text_lines": 296,
+      "kind": "text",
+      "review_scope": "Retained historical factory: inactive; preservation/line classification only, no new research authority."
+    },
+    {
+      "path": "factory/legacy/v2_6_0/factory/tests/test_gatekeeper_v1_4_2_mechanical_guards.py",
+      "sha256": "127cb3eecc86e8b0c2fd396ea619f602bba6489477e8fb47036677fb9ba4cd21",
+      "bytes": 15124,
+      "text_lines": 338,
+      "kind": "text",
+      "review_scope": "Retained historical factory: inactive; preservation/line classification only, no new research authority."
+    },
+    {
+      "path": "factory/legacy/v2_6_0/factory/tests/test_gatekeeper_v2_2_0.py",
+      "sha256": "8a855364cbc3cf9978acfd7978cc622a2d29a16b1e443fc8acfd82b94a29fb28",
+      "bytes": 17831,
+      "text_lines": 408,
+      "kind": "text",
+      "review_scope": "Retained historical factory: inactive; preservation/line classification only, no new research authority."
+    },
+    {
+      "path": "factory/legacy/v2_6_0/factory/tests/test_gatekeeper_v2_3_0.py",
+      "sha256": "61ac6e2ae54483e7ed111d805e8476f8050baff1e6fbfec707a5518cc8827fd2",
+      "bytes": 24144,
+      "text_lines": 514,
+      "kind": "text",
+      "review_scope": "Retained historical factory: inactive; preservation/line classification only, no new research authority."
+    },
+    {
+      "path": "factory/legacy/v2_6_0/factory/tests/test_gatekeeper_v2_4_0.py",
+      "sha256": "f9da71d606bf94c2a1514e1e1d5cb58c92ab8951fbf7a2692d58738cebf0c542",
+      "bytes": 9084,
+      "text_lines": 202,
+      "kind": "text",
+      "review_scope": "Retained historical factory: inactive; preservation/line classification only, no new research authority."
+    },
+    {
+      "path": "factory/legacy/v2_6_0/factory/tests/test_gatekeeper_v2_5_0.py",
+      "sha256": "39b63611ff5fb103877ed576cc1e75dab25b10dee0efbfa7ebb1fb9bf4f45e04",
+      "bytes": 20576,
+      "text_lines": 517,
+      "kind": "text",
+      "review_scope": "Retained historical factory: inactive; preservation/line classification only, no new research authority."
+    },
+    {
+      "path": "factory/legacy/v2_6_0/factory/tests/test_gatekeeper_v2_6_0.py",
+      "sha256": "144edf574f4820627f020232615f337475978afc158c5007c382c0646079167c",
+      "bytes": 21413,
+      "text_lines": 471,
+      "kind": "text",
+      "review_scope": "Retained historical factory: inactive; preservation/line classification only, no new research authority."
+    },
+    {
+      "path": "factory/legacy/v2_6_0/factory/venue_requirements_TEMPLATE.md",
+      "sha256": "24a1e19a2ad1e9644eec572d417008d85c7dbe595c228429e82e5081a63a996a",
+      "bytes": 21270,
+      "text_lines": 376,
+      "kind": "text",
+      "review_scope": "Retained historical factory: inactive; preservation/line classification only, no new research authority."
+    },
+    {
+      "path": "factory/requirements-ed25519-macos-arm64.lock",
+      "sha256": "5160155710b53f5514ec055427bf8a332dab1e0b45f3d5b08ed16e6d00e1417b",
+      "bytes": 438,
+      "text_lines": 5,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "factory/run_self_tests.py",
+      "sha256": "563e7217799f1532cacb5de2a1f14ba980197814bda3fb4fb71c9da8e216334f",
+      "bytes": 624,
+      "text_lines": 13,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "factory/templates/research_plan_TEMPLATE.json",
+      "sha256": "823d8d793b2bdc98f8121ba4946f2d20ae5b6559e254c698ed86cc40ffcc5ed9",
+      "bytes": 980,
+      "text_lines": 23,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "factory/templates/review_TEMPLATE.json",
+      "sha256": "52eded84e8c3552035f1110453856824590e0437443de08211287035aafcb1ca",
+      "bytes": 2560,
+      "text_lines": 23,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "factory/tests/conftest.py",
+      "sha256": "81ab5084435d3a8cb7248b6be06ca9b63355079bd3e4e1c1cd5642f158db5e73",
+      "bytes": 490,
+      "text_lines": 14,
+      "kind": "text",
+      "review_scope": "Full regression execution and targeted guard/fixture review; not independent scientific proof of every possible path."
+    },
+    {
+      "path": "factory/tests/test_flowgate_reaudit.py",
+      "sha256": "1b2fc4fa7136817623ce6fd432ada632272700b6f5bc60b2a88a979a9a78543e",
+      "bytes": 11012,
+      "text_lines": 194,
+      "kind": "text",
+      "review_scope": "Full regression execution and targeted guard/fixture review; not independent scientific proof of every possible path."
+    },
+    {
+      "path": "factory/tests/test_gatekeeper_cli.py",
+      "sha256": "b8949f244afb1c6c74a6669b390925b7f8d799483db6c66e5dbc7a0af9e5c813",
+      "bytes": 414,
+      "text_lines": 7,
+      "kind": "text",
+      "review_scope": "Full regression execution and targeted guard/fixture review; not independent scientific proof of every possible path."
+    },
+    {
+      "path": "factory/tests/test_gatekeeper_v3_0_0.py",
+      "sha256": "c0d31e426dc040fbccd0a2d594f9a4ca014e217df440f00073bb5c72dd219293",
+      "bytes": 2827,
+      "text_lines": 37,
+      "kind": "text",
+      "review_scope": "Full regression execution and targeted guard/fixture review; not independent scientific proof of every possible path."
+    },
+    {
+      "path": "factory/tests/test_metrics.py",
+      "sha256": "5e3afd4ac4e1eb58a131d0148f32edcccf6564a12828c75903ca99e91f669b45",
+      "bytes": 794,
+      "text_lines": 18,
+      "kind": "text",
+      "review_scope": "Full regression execution and targeted guard/fixture review; not independent scientific proof of every possible path."
+    },
+    {
+      "path": "factory/tests/test_scientific_gatekeeper.py",
+      "sha256": "52fbddbceef603e765230ee2089aa50ac00656b60f2b2e5fb8a9ce6e8047aaef",
+      "bytes": 312,
+      "text_lines": 6,
+      "kind": "text",
+      "review_scope": "Full regression execution and targeted guard/fixture review; not independent scientific proof of every possible path."
+    },
+    {
+      "path": "factory/tests/test_v3.py",
+      "sha256": "33e9c9bf085044314db6308bc233a0f6e3399b808000c81ba52a18335d262f5d",
+      "bytes": 11032,
+      "text_lines": 140,
+      "kind": "text",
+      "review_scope": "Full regression execution and targeted guard/fixture review; not independent scientific proof of every possible path."
+    },
+    {
+      "path": "factory/tests/test_v3_1_hardening.py",
+      "sha256": "944f7c2eb7518130cc9ab4e95c10b6cf9be54ce0ad664ecbe5b6d3cc706a8197",
+      "bytes": 5045,
+      "text_lines": 104,
+      "kind": "text",
+      "review_scope": "Full regression execution and targeted guard/fixture review; not independent scientific proof of every possible path."
+    },
+    {
+      "path": "factory/tests/test_v3_2_hardening.py",
+      "sha256": "269e6e3a3d47b86830612abc6c0f2a10ab7f7381bf6fbf1404932326822c4ea1",
+      "bytes": 3867,
+      "text_lines": 87,
+      "kind": "text",
+      "review_scope": "Full regression execution and targeted guard/fixture review; not independent scientific proof of every possible path."
+    },
+    {
+      "path": "factory/tests/test_v3_3_hardening.py",
+      "sha256": "3883567ed38e0ed104275515ac61ef39d6ef61d6e5aa4eff3757965e71998c31",
+      "bytes": 33775,
+      "text_lines": 865,
+      "kind": "text",
+      "review_scope": "Full regression execution and targeted guard/fixture review; not independent scientific proof of every possible path."
+    },
+    {
+      "path": "factory/tests/test_v3_3_stress.py",
+      "sha256": "02c8e121cb79b0e9412747cc5a9e195bda685dd6219765ad7174b8b7a9caff02",
+      "bytes": 34673,
+      "text_lines": 856,
+      "kind": "text",
+      "review_scope": "Full regression execution and targeted guard/fixture review; not independent scientific proof of every possible path."
+    },
+    {
+      "path": "factory/venue_requirements_TEMPLATE.md",
+      "sha256": "daa275222820b5f5aaf782074c273d58012337272d67085e0fe2e16505f6e0b1",
+      "bytes": 916,
+      "text_lines": 9,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "factory/verify_bundle_standalone.py",
+      "sha256": "02b5f91bb50366461ecea4a2e7e2905c9216ce481f378a730f6539f0c2c923e6",
+      "bytes": 9865,
+      "text_lines": 230,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "plan.md",
+      "sha256": "afc79394a765ca894db0671122d756eaa3fa1aa7e423beab0ade966692150bb6",
+      "bytes": 164986,
+      "text_lines": 774,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "project/STATUS.json",
+      "sha256": "8c778ed5710e709169787fcce8797bef28bf0f14ee39d5912d1d38d3b0cde02a",
+      "bytes": 802,
+      "text_lines": 14,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "project/research_plan.json",
+      "sha256": "e2e7e10efc4c2a91cb643d3805aec836c82e26706f796692e5a4bded35caf24f",
+      "bytes": 789,
+      "text_lines": 32,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "source/acquire_archives.py",
+      "sha256": "fb502f826521723162546b1ca89ac662ee6d3d879d9f33744a4d39d993a45161",
+      "bytes": 683,
+      "text_lines": 17,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "source/flowgate/__init__.py",
+      "sha256": "9d61d5e8ad4f4fd2278e445f768c3458898bf3f3f105d55d02daea70ecf8374e",
+      "bytes": 634,
+      "text_lines": 10,
+      "kind": "text",
+      "review_scope": "Active numerical/acquisition source: semantic audit against mathematical/causal/provenance contracts and regression oracles."
+    },
+    {
+      "path": "source/flowgate/acquisition.py",
+      "sha256": "e564d456e843155c7bb5251a6d5c36aa08bbac753b86cac9748921d37ceb1886",
+      "bytes": 5541,
+      "text_lines": 125,
+      "kind": "text",
+      "review_scope": "Active numerical/acquisition source: semantic audit against mathematical/causal/provenance contracts and regression oracles."
+    },
+    {
+      "path": "source/flowgate/download.py",
+      "sha256": "80b9d7740c066d5f5e5d22e38d98b6817ac3f25c08d5ebc8f3ae766fb952a9f9",
+      "bytes": 3369,
+      "text_lines": 74,
+      "kind": "text",
+      "review_scope": "Active numerical/acquisition source: semantic audit against mathematical/causal/provenance contracts and regression oracles."
+    },
+    {
+      "path": "source/flowgate/filters.py",
+      "sha256": "b0b8c1d73acc0c3ca3d01640ea850571ff758cdfac12747db686754afb1c4980",
+      "bytes": 7852,
+      "text_lines": 182,
+      "kind": "text",
+      "review_scope": "Active numerical/acquisition source: semantic audit against mathematical/causal/provenance contracts and regression oracles."
+    },
+    {
+      "path": "source/flowgate/manifest.py",
+      "sha256": "c765b8b4fd7203c1585245e00e86edcd494894d2fa122490b28fdda2e80880ca",
+      "bytes": 4431,
+      "text_lines": 99,
+      "kind": "text",
+      "review_scope": "Active numerical/acquisition source: semantic audit against mathematical/causal/provenance contracts and regression oracles."
+    },
+    {
+      "path": "source/flowgate/metrics.py",
+      "sha256": "13cd21529e9c7555e48b477cf8e816ea7189c629afb451c19bdc6da07bc68ac3",
+      "bytes": 6754,
+      "text_lines": 134,
+      "kind": "text",
+      "review_scope": "Active numerical/acquisition source: semantic audit against mathematical/causal/provenance contracts and regression oracles."
+    },
+    {
+      "path": "source/flowgate/queue.py",
+      "sha256": "fae41e8e34642dca280ce19580e8707a23f8dfa9e234256c504aace6b7eac35a",
+      "bytes": 2280,
+      "text_lines": 52,
+      "kind": "text",
+      "review_scope": "Active numerical/acquisition source: semantic audit against mathematical/causal/provenance contracts and regression oracles."
+    },
+    {
+      "path": "source/flowgate/scoring.py",
+      "sha256": "73d84f0cb350d3d3b526a07d6ed5defe4a80f9d7fe4bb62b595b46f4828e9cc1",
+      "bytes": 2061,
+      "text_lines": 46,
+      "kind": "text",
+      "review_scope": "Active numerical/acquisition source: semantic audit against mathematical/causal/provenance contracts and regression oracles."
+    },
+    {
+      "path": "source/flowgate/shedding.py",
+      "sha256": "c06b8ef06ed0183430685574449aaa48666eac0c154881c3617511e0ced09792",
+      "bytes": 3504,
+      "text_lines": 88,
+      "kind": "text",
+      "review_scope": "Active numerical/acquisition source: semantic audit against mathematical/causal/provenance contracts and regression oracles."
+    },
+    {
+      "path": "source/flowgate/statistics.py",
+      "sha256": "3438dcb58f9130942575de39a3f0c90e12b29b0e992f2219787827b88d4b313d",
+      "bytes": 2821,
+      "text_lines": 56,
+      "kind": "text",
+      "review_scope": "Active numerical/acquisition source: semantic audit against mathematical/causal/provenance contracts and regression oracles."
+    },
+    {
+      "path": "source/flowgate/validation.py",
+      "sha256": "20b935f4e7f12888f1e1b0ec5fae2e0c9f7aae7ad194256e3fc577698eb22b7a",
+      "bytes": 1082,
+      "text_lines": 39,
+      "kind": "text",
+      "review_scope": "Active numerical/acquisition source: semantic audit against mathematical/causal/provenance contracts and regression oracles."
+    },
+    {
+      "path": "source/pyproject.toml",
+      "sha256": "3e70ab87f4b73e4286529cb016cb1c8b87102fb3ab09ec019dfdeeff3d97e01f",
+      "bytes": 521,
+      "text_lines": 21,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "source/requirements-audit.lock",
+      "sha256": "9e38440a15b35276b22a0328d19d3f9ed5390808d3d39830c3d597264c0bdba7",
+      "bytes": 96,
+      "text_lines": 6,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "source/requirements-macos-arm64.lock",
+      "sha256": "6b103aef0eeb33438d03feccef0836f0dafdee4ae5d19b76725803d86971164b",
+      "bytes": 395,
+      "text_lines": 5,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "source/requirements-test-macos-arm64.lock",
+      "sha256": "8a2240d251894ba2e41a3284d21f217ba5dd4e4744a7da7797009684a6296b0b",
+      "bytes": 1256,
+      "text_lines": 14,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "source/requirements-test.lock",
+      "sha256": "09767b61cef4188006b1b6f99c437306a1aa7ec343e0d387809012eda9ab9448",
+      "bytes": 171,
+      "text_lines": 10,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "source/requirements.lock",
+      "sha256": "043228ce8e6233f5f3f9d4b48dc1d46fe274ea121bbb1f80cc9a0d02de0538d4",
+      "bytes": 182,
+      "text_lines": 4,
+      "kind": "text",
+      "review_scope": "Plan/policy/schema/lock/scaffold: checked applicability, history, references or declared structure; scope is described in the current report."
+    },
+    {
+      "path": "source/tests/test_acquisition.py",
+      "sha256": "7438cdf0b6def01f3b6086893e6b477971ec20da98bc13c9cedf97266e5f0948",
+      "bytes": 3323,
+      "text_lines": 74,
+      "kind": "text",
+      "review_scope": "Disclosed test inputs: full execution plus targeted contract/failure review; never empirical observations."
+    },
+    {
+      "path": "source/tests/test_engine.py",
+      "sha256": "a40b246a2781ecd5edf185867032306c46cb3dd54b8395fba0c64c86848b55c9",
+      "bytes": 10409,
+      "text_lines": 241,
+      "kind": "text",
+      "review_scope": "Disclosed test inputs: full execution plus targeted contract/failure review; never empirical observations."
+    },
+    {
+      "path": "source/tests/test_real_archive.py",
+      "sha256": "6df61423e72c8ec2e63faf45980bf9bce4c67511a9b822afc8957893dee9a476",
+      "bytes": 1257,
+      "text_lines": 25,
+      "kind": "text",
+      "review_scope": "Disclosed test inputs: full execution plus targeted contract/failure review; never empirical observations."
+    },
+    {
+      "path": "source/tests/test_reaudit.py",
+      "sha256": "d73de92fe0b37307c6995789c0abdb29cf18e0c4fb15938e333437c46a6c383f",
+      "bytes": 9239,
+      "text_lines": 209,
+      "kind": "text",
+      "review_scope": "Disclosed test inputs: full execution plus targeted contract/failure review; never empirical observations."
+    }
+  ]
+}

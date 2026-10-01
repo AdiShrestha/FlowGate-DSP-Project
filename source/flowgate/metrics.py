@@ -5,6 +5,7 @@ No Brier/log loss is manufactured from an arbitrary score mapping.
 """
 import math
 from numbers import Integral
+from statistics import mean
 from .validation import finite
 
 
@@ -44,7 +45,8 @@ def point_metrics(labels, scores, *, threshold):
     tn = neg - fp
     return {"auroc": roc_area, "average_precision": ap, "prevalence": pos / n,
             "tp": tp, "fp": fp, "fn": fn, "tn": tn,
-            "precision": tp / (tp + fp) if tp + fp else 0.0,
+            "precision": tp / (tp + fp) if tp + fp else None,
+            "precision_status": "ok" if tp + fp else "undefined_no_positive_predictions",
             "recall": tp / pos, "f1": 2 * tp / (2 * tp + fp + fn) if 2 * tp + fp + fn else 0.0,
             "false_positive_rate": fp / neg, "accuracy": (tp + tn) / n}
 
@@ -57,6 +59,8 @@ def event_metrics(events, alert_times_s, *, horizon_s, evaluation_start_s, evalu
     alerts are false alerts; unmatched events stay misses, with latency None.
     Overlapping windows use a greedy, declared matching policy. This is not
     a claim that this policy is universally appropriate for every dataset.
+    All-event recall includes windows cut short at the evaluation boundary;
+    a separately named fully-observed recall exposes that denominator choice.
     """
     start = finite(evaluation_start_s, "evaluation_start_s")
     end = finite(evaluation_end_s, "evaluation_end_s")
@@ -78,8 +82,10 @@ def event_metrics(events, alert_times_s, *, horizon_s, evaluation_start_s, evalu
     latencies = []
     event_rows = []
     for event_id, (onset, stop) in enumerate(intervals):
+        censored = horizon > end - stop
+        window_end = end if censored else stop + horizon
         match = next((i for i, t in enumerate(alerts)
-                      if i not in used and onset <= t <= min(stop + horizon, end)), None)
+                      if i not in used and onset <= t <= window_end), None)
         latency = None if match is None else alerts[match] - onset
         if latency is not None and not math.isfinite(latency):
             raise ArithmeticError("event latency exceeds finite floating-point range")
@@ -89,14 +95,26 @@ def event_metrics(events, alert_times_s, *, horizon_s, evaluation_start_s, evalu
         event_rows.append({"event_index": event_id, "onset_s": onset, "end_s": stop,
                            "alert_index": match, "latency_s": latency,
                            "matched": match is not None,
-                           "window_right_censored": stop + horizon > end})
+                           "window_right_censored": censored})
     hits = len(used)
     false_alerts = len(alerts) - hits
+    rate = false_alerts / duration * 3600
+    if not math.isfinite(rate):
+        raise ArithmeticError("false-alert rate exceeds finite floating-point range")
+    observed = [r for r in event_rows if not r['window_right_censored']]
+    observed_hits = sum(r['matched'] for r in observed)
     return {"events": event_rows, "event_count": len(intervals), "hits": hits,
             "misses": len(intervals) - hits, "false_alerts": false_alerts,
             "event_recall": hits / len(intervals) if intervals else None,
-            "false_alerts_per_hour": false_alerts / duration * 3600,
-            "mean_latency_detected_s": math.fsum(latencies) / hits if hits else None}
+            "false_alerts_per_hour": rate,
+            "mean_latency_detected_s": mean(latencies) if hits else None,
+            "matching_policy": "chronological_greedy_one_to_one_forward",
+            "fully_observed_event_count": len(observed),
+            "fully_observed_hits": observed_hits,
+            "fully_observed_misses": len(observed) - observed_hits,
+            "event_recall_fully_observed": observed_hits / len(observed) if observed else None,
+            "right_censored_event_count": len(event_rows) - len(observed),
+            "right_censored_unmatched_count": sum(not r['matched'] for r in event_rows if r['window_right_censored'])}
 
 
 def pareto_mask(points):

@@ -149,15 +149,9 @@ def _build_preexec(contract):
         if cpu:
             resource.setrlimit(resource.RLIMIT_CPU, (cpu, cpu))
         if mem:
-            try:
-                resource.setrlimit(resource.RLIMIT_AS, (mem, mem))
-            except (ValueError, OSError):
-                pass  # RLIMIT_AS not available on all platforms
+            resource.setrlimit(resource.RLIMIT_AS, (mem, mem))
         if nproc:
-            try:
-                resource.setrlimit(resource.RLIMIT_NPROC, (nproc, nproc))
-            except (ValueError, OSError):
-                pass  # RLIMIT_NPROC not available on all platforms
+            resource.setrlimit(resource.RLIMIT_NPROC, (nproc, nproc))
 
     return _set_limits
 

@@ -1,3 +1,5 @@
+> Supplied factory documentation: historical descriptions and validation counts below belong to the factory package. They are not FlowGate experimental evidence. For the current local changes and checks, read [the re-audit](re_audit/REPORT.md) and [local policy](../factory/LOCAL_AUDIT_POLICY.md).
+
 # Migrating v2.6 projects
 
 V3 does not silently bless v2.6 artifacts. Keep the old Factory under `factory/legacy/v2_6_0/` for historical reproduction. Create a new plan that names the real source/data, recompute every prediction with `factory/engine/metrics.py`, repair labels and group splits, rerun all preregistered seeds with a real stopping policy, and derive failure analysis from prediction IDs. A v2.6 `contract_report.md`, SHA-256, or PASS line is not a v3 receipt.

@@ -6,9 +6,9 @@ Each entry has four required fields:
     attack_fixture  — the test that exercises the bypass
     expected_transition — what must happen (BLOCKED)
 
-A release candidate is blocked until every listed attack fails through the
-complete lifecycle. "The mechanism exists" is not enough; the system
-demonstrates that the mechanism blocks a concrete attack.
+verify_attack_registry checks registry structure only. Actual fixture execution
+must be recorded separately. These fixtures neither prove a hostile-worker
+boundary nor exhaust scientific-validity failures.
 """
 
 ATTACK_REGISTRY = [
@@ -126,8 +126,8 @@ ATTACK_REGISTRY = [
     },
     {
         'id': 'ATK-015',
-        'invariant': 'no_hidden_label_copying',
-        'description': 'Predictions with label values from held-out data must be detected',
+        'invariant': 'no_phantom_prediction_identity',
+        'description': 'Phantom prediction IDs are rejected; hidden copying of valid held-out labels is not established by this fixture',
         'implementation': 'engine.audit.Audit.experiment',
         'attack_fixture': 'tests.test_v3_3_hardening.AttackTests.test_phantom_prediction_blocked',
         'expected_transition': 'BLOCKED',

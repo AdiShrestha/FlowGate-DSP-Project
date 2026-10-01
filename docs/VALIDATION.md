@@ -1,3 +1,5 @@
+> Supplied factory documentation: historical descriptions and validation counts below belong to the factory package. They are not FlowGate experimental evidence. For the current local changes and checks, read [the re-audit](re_audit/REPORT.md) and [local policy](../factory/LOCAL_AUDIT_POLICY.md).
+
 # Validation record for v3.3.0
 
 On 2026-09-16 UTC, the standard-library self-test suite ran with Python 3.12:

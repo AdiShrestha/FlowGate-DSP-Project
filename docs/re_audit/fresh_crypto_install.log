@@ -1,0 +1,14 @@
+Collecting cryptography==49.0.0
+  Using cached cryptography-49.0.0-cp311-abi3-macosx_11_0_arm64.whl.metadata (4.3 kB)
+Collecting cffi>=2.0.0 (from cryptography==49.0.0)
+  Using cached cffi-2.1.1-cp312-cp312-macosx_11_0_arm64.whl.metadata (2.5 kB)
+Collecting pycparser (from cffi>=2.0.0->cryptography==49.0.0)
+  Using cached pycparser-3.0-py3-none-any.whl.metadata (8.2 kB)
+Using cached cryptography-49.0.0-cp311-abi3-macosx_11_0_arm64.whl (4.0 MB)
+Using cached cffi-2.1.1-cp312-cp312-macosx_11_0_arm64.whl (184 kB)
+Using cached pycparser-3.0-py3-none-any.whl (48 kB)
+Installing collected packages: pycparser, cffi, cryptography
+Successfully installed cffi-2.1.1 cryptography-49.0.0 pycparser-3.0
+
+[notice] A new release of pip is available: 24.3.1 -> 26.2.1
+[notice] To update, run: /private/tmp/flowgate-research-reaudit-20261001/bin/python -m pip install --upgrade pip

@@ -1,8 +1,14 @@
 """Prior-window residual standardization with explicit warmup and scale floor."""
 import math
 from collections import deque
-from statistics import mean, median, stdev
+from statistics import mean, stdev
 from .validation import finite, integer, positive
+
+
+def _median(values):
+    ordered = sorted(values)
+    n = len(ordered)
+    return ordered[n // 2] if n % 2 else mean(ordered[n // 2 - 1:n // 2 + 1])
 
 
 class CausalResidualScore:
@@ -26,12 +32,14 @@ class CausalResidualScore:
                 center = mean(values)
                 scale = stdev(values)
             else:
-                center = median(values)
+                center = _median(values)
                 # Gaussian consistency constant, a definition rather than a measured outcome.
-                scale = 1.482602218505602 * median(abs(x - center) for x in values)
+                scale = 1.482602218505602 * _median([abs(x - center) for x in values])
             if not math.isfinite(center) or not math.isfinite(scale):
                 raise ArithmeticError("non-finite prior residual center/scale")
-            score = abs(residual - center) / max(scale, self.scale_floor)
+            denominator = max(scale, self.scale_floor)
+            difference = residual - center
+            score = abs(difference) / denominator if math.isfinite(difference) else abs(residual / denominator - center / denominator)
             if not math.isfinite(score):
                 raise ArithmeticError("non-finite standardized residual")
         self.history.append(residual)

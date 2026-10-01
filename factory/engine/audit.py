@@ -10,6 +10,8 @@ from statistics import mean
 from .io import read_json,read_csv,inside,sha,digest,inventory
 from .metrics import binary_metrics,paired_inference,holm,number,quantile,EvidenceError
 from .plan import validate,need,REVIEW_TOPICS
+from .contract import resolve_contract
+from .supervisor import verify_receipt_signature
 
 class Audit:
     def __init__(self,root,plan,epoch,freeze,engine_hash):
@@ -87,6 +89,7 @@ class Audit:
         eid=e['id'];base=self.epoch/'runs'/eid
         attempts=sorted(base.glob('attempt*')) if base.exists() else []
         need(bool(attempts),eid+': no execution receipt')
+        need([a.name for a in attempts]==[f'attempt{i:04d}' for i in range(1,len(attempts)+1)],eid+': noncontiguous attempt history')
         good=[]
         for a in attempts:
             rel=str((a/'execution.json').relative_to(self.root));r=self.j(rel)
@@ -95,10 +98,31 @@ class Audit:
             need(r.get('inputs_before')==self.freeze['files'],eid+': pre-execution input binding mismatch')
             need(r.get('inputs_after')==self.freeze['files'],eid+': source/data changed during run')
             need(r.get('engine_sha256')==self.engine_hash,eid+': code binding mismatch')
-            expected=[arg.replace('{run_dir}',str(a.resolve())).replace('{seed}',str(e['seed'])).replace('{experiment_id}',eid) for arg in e['command']]
+            if e.get('execution_contract'):
+                expected=resolve_contract(e['execution_contract'],a,e['seed'],eid)[0]
+            else:
+                expected=[arg.replace('{run_dir}',str(a.resolve())).replace('{seed}',str(e['seed'])).replace('{experiment_id}',eid) for arg in e['command']]
             need(r.get('argv')==expected,eid+': executed command differs from plan')
             outputs=inventory(self.root,[str(a.relative_to(self.root))]);outputs.pop(rel,None)
             need(outputs==r.get('outputs'),eid+': output hash/membership changed since execution')
+            signed=r.get('supervisor_receipt')
+            need(isinstance(signed,dict),eid+': missing signed supervisor receipt')
+            verify_receipt_signature(signed)
+            from .io import merkle_root
+            expected_signed={
+                'run_nonce':r.get('run_nonce'),'project_id':self.p.get('project_id',''),
+                'epoch':self.freeze['epoch'],'experiment_id':eid,
+                'snapshot_merkle_root':merkle_root(self.freeze['files']),
+                'input_root':digest(self.freeze['files']),
+                'runtime_id':e['execution_contract']['runtime_id'] if e.get('execution_contract') else 'legacy-command-unattested',
+                'interpreter_hash':r.get('interpreter_hash'),
+                'dependency_lock_hash':sha(self.root/self.p['dependency_lock']),
+                'launch_spec':digest(expected),'seed':e['seed'],'output_root':digest(outputs),
+                'exit_status':r.get('exit_code'),'started_at':r.get('started_at'),
+                'finished_at':r.get('finished_at'),'supervisor_version':r.get('factory_version'),
+                'policy_version':str(self.p.get('schema_version',3))}
+            need(isinstance(r.get('run_nonce'),str) and bool(r['run_nonce']),eid+': missing run nonce')
+            need(all(signed.get(k)==v for k,v in expected_signed.items()),eid+': signed receipt binding mismatch')
             self.bindings.update(outputs)
             if r.get('exit_code')==0 and not r.get('record_error'):good.append(a)
             else:self.diagnostic('FAILED_ATTEMPT',f'{eid}: {a.name}, exit {r.get("exit_code")}; retained; no silent deletion')
@@ -131,7 +155,7 @@ class Audit:
             if metrics['auroc']<.5:self.diagnostic('BELOW_CHANCE',eid+': '+split)
             if metrics['auroc']==1.:self.diagnostic('PERFECT_RANKING',eid+': '+split)
         self.training(e,r,a)
-        self.computed[eid]={'metrics':out,'seed':e['seed'],'model':e['model'],'predictions_sha256':sha(predpath),'result_path':str((a/'result.json').relative_to(self.root))}
+        self.computed[eid]={'metrics':out,'seed':e['seed'],'model':e['model'],'predictions_sha256':sha(predpath),'result_path':str((a/'result.json').relative_to(self.root)),'receipt_signature_verified':True,'receipt_scope':'local_cooperative_process_execution','runtime_launch_mode':'typed' if e.get('execution_contract') else 'legacy_unattested'}
         self.observed[eid]=data;self.reports[eid]=r
     def training(self,e,result,a):
         t=e['training'];eid=e['id']
@@ -295,12 +319,22 @@ class Audit:
             need(e['model']==ref_exp['model'],f'reproduction model identity mismatch: {e["model"]} != {ref_exp["model"]}')
             need(e['config']==ref_exp['config'],f'reproduction config differs from original; declare explicitly')
             need(e['training']['mode']==ref_exp['training']['mode'],'reproduction training mode differs')
+            self.reproduction_identity(e,ref_exp)
             a=self.observed[e['id']];b=self.observed[ref];need(set(a)==set(b),'reproduction ID mismatch')
             tol=self.p['policy']['metric_tolerance']
             need(all(abs(float(a[s]['score'])-float(b[s]['score']))<=tol for s in a),'prediction replay disagrees; report nondeterminism and preregister justified tolerance')
             reproduced.add(e['model'])
         need(needed<=reproduced,'missing fresh-process prediction replay for '+str(sorted(needed-reproduced)))
         for f in self.p['release_files']:self.file(f)
+    def reproduction_identity(self,e,reference):
+        """Bind a fresh-process replay to the declared producer and launch kind."""
+        need(e.get('code_paths')==reference.get('code_paths'),'reproduction producer code paths differ')
+        a,b=e.get('execution_contract'),reference.get('execution_contract')
+        need(bool(a)==bool(b),'reproduction typed/legacy runtime differs')
+        if a:
+            need(a['runtime_id']==b['runtime_id'] and a['entrypoint']==b['entrypoint'],'reproduction runtime/entrypoint differs')
+        else:
+            need(e['command'][0]==reference['command'][0],'reproduction executable differs')
     def run(self):
         self.guard('PLAN',lambda:validate(self.root,self.p));self.guard('FREEZE',self.frozen);self.guard('COHORT',self.cohort);self.guard('STATIC_SOURCE_SCAN',self.static_scan)
         if hasattr(self,'coh'):

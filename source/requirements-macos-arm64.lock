@@ -1,0 +1,5 @@
+# Exact artifacts installed and tested on macOS arm64 / CPython 3.12.
+# Platform-specific lock; install with pip --require-hashes.
+# Regenerate and test explicitly before changing Python, platform or versions.
+numpy==2.5.0 --hash=sha256:c83b664b0e6eee9594fa920cf0639d8af796606d3fad6cc70180c87e4b97c7be
+scipy==1.18.0 --hash=sha256:9ab7b758be6940954a713ee466e2043e9f6e2ed965c1fce5c91039f4be3d90a9

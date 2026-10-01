@@ -1,12 +1,9 @@
-"""Trusted supervisor: receipt signing, key management, runtime attestation.
+"""Local receipt signing and supervisor runtime observations.
 
-The supervisor owns the signing key and generates receipts. The worker process
-cannot access the private key. Receipts are cryptographically authentic and
-bind all 16 fields specified by the trust model.
-
-Uses Ed25519 via the standard library's hashlib + hmac as a baseline. When
-the ``cryptography`` package is available, real Ed25519 signatures are used.
-Otherwise, falls back to HMAC-SHA256 keyed receipts with a clear disclosure.
+Ed25519 permits public verification when cryptography is installed. HMAC is
+local-only: its secret is never exported as a public verification key. This
+same-user process arrangement does not isolate the key from an adversarial
+worker and therefore cannot attest sealed evaluation or hostile-worker safety.
 """
 import base64
 import hashlib
@@ -75,6 +72,8 @@ def init_supervisor_keys(force=False):
         if scheme.startswith('#'):
             scheme = scheme.lstrip('#').strip()
         return priv, pub, scheme
+    if (priv.exists() or pub.exists()) and not force:
+        raise EvidenceError('incomplete supervisor key pair; do not silently rotate existing signing material')
 
     priv.parent.mkdir(parents=True, exist_ok=True)
 
@@ -101,19 +100,21 @@ def init_supervisor_keys(force=False):
         secret = os.urandom(32)
         priv.write_bytes(secret)
         os.chmod(priv, 0o600)
-        pub.write_text(f'# {SCHEME_HMAC_SHA256}\n{base64.b64encode(secret).decode()}\n')
+        # A public fingerprint identifies the key but cannot verify an HMAC.
+        pub.write_text(f'# {SCHEME_HMAC_SHA256}\n{base64.b64encode(hashlib.sha256(secret).digest()).decode()}\n')
         return priv, pub, SCHEME_HMAC_SHA256
 
 
-def _load_keys():
+def _load_keys(*, create=True):
     """Load the supervisor keys. Returns (private_bytes, public_info, scheme)."""
     priv = _key_path()
     pub = _pub_key_path()
 
-    if not priv.exists() or not pub.exists():
+    if not pub.exists() or (create and not priv.exists()):
+        if not create:raise EvidenceError('supervisor verification key is missing')
         init_supervisor_keys()
 
-    priv_bytes = priv.read_bytes()
+    priv_bytes = priv.read_bytes() if priv.exists() else None
     pub_lines = pub.read_text().splitlines()
     scheme = SCHEME_HMAC_SHA256
     pub_data = b''
@@ -124,7 +125,12 @@ def _load_keys():
             if s in (SCHEME_ED25519, SCHEME_HMAC_SHA256):
                 scheme = s
         elif line:
-            pub_data = base64.b64decode(line)
+            pub_data = base64.b64decode(line, validate=True)
+
+    if scheme == SCHEME_HMAC_SHA256:
+        if priv_bytes is None:raise EvidenceError('local HMAC verification requires the private secret')
+        if pub_data != hashlib.sha256(priv_bytes).digest():
+            raise EvidenceError('legacy HMAC public file disclosed its secret; rotate keys explicitly and create a new epoch')
 
     return priv_bytes, pub_data, scheme
 
@@ -142,7 +148,9 @@ def sign_receipt(receipt_dict):
                if k not in ('supervisor_signature', 'signature_scheme', 'public_key_id')}
     payload = canonical(to_sign)
 
-    if scheme == SCHEME_ED25519 and _try_ed25519():
+    if scheme == SCHEME_ED25519:
+        if not _try_ed25519():
+            raise EvidenceError('Ed25519 key requires cryptography; signature algorithm cannot silently change')
         from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
         private_key = Ed25519PrivateKey.from_private_bytes(priv_bytes)
         sig = private_key.sign(payload)
@@ -178,7 +186,9 @@ def verify_receipt_signature(receipt_dict):
                  if k not in ('supervisor_signature', 'signature_scheme', 'public_key_id')}
     payload = canonical(to_verify)
 
-    _, pub_data, stored_scheme = _load_keys()
+    priv_data, pub_data, stored_scheme = _load_keys(create=False)
+    if scheme != stored_scheme:
+        raise EvidenceError('receipt signature scheme differs from configured key')
 
     # Verify key identity
     expected_id = hashlib.sha256(pub_data).hexdigest()[:16]
@@ -186,7 +196,7 @@ def verify_receipt_signature(receipt_dict):
         raise EvidenceError('receipt signed by unknown supervisor key')
 
     try:
-        sig = base64.b64decode(sig_b64)
+        sig = base64.b64decode(sig_b64, validate=True)
     except Exception:
         raise EvidenceError('receipt signature is malformed or truncated')
 
@@ -198,7 +208,7 @@ def verify_receipt_signature(receipt_dict):
         except Exception:
             raise EvidenceError('receipt signature verification failed')
     elif scheme == SCHEME_HMAC_SHA256:
-        expected = hmac.new(pub_data, payload, hashlib.sha256).digest()
+        expected = hmac.new(priv_data, payload, hashlib.sha256).digest()
         if not hmac.compare_digest(sig, expected):
             raise EvidenceError('receipt signature verification failed')
     else:

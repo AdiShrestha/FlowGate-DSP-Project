@@ -1,3 +1,5 @@
+> FlowGate local audit revision (1 October 2026): read [LOCAL_AUDIT_POLICY.md](LOCAL_AUDIT_POLICY.md) before applying this supplied v3.3 policy. It narrows unsupported assurance and replaces outcome-biasing diagnostic rules. The root plan.md and the user’s research-integrity requirements govern this project.
+
 # What v3 actually checks
 
 The active gate reads the frozen plan and run receipts. It hashes every declared source and dataset byte, rejects symlinks and unsafe paths, disallows duplicate JSON keys and non-finite values, and refuses plan or source changes after freeze. Experiment commands use an argument vector without a shell. Each preregistered seed gets an immutable attempt directory; failed attempts remain visible.

@@ -1,3 +1,5 @@
+> FlowGate local audit revision (1 October 2026): read [LOCAL_AUDIT_POLICY.md](LOCAL_AUDIT_POLICY.md) before applying this supplied v3.3 policy. It narrows unsupported assurance and replaces outcome-biasing diagnostic rules. The root plan.md and the user’s research-integrity requirements govern this project.
+
 # Implementor role — Factory v3.3.0
 
 Implement only what the frozen plan specifies. Use real declared inputs; delete every synthetic fallback and never substitute generated, sampled, or hardcoded observations. Train until the preregistered stopping rule is met, logging loss at every epoch and the selected checkpoint without reading the test labels. Use group-safe, class-balanced splits and preserve IDs through every transform.

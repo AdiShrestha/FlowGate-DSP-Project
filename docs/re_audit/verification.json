@@ -1,0 +1,894 @@
+{
+  "checked_at_utc": "2026-10-01T06:03:40.793416+00:00",
+  "status": "PASS",
+  "scope": "byte identity, complete raw acquisition semantics, source syntax, retained executed verification and honest unfrozen status; no scientific-result certificate",
+  "python": "3.12.8 (v3.12.8:2dc476bcb91, Dec  3 2024, 14:43:19) [Clang 13.0.0 (clang-1300.0.29.30)]",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "machine": "arm64",
+  "file_count": 178,
+  "inventory_sha256": "07707a695b9a8efcf6064a4d8c3640c0a606fb4889f40d197ff50c473f5bf37d",
+  "verifier_sha256": "91c0155cc38ca1a5df49d1456548d45cb7ab288af9a91bd74030fbe1044a3307",
+  "plan_sha256": "afc79394a765ca894db0671122d756eaa3fa1aa7e423beab0ade966692150bb6",
+  "raw_source_count": 155,
+  "raw_rows": 119611063,
+  "raw_audit_sha256": "176d256fd0a7e7475afdf4a7d233a390a907cf03a00a3cd94a8f928b4ca1d55c",
+  "cross_day_id_gap_slots": 0,
+  "cross_day_boundaries": [
+    {
+      "first_source_id": "binance:spot:BNBUSDT:2024-01-01",
+      "next_source_id": "binance:spot:BNBUSDT:2024-01-02",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BNBUSDT:2024-01-02",
+      "next_source_id": "binance:spot:BNBUSDT:2024-01-03",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BNBUSDT:2024-01-03",
+      "next_source_id": "binance:spot:BNBUSDT:2024-01-04",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BNBUSDT:2024-01-04",
+      "next_source_id": "binance:spot:BNBUSDT:2024-01-05",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BNBUSDT:2024-01-05",
+      "next_source_id": "binance:spot:BNBUSDT:2024-01-06",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BNBUSDT:2024-01-06",
+      "next_source_id": "binance:spot:BNBUSDT:2024-01-07",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BNBUSDT:2024-01-07",
+      "next_source_id": "binance:spot:BNBUSDT:2024-01-08",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BNBUSDT:2024-01-08",
+      "next_source_id": "binance:spot:BNBUSDT:2024-01-09",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BNBUSDT:2024-01-09",
+      "next_source_id": "binance:spot:BNBUSDT:2024-01-10",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BNBUSDT:2024-01-10",
+      "next_source_id": "binance:spot:BNBUSDT:2024-01-11",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BNBUSDT:2024-01-11",
+      "next_source_id": "binance:spot:BNBUSDT:2024-01-12",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BNBUSDT:2024-01-12",
+      "next_source_id": "binance:spot:BNBUSDT:2024-01-13",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BNBUSDT:2024-01-13",
+      "next_source_id": "binance:spot:BNBUSDT:2024-01-14",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BNBUSDT:2024-01-14",
+      "next_source_id": "binance:spot:BNBUSDT:2024-01-15",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BNBUSDT:2024-01-15",
+      "next_source_id": "binance:spot:BNBUSDT:2024-01-16",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BNBUSDT:2024-01-16",
+      "next_source_id": "binance:spot:BNBUSDT:2024-01-17",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BNBUSDT:2024-01-17",
+      "next_source_id": "binance:spot:BNBUSDT:2024-01-18",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BNBUSDT:2024-01-18",
+      "next_source_id": "binance:spot:BNBUSDT:2024-01-19",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BNBUSDT:2024-01-19",
+      "next_source_id": "binance:spot:BNBUSDT:2024-01-20",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BNBUSDT:2024-01-20",
+      "next_source_id": "binance:spot:BNBUSDT:2024-01-21",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BNBUSDT:2024-01-21",
+      "next_source_id": "binance:spot:BNBUSDT:2024-01-22",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BNBUSDT:2024-01-22",
+      "next_source_id": "binance:spot:BNBUSDT:2024-01-23",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BNBUSDT:2024-01-23",
+      "next_source_id": "binance:spot:BNBUSDT:2024-01-24",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BNBUSDT:2024-01-24",
+      "next_source_id": "binance:spot:BNBUSDT:2024-01-25",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BNBUSDT:2024-01-25",
+      "next_source_id": "binance:spot:BNBUSDT:2024-01-26",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BNBUSDT:2024-01-26",
+      "next_source_id": "binance:spot:BNBUSDT:2024-01-27",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BNBUSDT:2024-01-27",
+      "next_source_id": "binance:spot:BNBUSDT:2024-01-28",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BNBUSDT:2024-01-28",
+      "next_source_id": "binance:spot:BNBUSDT:2024-01-29",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BNBUSDT:2024-01-29",
+      "next_source_id": "binance:spot:BNBUSDT:2024-01-30",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BNBUSDT:2024-01-30",
+      "next_source_id": "binance:spot:BNBUSDT:2024-01-31",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BTCUSDT:2024-01-01",
+      "next_source_id": "binance:spot:BTCUSDT:2024-01-02",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BTCUSDT:2024-01-02",
+      "next_source_id": "binance:spot:BTCUSDT:2024-01-03",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BTCUSDT:2024-01-03",
+      "next_source_id": "binance:spot:BTCUSDT:2024-01-04",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BTCUSDT:2024-01-04",
+      "next_source_id": "binance:spot:BTCUSDT:2024-01-05",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BTCUSDT:2024-01-05",
+      "next_source_id": "binance:spot:BTCUSDT:2024-01-06",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BTCUSDT:2024-01-06",
+      "next_source_id": "binance:spot:BTCUSDT:2024-01-07",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BTCUSDT:2024-01-07",
+      "next_source_id": "binance:spot:BTCUSDT:2024-01-08",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BTCUSDT:2024-01-08",
+      "next_source_id": "binance:spot:BTCUSDT:2024-01-09",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BTCUSDT:2024-01-09",
+      "next_source_id": "binance:spot:BTCUSDT:2024-01-10",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BTCUSDT:2024-01-10",
+      "next_source_id": "binance:spot:BTCUSDT:2024-01-11",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BTCUSDT:2024-01-11",
+      "next_source_id": "binance:spot:BTCUSDT:2024-01-12",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BTCUSDT:2024-01-12",
+      "next_source_id": "binance:spot:BTCUSDT:2024-01-13",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BTCUSDT:2024-01-13",
+      "next_source_id": "binance:spot:BTCUSDT:2024-01-14",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BTCUSDT:2024-01-14",
+      "next_source_id": "binance:spot:BTCUSDT:2024-01-15",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BTCUSDT:2024-01-15",
+      "next_source_id": "binance:spot:BTCUSDT:2024-01-16",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BTCUSDT:2024-01-16",
+      "next_source_id": "binance:spot:BTCUSDT:2024-01-17",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BTCUSDT:2024-01-17",
+      "next_source_id": "binance:spot:BTCUSDT:2024-01-18",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BTCUSDT:2024-01-18",
+      "next_source_id": "binance:spot:BTCUSDT:2024-01-19",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BTCUSDT:2024-01-19",
+      "next_source_id": "binance:spot:BTCUSDT:2024-01-20",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BTCUSDT:2024-01-20",
+      "next_source_id": "binance:spot:BTCUSDT:2024-01-21",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BTCUSDT:2024-01-21",
+      "next_source_id": "binance:spot:BTCUSDT:2024-01-22",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BTCUSDT:2024-01-22",
+      "next_source_id": "binance:spot:BTCUSDT:2024-01-23",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BTCUSDT:2024-01-23",
+      "next_source_id": "binance:spot:BTCUSDT:2024-01-24",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BTCUSDT:2024-01-24",
+      "next_source_id": "binance:spot:BTCUSDT:2024-01-25",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BTCUSDT:2024-01-25",
+      "next_source_id": "binance:spot:BTCUSDT:2024-01-26",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BTCUSDT:2024-01-26",
+      "next_source_id": "binance:spot:BTCUSDT:2024-01-27",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BTCUSDT:2024-01-27",
+      "next_source_id": "binance:spot:BTCUSDT:2024-01-28",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BTCUSDT:2024-01-28",
+      "next_source_id": "binance:spot:BTCUSDT:2024-01-29",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BTCUSDT:2024-01-29",
+      "next_source_id": "binance:spot:BTCUSDT:2024-01-30",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:BTCUSDT:2024-01-30",
+      "next_source_id": "binance:spot:BTCUSDT:2024-01-31",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:ETHUSDT:2024-01-01",
+      "next_source_id": "binance:spot:ETHUSDT:2024-01-02",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:ETHUSDT:2024-01-02",
+      "next_source_id": "binance:spot:ETHUSDT:2024-01-03",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:ETHUSDT:2024-01-03",
+      "next_source_id": "binance:spot:ETHUSDT:2024-01-04",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:ETHUSDT:2024-01-04",
+      "next_source_id": "binance:spot:ETHUSDT:2024-01-05",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:ETHUSDT:2024-01-05",
+      "next_source_id": "binance:spot:ETHUSDT:2024-01-06",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:ETHUSDT:2024-01-06",
+      "next_source_id": "binance:spot:ETHUSDT:2024-01-07",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:ETHUSDT:2024-01-07",
+      "next_source_id": "binance:spot:ETHUSDT:2024-01-08",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:ETHUSDT:2024-01-08",
+      "next_source_id": "binance:spot:ETHUSDT:2024-01-09",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:ETHUSDT:2024-01-09",
+      "next_source_id": "binance:spot:ETHUSDT:2024-01-10",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:ETHUSDT:2024-01-10",
+      "next_source_id": "binance:spot:ETHUSDT:2024-01-11",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:ETHUSDT:2024-01-11",
+      "next_source_id": "binance:spot:ETHUSDT:2024-01-12",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:ETHUSDT:2024-01-12",
+      "next_source_id": "binance:spot:ETHUSDT:2024-01-13",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:ETHUSDT:2024-01-13",
+      "next_source_id": "binance:spot:ETHUSDT:2024-01-14",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:ETHUSDT:2024-01-14",
+      "next_source_id": "binance:spot:ETHUSDT:2024-01-15",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:ETHUSDT:2024-01-15",
+      "next_source_id": "binance:spot:ETHUSDT:2024-01-16",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:ETHUSDT:2024-01-16",
+      "next_source_id": "binance:spot:ETHUSDT:2024-01-17",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:ETHUSDT:2024-01-17",
+      "next_source_id": "binance:spot:ETHUSDT:2024-01-18",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:ETHUSDT:2024-01-18",
+      "next_source_id": "binance:spot:ETHUSDT:2024-01-19",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:ETHUSDT:2024-01-19",
+      "next_source_id": "binance:spot:ETHUSDT:2024-01-20",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:ETHUSDT:2024-01-20",
+      "next_source_id": "binance:spot:ETHUSDT:2024-01-21",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:ETHUSDT:2024-01-21",
+      "next_source_id": "binance:spot:ETHUSDT:2024-01-22",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:ETHUSDT:2024-01-22",
+      "next_source_id": "binance:spot:ETHUSDT:2024-01-23",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:ETHUSDT:2024-01-23",
+      "next_source_id": "binance:spot:ETHUSDT:2024-01-24",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:ETHUSDT:2024-01-24",
+      "next_source_id": "binance:spot:ETHUSDT:2024-01-25",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:ETHUSDT:2024-01-25",
+      "next_source_id": "binance:spot:ETHUSDT:2024-01-26",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:ETHUSDT:2024-01-26",
+      "next_source_id": "binance:spot:ETHUSDT:2024-01-27",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:ETHUSDT:2024-01-27",
+      "next_source_id": "binance:spot:ETHUSDT:2024-01-28",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:ETHUSDT:2024-01-28",
+      "next_source_id": "binance:spot:ETHUSDT:2024-01-29",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:ETHUSDT:2024-01-29",
+      "next_source_id": "binance:spot:ETHUSDT:2024-01-30",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:ETHUSDT:2024-01-30",
+      "next_source_id": "binance:spot:ETHUSDT:2024-01-31",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:SOLUSDT:2024-01-01",
+      "next_source_id": "binance:spot:SOLUSDT:2024-01-02",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:SOLUSDT:2024-01-02",
+      "next_source_id": "binance:spot:SOLUSDT:2024-01-03",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:SOLUSDT:2024-01-03",
+      "next_source_id": "binance:spot:SOLUSDT:2024-01-04",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:SOLUSDT:2024-01-04",
+      "next_source_id": "binance:spot:SOLUSDT:2024-01-05",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:SOLUSDT:2024-01-05",
+      "next_source_id": "binance:spot:SOLUSDT:2024-01-06",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:SOLUSDT:2024-01-06",
+      "next_source_id": "binance:spot:SOLUSDT:2024-01-07",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:SOLUSDT:2024-01-07",
+      "next_source_id": "binance:spot:SOLUSDT:2024-01-08",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:SOLUSDT:2024-01-08",
+      "next_source_id": "binance:spot:SOLUSDT:2024-01-09",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:SOLUSDT:2024-01-09",
+      "next_source_id": "binance:spot:SOLUSDT:2024-01-10",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:SOLUSDT:2024-01-10",
+      "next_source_id": "binance:spot:SOLUSDT:2024-01-11",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:SOLUSDT:2024-01-11",
+      "next_source_id": "binance:spot:SOLUSDT:2024-01-12",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:SOLUSDT:2024-01-12",
+      "next_source_id": "binance:spot:SOLUSDT:2024-01-13",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:SOLUSDT:2024-01-13",
+      "next_source_id": "binance:spot:SOLUSDT:2024-01-14",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:SOLUSDT:2024-01-14",
+      "next_source_id": "binance:spot:SOLUSDT:2024-01-15",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:SOLUSDT:2024-01-15",
+      "next_source_id": "binance:spot:SOLUSDT:2024-01-16",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:SOLUSDT:2024-01-16",
+      "next_source_id": "binance:spot:SOLUSDT:2024-01-17",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:SOLUSDT:2024-01-17",
+      "next_source_id": "binance:spot:SOLUSDT:2024-01-18",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:SOLUSDT:2024-01-18",
+      "next_source_id": "binance:spot:SOLUSDT:2024-01-19",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:SOLUSDT:2024-01-19",
+      "next_source_id": "binance:spot:SOLUSDT:2024-01-20",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:SOLUSDT:2024-01-20",
+      "next_source_id": "binance:spot:SOLUSDT:2024-01-21",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:SOLUSDT:2024-01-21",
+      "next_source_id": "binance:spot:SOLUSDT:2024-01-22",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:SOLUSDT:2024-01-22",
+      "next_source_id": "binance:spot:SOLUSDT:2024-01-23",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:SOLUSDT:2024-01-23",
+      "next_source_id": "binance:spot:SOLUSDT:2024-01-24",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:SOLUSDT:2024-01-24",
+      "next_source_id": "binance:spot:SOLUSDT:2024-01-25",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:SOLUSDT:2024-01-25",
+      "next_source_id": "binance:spot:SOLUSDT:2024-01-26",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:SOLUSDT:2024-01-26",
+      "next_source_id": "binance:spot:SOLUSDT:2024-01-27",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:SOLUSDT:2024-01-27",
+      "next_source_id": "binance:spot:SOLUSDT:2024-01-28",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:SOLUSDT:2024-01-28",
+      "next_source_id": "binance:spot:SOLUSDT:2024-01-29",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:SOLUSDT:2024-01-29",
+      "next_source_id": "binance:spot:SOLUSDT:2024-01-30",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:SOLUSDT:2024-01-30",
+      "next_source_id": "binance:spot:SOLUSDT:2024-01-31",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:XRPUSDT:2024-01-01",
+      "next_source_id": "binance:spot:XRPUSDT:2024-01-02",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:XRPUSDT:2024-01-02",
+      "next_source_id": "binance:spot:XRPUSDT:2024-01-03",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:XRPUSDT:2024-01-03",
+      "next_source_id": "binance:spot:XRPUSDT:2024-01-04",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:XRPUSDT:2024-01-04",
+      "next_source_id": "binance:spot:XRPUSDT:2024-01-05",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:XRPUSDT:2024-01-05",
+      "next_source_id": "binance:spot:XRPUSDT:2024-01-06",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:XRPUSDT:2024-01-06",
+      "next_source_id": "binance:spot:XRPUSDT:2024-01-07",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:XRPUSDT:2024-01-07",
+      "next_source_id": "binance:spot:XRPUSDT:2024-01-08",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:XRPUSDT:2024-01-08",
+      "next_source_id": "binance:spot:XRPUSDT:2024-01-09",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:XRPUSDT:2024-01-09",
+      "next_source_id": "binance:spot:XRPUSDT:2024-01-10",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:XRPUSDT:2024-01-10",
+      "next_source_id": "binance:spot:XRPUSDT:2024-01-11",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:XRPUSDT:2024-01-11",
+      "next_source_id": "binance:spot:XRPUSDT:2024-01-12",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:XRPUSDT:2024-01-12",
+      "next_source_id": "binance:spot:XRPUSDT:2024-01-13",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:XRPUSDT:2024-01-13",
+      "next_source_id": "binance:spot:XRPUSDT:2024-01-14",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:XRPUSDT:2024-01-14",
+      "next_source_id": "binance:spot:XRPUSDT:2024-01-15",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:XRPUSDT:2024-01-15",
+      "next_source_id": "binance:spot:XRPUSDT:2024-01-16",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:XRPUSDT:2024-01-16",
+      "next_source_id": "binance:spot:XRPUSDT:2024-01-17",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:XRPUSDT:2024-01-17",
+      "next_source_id": "binance:spot:XRPUSDT:2024-01-18",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:XRPUSDT:2024-01-18",
+      "next_source_id": "binance:spot:XRPUSDT:2024-01-19",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:XRPUSDT:2024-01-19",
+      "next_source_id": "binance:spot:XRPUSDT:2024-01-20",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:XRPUSDT:2024-01-20",
+      "next_source_id": "binance:spot:XRPUSDT:2024-01-21",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:XRPUSDT:2024-01-21",
+      "next_source_id": "binance:spot:XRPUSDT:2024-01-22",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:XRPUSDT:2024-01-22",
+      "next_source_id": "binance:spot:XRPUSDT:2024-01-23",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:XRPUSDT:2024-01-23",
+      "next_source_id": "binance:spot:XRPUSDT:2024-01-24",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:XRPUSDT:2024-01-24",
+      "next_source_id": "binance:spot:XRPUSDT:2024-01-25",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:XRPUSDT:2024-01-25",
+      "next_source_id": "binance:spot:XRPUSDT:2024-01-26",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:XRPUSDT:2024-01-26",
+      "next_source_id": "binance:spot:XRPUSDT:2024-01-27",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:XRPUSDT:2024-01-27",
+      "next_source_id": "binance:spot:XRPUSDT:2024-01-28",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:XRPUSDT:2024-01-28",
+      "next_source_id": "binance:spot:XRPUSDT:2024-01-29",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:XRPUSDT:2024-01-29",
+      "next_source_id": "binance:spot:XRPUSDT:2024-01-30",
+      "gap_slots": 0
+    },
+    {
+      "first_source_id": "binance:spot:XRPUSDT:2024-01-30",
+      "next_source_id": "binance:spot:XRPUSDT:2024-01-31",
+      "gap_slots": 0
+    }
+  ],
+  "cache_loss_rows": 45780502,
+  "cache_loss_comparison_sha256": "4f6fd288edcde3d5c6a65abd09f67200ca21978af02a6e0a52fee7debac28252",
+  "lock_artifact_checks": {
+    "source/requirements-macos-arm64.lock": [
+      {
+        "package": "numpy",
+        "version": "2.5.0",
+        "sha256": "c83b664b0e6eee9594fa920cf0639d8af796606d3fad6cc70180c87e4b97c7be"
+      },
+      {
+        "package": "scipy",
+        "version": "1.18.0",
+        "sha256": "9ab7b758be6940954a713ee466e2043e9f6e2ed965c1fce5c91039f4be3d90a9"
+      }
+    ],
+    "source/requirements-test-macos-arm64.lock": [
+      {
+        "package": "iniconfig",
+        "version": "2.3.0",
+        "sha256": "f631c04d2c48c52b84d0d0549c99ff3859c98df65b3101406327ecc7d53fbf12"
+      },
+      {
+        "package": "joblib",
+        "version": "1.5.3",
+        "sha256": "5fc3c5039fc5ca8c0276333a188bbd59d6b7ab37fe6632daa76bc7f9ec18e713"
+      },
+      {
+        "package": "narwhals",
+        "version": "2.26.0",
+        "sha256": "29326d74f107c347fd1009bd58e38d9f7c7c5b51e6de97bc93dbc325d9038b54"
+      },
+      {
+        "package": "numpy",
+        "version": "2.5.0",
+        "sha256": "c83b664b0e6eee9594fa920cf0639d8af796606d3fad6cc70180c87e4b97c7be"
+      },
+      {
+        "package": "packaging",
+        "version": "26.2",
+        "sha256": "5fc45236b9446107ff2415ce77c807cee2862cb6fac22b8a73826d0693b0980e"
+      },
+      {
+        "package": "pluggy",
+        "version": "1.6.0",
+        "sha256": "e920276dd6813095e9377c0bc5566d94c932c33b27a3e3945d8389c374dd4746"
+      },
+      {
+        "package": "pygments",
+        "version": "2.20.0",
+        "sha256": "81a9e26dd42fd28a23a2d169d86d7ac03b46e2f8b59ed4698fb4785f946d0176"
+      },
+      {
+        "package": "pytest",
+        "version": "9.1.1",
+        "sha256": "37a86b45efb9a47a61a36449063e8e18d0cab3161329fc099eb21783169c4f0c"
+      },
+      {
+        "package": "scikit-learn",
+        "version": "1.9.0",
+        "sha256": "5be45aa4a42a68a533913a6ed736cf309de2226411c79ef8d609a5456f1939b1"
+      },
+      {
+        "package": "scipy",
+        "version": "1.18.0",
+        "sha256": "9ab7b758be6940954a713ee466e2043e9f6e2ed965c1fce5c91039f4be3d90a9"
+      },
+      {
+        "package": "threadpoolctl",
+        "version": "3.6.0",
+        "sha256": "43a0b8fd5a2928500110039e43a5eed8480b918967083ea48dc3ab9f13c4a7fb"
+      }
+    ],
+    "factory/requirements-ed25519-macos-arm64.lock": [
+      {
+        "package": "cffi",
+        "version": "2.1.1",
+        "sha256": "f81b3b8f3d4e343550fa4baa0e479bba9f2d29ce9c2e9b51d1ce1718d7442fcf"
+      },
+      {
+        "package": "cryptography",
+        "version": "49.0.0",
+        "sha256": "966fe0e9c67490071f14c0d2b1cb2dfb3023c5ce39457343931415f08382f2db"
+      },
+      {
+        "package": "pycparser",
+        "version": "3.0",
+        "sha256": "b727414169a36b7d524c1c3e31839a521725078d7b2ff038656844266160a992"
+      }
+    ]
+  },
+  "lock_check_scope": "pip installation-report artifact identity and dependency consistency, not sealed installed-runtime attestation",
+  "tests": {
+    "core": {
+      "passed": 78,
+      "log": "core_tests.log",
+      "sha256": "a111b023899d6083bd963a83256738de6803dec3130ff0f2ce41168723f80976"
+    },
+    "factory_unittest": {
+      "passed": 300,
+      "log": "factory_tests.log",
+      "sha256": "95d06190a587649dfd5e012d466325dd5c43ac9fcbc506b3f857b096312e8731"
+    },
+    "factory_pytest": {
+      "passed": 305,
+      "log": "factory_pytest.log",
+      "sha256": "6a403b380b1051048cec46b5a1a12c6c209fa512c4a1fc55568a6d1cc9d4569a"
+    },
+    "fresh_core": {
+      "passed": 78,
+      "log": "fresh_core_tests.log",
+      "sha256": "c3cda07988b2858b9275391359a618cc1a834f0a8004461ea022235583c887e9"
+    },
+    "fresh_factory": {
+      "passed": 305,
+      "log": "fresh_factory_tests.log",
+      "sha256": "91c2519486f055672bb8306ea230b8483311522e7febb2178778ff336d86282a"
+    }
+  },
+  "research_certified": false,
+  "limitations": [
+    "mathematical tests and line-level review cannot guarantee absence of every scientific defect",
+    "inactive legacy packages/snapshots and repetitive generated records have preservation/structural scope, not equal-depth semantic review",
+    "no DSP/streaming domain profile, actual bounded runtime or confirmatory study",
+    "no independently justified primary quality target, margin, population or source-unit independence",
+    "same-user execution/signing is not sealed evaluation or independent peer review"
+  ]
+}

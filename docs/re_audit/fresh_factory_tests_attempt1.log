@@ -1,0 +1,733 @@
+...............ss.................................F....F..FF.F.FF.FF..FF [ 23%]
+..F.....FF......F..........................................F........... [ 47%]
+......................F.......FFFF...................................... [ 71%]
+............................................................F...F....... [ 95%]
+..............                                                           [100%]
+=================================== FAILURES ===================================
+_____________ LifecycleTests.test_added_source_invalidates_freeze ______________
+
+self = <test_v3.LifecycleTests testMethod=test_added_source_invalidates_freeze>
+
+    def test_added_source_invalidates_freeze(self):
+>    self.execute();(self.r/'source/new.py').write_text('x=1\n');self.assertTrue(evaluate(self.r)['errors'])
+     ^^^^^^^^^^^^^^
+
+factory/tests/test_v3.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+factory/tests/test_v3.py:80: in execute
+    def execute(self):g.freeze(self.r);self.assertEqual(g.run_exp(self.r,'known'),0)
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^
+factory/gatekeeper.py:195: in run_exp
+    if code==0:return record(r,eid,relpath(a,r))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+factory/gatekeeper.py:222: in record
+    A.experiment(e)
+factory/engine/audit.py:109: in experiment
+    need(isinstance(signed,dict),eid+': missing signed supervisor receipt')
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+condition = False, message = 'known: missing signed supervisor receipt'
+
+    def need(condition, message):
+>       if not condition: raise EvidenceError(message)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       engine.metrics.EvidenceError: known: missing signed supervisor receipt
+
+factory/engine/plan.py:10: EvidenceError
+_____________ LifecycleTests.test_forged_metrics_even_after_rehash _____________
+
+self = <test_v3.LifecycleTests testMethod=test_forged_metrics_even_after_rehash>
+
+    def test_forged_metrics_even_after_rehash(self):
+>    self.execute();_,ep,_=g.active(self.r);p=ep/'runs/known/attempt0001/result.json';x=read_json(p);x['reported_metrics']['test']['auroc']=0.;write_json(p,x);forged_output_rehash(self.r,resign_for_semantic_test=True)
+     ^^^^^^^^^^^^^^
+
+factory/tests/test_v3.py:97: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+factory/tests/test_v3.py:80: in execute
+    def execute(self):g.freeze(self.r);self.assertEqual(g.run_exp(self.r,'known'),0)
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^
+factory/gatekeeper.py:195: in run_exp
+    if code==0:return record(r,eid,relpath(a,r))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+factory/gatekeeper.py:222: in record
+    A.experiment(e)
+factory/engine/audit.py:109: in experiment
+    need(isinstance(signed,dict),eid+': missing signed supervisor receipt')
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+condition = False, message = 'known: missing signed supervisor receipt'
+
+    def need(condition, message):
+>       if not condition: raise EvidenceError(message)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       engine.metrics.EvidenceError: known: missing signed supervisor receipt
+
+factory/engine/plan.py:10: EvidenceError
+________________ LifecycleTests.test_handoff_contains_evidence _________________
+
+self = <test_v3.LifecycleTests testMethod=test_handoff_contains_evidence>
+
+    def test_handoff_contains_evidence(self):
+>    self.execute();self.assertEqual(g.handoff(self.r),0);self.assertTrue(list((self.r/'TAKE_THIS').glob('*.zip')))
+     ^^^^^^^^^^^^^^
+
+factory/tests/test_v3.py:138: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+factory/tests/test_v3.py:80: in execute
+    def execute(self):g.freeze(self.r);self.assertEqual(g.run_exp(self.r,'known'),0)
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^
+factory/gatekeeper.py:195: in run_exp
+    if code==0:return record(r,eid,relpath(a,r))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+factory/gatekeeper.py:222: in record
+    A.experiment(e)
+factory/engine/audit.py:109: in experiment
+    need(isinstance(signed,dict),eid+': missing signed supervisor receipt')
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+condition = False, message = 'known: missing signed supervisor receipt'
+
+    def need(condition, message):
+>       if not condition: raise EvidenceError(message)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       engine.metrics.EvidenceError: known: missing signed supervisor receipt
+
+factory/engine/plan.py:10: EvidenceError
+_____________ LifecycleTests.test_label_mismatch_even_after_rehash _____________
+
+self = <test_v3.LifecycleTests testMethod=test_label_mismatch_even_after_rehash>
+
+    def test_label_mismatch_even_after_rehash(self):
+>    self.execute();_,ep,_=g.active(self.r);p=ep/'runs/known/attempt0001/predictions.csv';p.write_text(p.read_text().replace('s8,0,','s8,1,'));forged_output_rehash(self.r);self.assertTrue(evaluate(self.r)['errors'])
+     ^^^^^^^^^^^^^^
+
+factory/tests/test_v3.py:102: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+factory/tests/test_v3.py:80: in execute
+    def execute(self):g.freeze(self.r);self.assertEqual(g.run_exp(self.r,'known'),0)
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^
+factory/gatekeeper.py:195: in run_exp
+    if code==0:return record(r,eid,relpath(a,r))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+factory/gatekeeper.py:222: in record
+    A.experiment(e)
+factory/engine/audit.py:109: in experiment
+    need(isinstance(signed,dict),eid+': missing signed supervisor receipt')
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+condition = False, message = 'known: missing signed supervisor receipt'
+
+    def need(condition, message):
+>       if not condition: raise EvidenceError(message)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       engine.metrics.EvidenceError: known: missing signed supervisor receipt
+
+factory/engine/plan.py:10: EvidenceError
+_____________ LifecycleTests.test_missing_review_withholds_release _____________
+
+self = <test_v3.LifecycleTests testMethod=test_missing_review_withholds_release>
+
+>   def test_missing_review_withholds_release(self):self.execute();self.assertEqual(g.certify(self.r),g.EXIT_REVIEW)
+                                                    ^^^^^^^^^^^^^^
+
+factory/tests/test_v3.py:126: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+factory/tests/test_v3.py:80: in execute
+    def execute(self):g.freeze(self.r);self.assertEqual(g.run_exp(self.r,'known'),0)
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^
+factory/gatekeeper.py:195: in run_exp
+    if code==0:return record(r,eid,relpath(a,r))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+factory/gatekeeper.py:222: in record
+    A.experiment(e)
+factory/engine/audit.py:109: in experiment
+    need(isinstance(signed,dict),eid+': missing signed supervisor receipt')
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+condition = False, message = 'known: missing signed supervisor receipt'
+
+    def need(condition, message):
+>       if not condition: raise EvidenceError(message)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       engine.metrics.EvidenceError: known: missing signed supervisor receipt
+
+factory/engine/plan.py:10: EvidenceError
+_____________ LifecycleTests.test_mutated_plan_invalidates_freeze ______________
+
+self = <test_v3.LifecycleTests testMethod=test_mutated_plan_invalidates_freeze>
+
+    def test_mutated_plan_invalidates_freeze(self):
+>    self.execute();self.p['population']='changed';write_json(self.r/g.ROOT_PLAN,self.p);self.assertTrue(evaluate(self.r)['errors'])
+     ^^^^^^^^^^^^^^
+
+factory/tests/test_v3.py:93: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+factory/tests/test_v3.py:80: in execute
+    def execute(self):g.freeze(self.r);self.assertEqual(g.run_exp(self.r,'known'),0)
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^
+factory/gatekeeper.py:195: in run_exp
+    if code==0:return record(r,eid,relpath(a,r))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+factory/gatekeeper.py:222: in record
+    A.experiment(e)
+factory/engine/audit.py:109: in experiment
+    need(isinstance(signed,dict),eid+': missing signed supervisor receipt')
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+condition = False, message = 'known: missing signed supervisor receipt'
+
+    def need(condition, message):
+>       if not condition: raise EvidenceError(message)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       engine.metrics.EvidenceError: known: missing signed supervisor receipt
+
+factory/engine/plan.py:10: EvidenceError
+_________________ LifecycleTests.test_mutated_prediction_hash __________________
+
+self = <test_v3.LifecycleTests testMethod=test_mutated_prediction_hash>
+
+    def test_mutated_prediction_hash(self):
+>    self.execute();_,ep,_=g.active(self.r);p=ep/'runs/known/attempt0001/predictions.csv';p.write_text(p.read_text().replace('0.8','0.9'));self.assertTrue(evaluate(self.r)['errors'])
+     ^^^^^^^^^^^^^^
+
+factory/tests/test_v3.py:95: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+factory/tests/test_v3.py:80: in execute
+    def execute(self):g.freeze(self.r);self.assertEqual(g.run_exp(self.r,'known'),0)
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^
+factory/gatekeeper.py:195: in run_exp
+    if code==0:return record(r,eid,relpath(a,r))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+factory/gatekeeper.py:222: in record
+    A.experiment(e)
+factory/engine/audit.py:109: in experiment
+    need(isinstance(signed,dict),eid+': missing signed supervisor receipt')
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+condition = False, message = 'known: missing signed supervisor receipt'
+
+    def need(condition, message):
+>       if not condition: raise EvidenceError(message)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       engine.metrics.EvidenceError: known: missing signed supervisor receipt
+
+factory/engine/plan.py:10: EvidenceError
+___________ LifecycleTests.test_phantom_prediction_even_after_rehash ___________
+
+self = <test_v3.LifecycleTests testMethod=test_phantom_prediction_even_after_rehash>
+
+    def test_phantom_prediction_even_after_rehash(self):
+>    self.execute();_,ep,_=g.active(self.r);p=ep/'runs/known/attempt0001/predictions.csv';p.write_text(p.read_text().replace('s8,','phantom,'));forged_output_rehash(self.r);self.assertTrue(evaluate(self.r)['errors'])
+     ^^^^^^^^^^^^^^
+
+factory/tests/test_v3.py:100: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+factory/tests/test_v3.py:80: in execute
+    def execute(self):g.freeze(self.r);self.assertEqual(g.run_exp(self.r,'known'),0)
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^
+factory/gatekeeper.py:195: in run_exp
+    if code==0:return record(r,eid,relpath(a,r))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+factory/gatekeeper.py:222: in record
+    A.experiment(e)
+factory/engine/audit.py:109: in experiment
+    need(isinstance(signed,dict),eid+': missing signed supervisor receipt')
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+condition = False, message = 'known: missing signed supervisor receipt'
+
+    def need(condition, message):
+>       if not condition: raise EvidenceError(message)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       engine.metrics.EvidenceError: known: missing signed supervisor receipt
+
+factory/engine/plan.py:10: EvidenceError
+_______ LifecycleTests.test_record_rejects_attempt_outside_active_epoch ________
+
+self = <test_v3.LifecycleTests testMethod=test_record_rejects_attempt_outside_active_epoch>
+
+    def test_record_rejects_attempt_outside_active_epoch(self):
+>    self.execute();_,ep,_=g.active(self.r);outside=self.r/'outside-attempt';outside.mkdir();(outside/'execution.json').write_text((ep/'runs/known/attempt0001/execution.json').read_text())
+     ^^^^^^^^^^^^^^
+
+factory/tests/test_v3.py:123: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+factory/tests/test_v3.py:80: in execute
+    def execute(self):g.freeze(self.r);self.assertEqual(g.run_exp(self.r,'known'),0)
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^
+factory/gatekeeper.py:195: in run_exp
+    if code==0:return record(r,eid,relpath(a,r))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+factory/gatekeeper.py:222: in record
+    A.experiment(e)
+factory/engine/audit.py:109: in experiment
+    need(isinstance(signed,dict),eid+': missing signed supervisor receipt')
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+condition = False, message = 'known: missing signed supervisor receipt'
+
+    def need(condition, message):
+>       if not condition: raise EvidenceError(message)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       engine.metrics.EvidenceError: known: missing signed supervisor receipt
+
+factory/engine/plan.py:10: EvidenceError
+______________ LifecycleTests.test_stale_review_withholds_release ______________
+
+self = <test_v3.LifecycleTests testMethod=test_stale_review_withholds_release>
+
+    def test_stale_review_withholds_release(self):
+>    self.execute();write_json(self.r/'project/review.json',{'evidence_digest':'stale'});self.assertEqual(g.certify(self.r),g.EXIT_REVIEW)
+     ^^^^^^^^^^^^^^
+
+factory/tests/test_v3.py:128: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+factory/tests/test_v3.py:80: in execute
+    def execute(self):g.freeze(self.r);self.assertEqual(g.run_exp(self.r,'known'),0)
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^
+factory/gatekeeper.py:195: in run_exp
+    if code==0:return record(r,eid,relpath(a,r))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+factory/gatekeeper.py:222: in record
+    A.experiment(e)
+factory/engine/audit.py:109: in experiment
+    need(isinstance(signed,dict),eid+': missing signed supervisor receipt')
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+condition = False, message = 'known: missing signed supervisor receipt'
+
+    def need(condition, message):
+>       if not condition: raise EvidenceError(message)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       engine.metrics.EvidenceError: known: missing signed supervisor receipt
+
+factory/engine/plan.py:10: EvidenceError
+________ LifecycleTests.test_successful_run_is_rechecked_not_reexecuted ________
+
+self = <test_v3.LifecycleTests testMethod=test_successful_run_is_rechecked_not_reexecuted>
+
+    def test_successful_run_is_rechecked_not_reexecuted(self):
+>    self.execute();self.assertEqual(g.run_exp(self.r,'known'),0);_,ep,_=g.active(self.r);self.assertEqual(len(list((ep/'runs/known').glob('attempt*'))),1)
+     ^^^^^^^^^^^^^^
+
+factory/tests/test_v3.py:121: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+factory/tests/test_v3.py:80: in execute
+    def execute(self):g.freeze(self.r);self.assertEqual(g.run_exp(self.r,'known'),0)
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^
+factory/gatekeeper.py:195: in run_exp
+    if code==0:return record(r,eid,relpath(a,r))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+factory/gatekeeper.py:222: in record
+    A.experiment(e)
+factory/engine/audit.py:109: in experiment
+    need(isinstance(signed,dict),eid+': missing signed supervisor receipt')
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+condition = False, message = 'known: missing signed supervisor receipt'
+
+    def need(condition, message):
+>       if not condition: raise EvidenceError(message)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       engine.metrics.EvidenceError: known: missing signed supervisor receipt
+
+factory/engine/plan.py:10: EvidenceError
+___________________ LifecycleTests.test_valid_evidence_path ____________________
+
+self = <test_v3.LifecycleTests testMethod=test_valid_evidence_path>
+
+>   def test_valid_evidence_path(self):self.execute();self.assertEqual(evaluate(self.r)['errors'],[])
+                                       ^^^^^^^^^^^^^^
+
+factory/tests/test_v3.py:81: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+factory/tests/test_v3.py:80: in execute
+    def execute(self):g.freeze(self.r);self.assertEqual(g.run_exp(self.r,'known'),0)
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^
+factory/gatekeeper.py:195: in run_exp
+    if code==0:return record(r,eid,relpath(a,r))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+factory/gatekeeper.py:222: in record
+    A.experiment(e)
+factory/engine/audit.py:109: in experiment
+    need(isinstance(signed,dict),eid+': missing signed supervisor receipt')
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+condition = False, message = 'known: missing signed supervisor receipt'
+
+    def need(condition, message):
+>       if not condition: raise EvidenceError(message)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       engine.metrics.EvidenceError: known: missing signed supervisor receipt
+
+factory/engine/plan.py:10: EvidenceError
+_ AcquisitionAuditBlocksCertifyTests.test_certify_blocks_on_fabricated_result_sink _
+
+self = <test_v3_1_hardening.AcquisitionAuditBlocksCertifyTests testMethod=test_certify_blocks_on_fabricated_result_sink>
+
+    def test_certify_blocks_on_fabricated_result_sink(self):
+        g.freeze(self.r)
+>       self.assertEqual(g.run_exp(self.r, 'known'), 0)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/Users/adi/Downloads/software-factory 4/factory/tests/test_v3_1_hardening.py:83: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+factory/gatekeeper.py:195: in run_exp
+    if code==0:return record(r,eid,relpath(a,r))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+factory/gatekeeper.py:222: in record
+    A.experiment(e)
+factory/engine/audit.py:109: in experiment
+    need(isinstance(signed,dict),eid+': missing signed supervisor receipt')
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+condition = False, message = 'known: missing signed supervisor receipt'
+
+    def need(condition, message):
+>       if not condition: raise EvidenceError(message)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       engine.metrics.EvidenceError: known: missing signed supervisor receipt
+
+factory/engine/plan.py:10: EvidenceError
+_ AcquisitionAuditBlocksCertifyTests.test_scanner_finds_nothing_in_the_unmodified_fixture _
+
+self = <test_v3_1_hardening.AcquisitionAuditBlocksCertifyTests testMethod=test_scanner_finds_nothing_in_the_unmodified_fixture>
+
+    def test_scanner_finds_nothing_in_the_unmodified_fixture(self):
+        """Negative control: the same lifecycle on the real fixture script,
+        with no fabrication pattern added, must not trip the scanner. Without
+        this, the positive test above could pass for the wrong reason (e.g.
+        certify failing on something unrelated)."""
+        (self.r / 'source/run.py').write_text(SCRIPT)
+        g.freeze(self.r)
+>       self.assertEqual(g.run_exp(self.r, 'known'), 0)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/Users/adi/Downloads/software-factory 4/factory/tests/test_v3_1_hardening.py:97: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+factory/gatekeeper.py:195: in run_exp
+    if code==0:return record(r,eid,relpath(a,r))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+factory/gatekeeper.py:222: in record
+    A.experiment(e)
+factory/engine/audit.py:109: in experiment
+    need(isinstance(signed,dict),eid+': missing signed supervisor receipt')
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+condition = False, message = 'known: missing signed supervisor receipt'
+
+    def need(condition, message):
+>       if not condition: raise EvidenceError(message)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       engine.metrics.EvidenceError: known: missing signed supervisor receipt
+
+factory/engine/plan.py:10: EvidenceError
+_________ V32HardeningTests.test_new_execution_revokes_old_certificate _________
+
+self = <test_v3_2_hardening.V32HardeningTests testMethod=test_new_execution_revokes_old_certificate>
+
+    def test_new_execution_revokes_old_certificate(self):
+        with tempfile.TemporaryDirectory() as td:
+>           root = Path(td); fixture(root); g.freeze(root); self.assertEqual(g.run_exp(root, 'known'), 0)
+                                                                             ^^^^^^^^^^^^^^^^^^^^^^^^
+
+/Users/adi/Downloads/software-factory 4/factory/tests/test_v3_2_hardening.py:80: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+factory/gatekeeper.py:195: in run_exp
+    if code==0:return record(r,eid,relpath(a,r))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+factory/gatekeeper.py:222: in record
+    A.experiment(e)
+factory/engine/audit.py:109: in experiment
+    need(isinstance(signed,dict),eid+': missing signed supervisor receipt')
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+condition = False, message = 'known: missing signed supervisor receipt'
+
+    def need(condition, message):
+>       if not condition: raise EvidenceError(message)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       engine.metrics.EvidenceError: known: missing signed supervisor receipt
+
+factory/engine/plan.py:10: EvidenceError
+----------------------------- Captured stdout call -----------------------------
+{
+  "status": "FROZEN",
+  "epoch": 1,
+  "freeze_sha256": "78cdab8a7301b07ac6de22ba0a43af3b1356f7f50dd589982568c7e352686bf0",
+  "frozen_files": 5,
+  "snapshot_merkle_root": "166167bf1789bdae1660b19a434db228fab10c73d6e9f45e61869a6a2b7fb247"
+}
+____________ SnapshotTests.test_source_mutation_during_run_detected ____________
+
+self = <test_v3_3_hardening.SnapshotTests testMethod=test_source_mutation_during_run_detected>
+
+    def test_source_mutation_during_run_detected(self):
+        """After a run, mutated source files are detected by the audit."""
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            fixture(root)
+            redir = contextlib.redirect_stdout(io.StringIO())
+            redir.__enter__()
+            g.freeze(root)
+>           self.assertEqual(g.run_exp(root, 'known'), 0)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^
+
+factory/tests/test_v3_3_hardening.py:284: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+factory/gatekeeper.py:195: in run_exp
+    if code==0:return record(r,eid,relpath(a,r))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+factory/gatekeeper.py:222: in record
+    A.experiment(e)
+factory/engine/audit.py:109: in experiment
+    need(isinstance(signed,dict),eid+': missing signed supervisor receipt')
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+condition = False, message = 'known: missing signed supervisor receipt'
+
+    def need(condition, message):
+>       if not condition: raise EvidenceError(message)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       engine.metrics.EvidenceError: known: missing signed supervisor receipt
+
+factory/engine/plan.py:10: EvidenceError
+_________________ AttackTests.test_phantom_prediction_blocked __________________
+
+self = <test_v3_3_hardening.AttackTests testMethod=test_phantom_prediction_blocked>
+
+    def test_phantom_prediction_blocked(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            fixture(root)
+            redir = contextlib.redirect_stdout(io.StringIO())
+            redir.__enter__()
+            g.freeze(root)
+>           self.assertEqual(g.run_exp(root, 'known'), 0)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^
+
+factory/tests/test_v3_3_hardening.py:691: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+factory/gatekeeper.py:195: in run_exp
+    if code==0:return record(r,eid,relpath(a,r))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+factory/gatekeeper.py:222: in record
+    A.experiment(e)
+factory/engine/audit.py:109: in experiment
+    need(isinstance(signed,dict),eid+': missing signed supervisor receipt')
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+condition = False, message = 'known: missing signed supervisor receipt'
+
+    def need(condition, message):
+>       if not condition: raise EvidenceError(message)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       engine.metrics.EvidenceError: known: missing signed supervisor receipt
+
+factory/engine/plan.py:10: EvidenceError
+_____________ AttackTests.test_source_mutation_during_run_detected _____________
+
+self = <test_v3_3_hardening.AttackTests testMethod=test_source_mutation_during_run_detected>
+
+    def test_source_mutation_during_run_detected(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            fixture(root)
+            redir = contextlib.redirect_stdout(io.StringIO())
+            redir.__enter__()
+            g.freeze(root)
+>           self.assertEqual(g.run_exp(root, 'known'), 0)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^
+
+factory/tests/test_v3_3_hardening.py:568: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+factory/gatekeeper.py:195: in run_exp
+    if code==0:return record(r,eid,relpath(a,r))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+factory/gatekeeper.py:222: in record
+    A.experiment(e)
+factory/engine/audit.py:109: in experiment
+    need(isinstance(signed,dict),eid+': missing signed supervisor receipt')
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+condition = False, message = 'known: missing signed supervisor receipt'
+
+    def need(condition, message):
+>       if not condition: raise EvidenceError(message)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       engine.metrics.EvidenceError: known: missing signed supervisor receipt
+
+factory/engine/plan.py:10: EvidenceError
+_________________ AttackTests.test_stale_certificate_rejected __________________
+
+self = <test_v3_3_hardening.AttackTests testMethod=test_stale_certificate_rejected>
+
+    def test_stale_certificate_rejected(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            fixture(root)
+            redir = contextlib.redirect_stdout(io.StringIO())
+            redir.__enter__()
+            g.freeze(root)
+>           self.assertEqual(g.run_exp(root, 'known'), 0)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^
+
+factory/tests/test_v3_3_hardening.py:621: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+factory/gatekeeper.py:195: in run_exp
+    if code==0:return record(r,eid,relpath(a,r))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+factory/gatekeeper.py:222: in record
+    A.experiment(e)
+factory/engine/audit.py:109: in experiment
+    need(isinstance(signed,dict),eid+': missing signed supervisor receipt')
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+condition = False, message = 'known: missing signed supervisor receipt'
+
+    def need(condition, message):
+>       if not condition: raise EvidenceError(message)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       engine.metrics.EvidenceError: known: missing signed supervisor receipt
+
+factory/engine/plan.py:10: EvidenceError
+____________ LifecycleV33Tests.test_execution_record_has_run_nonce _____________
+
+self = <test_v3_3_hardening.LifecycleV33Tests testMethod=test_execution_record_has_run_nonce>
+
+    def test_execution_record_has_run_nonce(self):
+        g.freeze(self.r)
+>       self.assertEqual(g.run_exp(self.r, 'known'), 0)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+factory/tests/test_v3_3_hardening.py:769: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+factory/gatekeeper.py:195: in run_exp
+    if code==0:return record(r,eid,relpath(a,r))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+factory/gatekeeper.py:222: in record
+    A.experiment(e)
+factory/engine/audit.py:109: in experiment
+    need(isinstance(signed,dict),eid+': missing signed supervisor receipt')
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+condition = False, message = 'known: missing signed supervisor receipt'
+
+    def need(condition, message):
+>       if not condition: raise EvidenceError(message)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       engine.metrics.EvidenceError: known: missing signed supervisor receipt
+
+factory/engine/plan.py:10: EvidenceError
+_______ LifecycleV33Tests.test_execution_record_has_runtime_attestation ________
+
+self = <test_v3_3_hardening.LifecycleV33Tests testMethod=test_execution_record_has_runtime_attestation>
+
+    def test_execution_record_has_runtime_attestation(self):
+        g.freeze(self.r)
+>       self.assertEqual(g.run_exp(self.r, 'known'), 0)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+factory/tests/test_v3_3_hardening.py:761: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+factory/gatekeeper.py:195: in run_exp
+    if code==0:return record(r,eid,relpath(a,r))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+factory/gatekeeper.py:222: in record
+    A.experiment(e)
+factory/engine/audit.py:109: in experiment
+    need(isinstance(signed,dict),eid+': missing signed supervisor receipt')
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+condition = False, message = 'known: missing signed supervisor receipt'
+
+    def need(condition, message):
+>       if not condition: raise EvidenceError(message)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       engine.metrics.EvidenceError: known: missing signed supervisor receipt
+
+factory/engine/plan.py:10: EvidenceError
+_________ LifecycleBypassStressTests.test_certificate_removed_on_rerun _________
+
+self = <test_v3_3_stress.LifecycleBypassStressTests testMethod=test_certificate_removed_on_rerun>
+
+    def test_certificate_removed_on_rerun(self):
+        """Any run invalidates the existing certificate."""
+        g.freeze(self.r)
+>       self.assertEqual(g.run_exp(self.r, 'known'), 0)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/Users/adi/Downloads/software-factory 4/factory/tests/test_v3_3_stress.py:686: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+factory/gatekeeper.py:195: in run_exp
+    if code==0:return record(r,eid,relpath(a,r))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+factory/gatekeeper.py:222: in record
+    A.experiment(e)
+factory/engine/audit.py:109: in experiment
+    need(isinstance(signed,dict),eid+': missing signed supervisor receipt')
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+condition = False, message = 'known: missing signed supervisor receipt'
+
+    def need(condition, message):
+>       if not condition: raise EvidenceError(message)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       engine.metrics.EvidenceError: known: missing signed supervisor receipt
+
+factory/engine/plan.py:10: EvidenceError
+______ LifecycleBypassStressTests.test_mutated_engine_after_freeze_caught ______
+
+self = <test_v3_3_stress.LifecycleBypassStressTests testMethod=test_mutated_engine_after_freeze_caught>
+
+    def test_mutated_engine_after_freeze_caught(self):
+        """If the factory code changes after freeze, audit must catch it."""
+        g.freeze(self.r)
+>       self.assertEqual(g.run_exp(self.r, 'known'), 0)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+/Users/adi/Downloads/software-factory 4/factory/tests/test_v3_3_stress.py:697: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+factory/gatekeeper.py:195: in run_exp
+    if code==0:return record(r,eid,relpath(a,r))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+factory/gatekeeper.py:222: in record
+    A.experiment(e)
+factory/engine/audit.py:109: in experiment
+    need(isinstance(signed,dict),eid+': missing signed supervisor receipt')
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+condition = False, message = 'known: missing signed supervisor receipt'
+
+    def need(condition, message):
+>       if not condition: raise EvidenceError(message)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       engine.metrics.EvidenceError: known: missing signed supervisor receipt
+
+factory/engine/plan.py:10: EvidenceError
+=========================== short test summary info ============================
+FAILED factory/tests/test_v3.py::LifecycleTests::test_added_source_invalidates_freeze
+FAILED factory/tests/test_v3.py::LifecycleTests::test_forged_metrics_even_after_rehash
+FAILED factory/tests/test_v3.py::LifecycleTests::test_handoff_contains_evidence
+FAILED factory/tests/test_v3.py::LifecycleTests::test_label_mismatch_even_after_rehash
+FAILED factory/tests/test_v3.py::LifecycleTests::test_missing_review_withholds_release
+FAILED factory/tests/test_v3.py::LifecycleTests::test_mutated_plan_invalidates_freeze
+FAILED factory/tests/test_v3.py::LifecycleTests::test_mutated_prediction_hash
+FAILED factory/tests/test_v3.py::LifecycleTests::test_phantom_prediction_even_after_rehash
+FAILED factory/tests/test_v3.py::LifecycleTests::test_record_rejects_attempt_outside_active_epoch
+FAILED factory/tests/test_v3.py::LifecycleTests::test_stale_review_withholds_release
+FAILED factory/tests/test_v3.py::LifecycleTests::test_successful_run_is_rechecked_not_reexecuted
+FAILED factory/tests/test_v3.py::LifecycleTests::test_valid_evidence_path - e...
+FAILED factory/tests/test_v3_1_hardening.py::AcquisitionAuditBlocksCertifyTests::test_certify_blocks_on_fabricated_result_sink
+FAILED factory/tests/test_v3_1_hardening.py::AcquisitionAuditBlocksCertifyTests::test_scanner_finds_nothing_in_the_unmodified_fixture
+FAILED factory/tests/test_v3_2_hardening.py::V32HardeningTests::test_new_execution_revokes_old_certificate
+FAILED factory/tests/test_v3_3_hardening.py::SnapshotTests::test_source_mutation_during_run_detected
+FAILED factory/tests/test_v3_3_hardening.py::AttackTests::test_phantom_prediction_blocked
+FAILED factory/tests/test_v3_3_hardening.py::AttackTests::test_source_mutation_during_run_detected
+FAILED factory/tests/test_v3_3_hardening.py::AttackTests::test_stale_certificate_rejected
+FAILED factory/tests/test_v3_3_hardening.py::LifecycleV33Tests::test_execution_record_has_run_nonce
+FAILED factory/tests/test_v3_3_hardening.py::LifecycleV33Tests::test_execution_record_has_runtime_attestation
+FAILED factory/tests/test_v3_3_stress.py::LifecycleBypassStressTests::test_certificate_removed_on_rerun
+FAILED factory/tests/test_v3_3_stress.py::LifecycleBypassStressTests::test_mutated_engine_after_freeze_caught
+23 failed, 276 passed, 2 skipped, 1 subtests passed in 3.54s

@@ -1,3 +1,5 @@
+> Supplied factory documentation: historical descriptions and validation counts below belong to the factory package. They are not FlowGate experimental evidence. For the current local changes and checks, read [the re-audit](re_audit/REPORT.md) and [local policy](../factory/LOCAL_AUDIT_POLICY.md).
+
 # Release scope and limits
 
 `READY_FOR_HUMAN_SUBMISSION_REVIEW` means the frozen evidence is internally admissible and the required adversarial review is recorded. It is not “publication ready,” a guarantee of scientific truth, external validity, causal identification, novelty, or journal acceptance.

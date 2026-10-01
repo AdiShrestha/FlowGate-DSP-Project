@@ -6,5 +6,9 @@
   "legacy_results_admissible": false,
   "domain_adapter_required": true,
   "active_factory": "3.3.0",
-  "primary_instruction": "Read root plan.md. Populate and challenge methodology before freeze. Do not manufacture labels, epochs, telemetry, or binary probabilities."
+  "primary_instruction": "Read root plan.md. Populate and challenge methodology before freeze. Do not manufacture labels, epochs, telemetry, or binary probabilities.",
+  "factory_local_patch": "flowgate-scientific-reaudit-2026-10-01",
+  "deep_research_treated_as": "untrusted_context; primary claims verified or explicitly left pending",
+  "full_raw_semantic_validation": "PASS:155 archives,119611063 observations; see docs/re_audit/raw_semantic_audit.json",
+  "primary_quality_target": "UNDECIDED; do not preregister or claim superiority until justified"
 }

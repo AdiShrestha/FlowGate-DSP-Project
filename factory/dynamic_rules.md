@@ -1,3 +1,5 @@
+> FlowGate local audit revision (1 October 2026): read [LOCAL_AUDIT_POLICY.md](LOCAL_AUDIT_POLICY.md) before applying this supplied v3.3 policy. It narrows unsupported assurance and replaces outcome-biasing diagnostic rules. The root plan.md and the user’s research-integrity requirements govern this project.
+
 # Active dynamic rules — v3.3.0
 
 **DR-001 Evidence before status:** output schemas, hashes, and exit codes establish integrity only; predictions and observations must be recomputed.
@@ -36,10 +38,10 @@ Comparative claims require minimum total and per-class sample support and an exp
 Undisclosed synthetic fallbacks are blocked; disclosed test-only fallbacks remain visible warnings. Evidence: one incident, this project. Implementation: `acquisition_audit`. Verification: fallback fixtures.
 
 ### D-079 (Category: Results, Status: ACTIVE)
-Below-chance results are mandatory stops unless explicitly reported as null. Evidence: one incident, this project. Implementation: `verify_result_plausibility`. Verification: AUROC fixture.
+Valid adverse/null outcomes must be retained. Only malformed numeric evidence is invalid; outcome diagnostics require disclosed review. Implementation: `verify_result_plausibility`. Verification: numeric-validity and adverse-result fixtures.
 
 ### D-080 (Category: Results, Status: ACTIVE)
-Suspiciously perfect evidence requires an investigation note. Evidence: one incident, this project. Implementation: `verify_result_plausibility`. Verification: p=0 and all-supported fixtures.
+Exact zero p values and zero-width intervals trigger investigation; no universal minimum CI width or .5 F1/precision/recall baseline is imposed. Implementation: `verify_result_plausibility`. Verification: scale-invariance and malformed-value fixtures.
 
 ### D-081 (Category: Traceability, Status: ACTIVE)
 Cross-artifact identifiers must resolve to declared source records. Evidence: one incident, this project. Implementation: `Audit.analyses_traceability`. Verification: missing-ID fixture.
@@ -89,22 +91,22 @@ Experiment commands execute as argv lists with allowlisted experiment IDs. Evide
 Experiment execution uses typed contracts; the supervisor constructs the launch command from `runtime_id` and `entrypoint`. Shell wrappers, inline-code flags, and free-form interpreter flags are rejected. Evidence: trust-boundary analysis. Implementation: `validate_contract` and `resolve_contract`. Verification: ATK-001, ATK-002, ATK-018 fixtures.
 
 ### D-096 (Category: Content addressing, Status: ACTIVE)
-Frozen file inventories produce a Merkle root over sorted (path, SHA-256) pairs. Symlinks, device files, FIFOs, sockets, and importable binaries (.pyc, .so, .dylib) are rejected. Evidence: trust-boundary analysis. Implementation: `engine.io.merkle_root` and `inventory`. Verification: ATK-004, ATK-005 fixtures.
+Inventories bind sorted paths/digests in the compatibility snapshot_merkle_root field; it is not a Merkle tree. Symlinks, special files and importable binary/cache bytes are rejected. Implementation: `engine.io.merkle_root` and `inventory`. Verification: bytecode and special-file fixtures.
 
 ### D-097 (Category: Receipt signing, Status: ACTIVE)
-Execution receipts are signed by the supervisor using Ed25519 (or HMAC-SHA256 fallback). Receipts bind 16 fields including run nonce, snapshot root, interpreter hash, dependency lock hash, and timestamps. Evidence: trust-boundary analysis. Implementation: `build_receipt` and `verify_receipt_signature`. Verification: ATK-007, ATK-008 fixtures.
+All retained completed attempts require verified signature and identity/input/output/launch bindings. Ed25519 permits public verification; HMAC is local-only. Same-user key isolation is not enforced. Missing CPU/memory measurements are null. Implementation: `build_receipt` and `verify_receipt_signature`. Verification: receipt mutation and offline binding fixtures.
 
 ### D-098 (Category: Schema validation, Status: ACTIVE)
 All evidence validators use strict typed schemas that reject boolean/string/integer confusion, empty structures satisfying vacuous checks, and justification strings bypassing numeric requirements. Evidence: trust-boundary analysis. Implementation: `expect_str` and `engine.schema`. Verification: ATK-012 fixtures.
 
 ### D-099 (Category: Recursive plausibility, Status: ACTIVE)
-Plausibility analysis recursively traverses all result containers (computed_runs, comparisons, derived_analyses) to detect zero p-values, below-chance metrics, and implausibly narrow CIs at any nesting depth. Evidence: trust-boundary analysis. Implementation: `_deep_result_findings`. Verification: ATK-013 fixtures.
+Recursive diagnostics expose exact-zero p and zero-width intervals, plus adverse AUROC or an explicitly supplied baseline. Numeric validity remains separate; legitimate negative results are admissible. Implementation: `_deep_result_findings`. Verification: nested diagnostic fixtures.
 
 ### D-100 (Category: Reproduction identity, Status: ACTIVE)
-Reproductions must match the original's model identity, config digest, training mode, and runtime. Relabeling a different model as a reproduction is a hard provenance failure. Evidence: trust-boundary analysis. Implementation: `_compute_assurance_level` and `engine.audit.Audit.claims`. Verification: ATK-014 fixtures.
+Fresh-process replay must bind model, config, training mode, producer paths and typed/legacy runtime identity. Implementation: `engine.audit.Audit.reproduction_identity` and `engine.audit.Audit.claims`. Verification: reproduction identity fixtures.
 
 ### D-101 (Category: Assurance level, Status: ACTIVE)
-Audit reports and release certifications declare explicit machine-readable assurance levels with checkable prerequisites. Levels: STRUCTURALLY_VALIDATED, SUPERVISOR_ATTESTED, SEALED_EVALUATION_ATTESTED, INDEPENDENT_REVIEW_COMPLETE, READY_FOR_HUMAN_SUBMISSION_REVIEW. Evidence: trust-boundary analysis. Implementation: `_assurance_with_review`. Verification: assurance level fixtures.
+Local audit assurance is at most SUPERVISOR_ATTESTED with verified receipts. A review boolean cannot establish independence; stronger unsupported levels are rejected. Implementation: `_assurance_with_review`. Verification: assurance level fixtures.
 
 ### D-102 (Category: Attack registry, Status: ACTIVE)
-An attack registry of 18 behavioral mutation tests maps each security invariant to a concrete attack fixture. A release candidate is blocked until every listed attack fails through the complete lifecycle. Evidence: trust-boundary analysis. Implementation: `verify_attack_registry`. Verification: attack registry well-formedness and all 18 ATK fixtures.
+The 18-entry attack registry is checked for structure only in release audit. Actual regression execution is a separate version/environment-bound record; fixture success is not exhaustive hostile-worker or scientific validation. Implementation: `verify_attack_registry`. Verification: registry structure tests and separately recorded full suite.

@@ -70,20 +70,34 @@ def iter_binance_trades(path, *, symbol, utc_date, timestamp_unit, expected_sha2
     if not isinstance(symbol, str) or not re.fullmatch(r"[A-Z0-9]{2,30}", symbol):
         raise ValueError("invalid symbol")
     day = date.fromisoformat(utc_date)
+    if day.isoformat() != utc_date:
+        raise ValueError('utc_date must be canonical YYYY-MM-DD')
     schema_unit = "us" if day >= date(2025, 1, 1) else "ms"
     if timestamp_unit != schema_unit:
         raise ValueError(f"timestamp_unit for this Spot date must be {schema_unit}")
     if not isinstance(expected_sha256, str) or not re.fullmatch(r"[0-9a-f]{64}", expected_sha256):
         raise ValueError("expected_sha256 must be an explicit lowercase SHA-256")
-    digest = sha256_file(path)
-    if digest != expected_sha256:
-        raise ValueError("archive SHA-256 mismatch")
     factor = 1_000_000 if timestamp_unit == "ms" else 1_000
     day_start = calendar.timegm(day.timetuple()) * 1_000_000_000
     day_end = day_start + 86_400 * 1_000_000_000
     member = f"{symbol}-trades-{day.isoformat()}.csv"
     last_id = last_timestamp = None
-    with zipfile.ZipFile(path) as archive:
+    # Hash and parse one open file description. A pathname replacement between
+    # separate opens must not attach the digest of A to observations from B.
+    with Path(path).open('rb') as verified_stream:
+        h = hashlib.sha256()
+        for block in iter(lambda: verified_stream.read(1024 * 1024), b''):
+            h.update(block)
+        digest = h.hexdigest()
+        if digest != expected_sha256:
+            raise ValueError('archive SHA-256 mismatch')
+        verified_stream.seek(0)
+        yield from _read_verified(verified_stream, symbol, day_start, day_end, member, factor, digest)
+
+
+def _read_verified(stream, symbol, day_start, day_end, member, factor, digest):
+    last_id = last_timestamp = None
+    with zipfile.ZipFile(stream) as archive:
         entries = archive.infolist()
         if len(entries) != 1 or entries[0].filename != member or entries[0].is_dir():
             raise ValueError("archive must contain exactly the expected trade CSV")

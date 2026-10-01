@@ -1,3 +1,5 @@
+> Supplied factory documentation: historical descriptions and validation counts below belong to the factory package. They are not FlowGate experimental evidence. For the current local changes and checks, read [the re-audit](re_audit/REPORT.md) and [local policy](../factory/LOCAL_AUDIT_POLICY.md).
+
 # Forensic audit of the supplied v2.6 test project
 
 This is an independent read-only audit. It does not import the test project's model, training, analysis, or hardware modules. `docs/audit_tools/audit_v26_project.py` reads Parquet with PyArrow, computes standard metrics with scikit-learn, extracts the original metric function with Python AST, and cross-references taxonomy IDs. Its output is `docs/v26_forensic_results.json`.

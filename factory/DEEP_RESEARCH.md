@@ -1,3 +1,5 @@
+> FlowGate local audit revision (1 October 2026): read [LOCAL_AUDIT_POLICY.md](LOCAL_AUDIT_POLICY.md) before applying this supplied v3.3 policy. It narrows unsupported assurance and replaces outcome-biasing diagnostic rules. The root plan.md and the user’s research-integrity requirements govern this project.
+
 # Deep research protocol (v3)
 
 Use this file as an agent checklist before calling a result submission-ready. Define the estimand and population; identify the independent unit; preregister split, metric, threshold, seed, budget, stopping, baseline and multiplicity family; audit labels/source IDs and leakage; rerun every seed; recompute results; quantify uncertainty/effect size; complete factorial ablations and ±10/25/50% sensitivity; test realistic OOD/corruption/adversarial conditions; report subgroup failures and ceilings; measure hardware with raw synchronized trials if claimed; disclose data/code/protocol availability; perform a cold claims-evidence matrix, hostile objections, and venue checklist.

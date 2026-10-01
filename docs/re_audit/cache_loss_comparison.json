@@ -1,0 +1,1250 @@
+{
+  "scope": "per-day row-count consistency with legacy timestamp/price deduplication; not full cache-row lineage reconstruction",
+  "units": 155,
+  "status": "PASS",
+  "raw_rows": 119611063,
+  "legacy_cache_rows": 73830561,
+  "lost_rows": 45780502,
+  "records": [
+    {
+      "source_id": "binance:spot:BNBUSDT:2024-01-01",
+      "raw_rows": 261880,
+      "legacy_cache_rows": 147910,
+      "lost_rows": 113970,
+      "repeated_timestamp_price_distinct_trades": 113970,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BNBUSDT:2024-01-02",
+      "raw_rows": 344903,
+      "legacy_cache_rows": 165603,
+      "lost_rows": 179300,
+      "repeated_timestamp_price_distinct_trades": 179300,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BNBUSDT:2024-01-03",
+      "raw_rows": 799701,
+      "legacy_cache_rows": 365136,
+      "lost_rows": 434565,
+      "repeated_timestamp_price_distinct_trades": 434565,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BNBUSDT:2024-01-04",
+      "raw_rows": 418424,
+      "legacy_cache_rows": 210196,
+      "lost_rows": 208228,
+      "repeated_timestamp_price_distinct_trades": 208228,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BNBUSDT:2024-01-05",
+      "raw_rows": 388664,
+      "legacy_cache_rows": 185629,
+      "lost_rows": 203035,
+      "repeated_timestamp_price_distinct_trades": 203035,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BNBUSDT:2024-01-06",
+      "raw_rows": 329261,
+      "legacy_cache_rows": 166892,
+      "lost_rows": 162369,
+      "repeated_timestamp_price_distinct_trades": 162369,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BNBUSDT:2024-01-07",
+      "raw_rows": 206206,
+      "legacy_cache_rows": 113883,
+      "lost_rows": 92323,
+      "repeated_timestamp_price_distinct_trades": 92323,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BNBUSDT:2024-01-08",
+      "raw_rows": 351442,
+      "legacy_cache_rows": 181435,
+      "lost_rows": 170007,
+      "repeated_timestamp_price_distinct_trades": 170007,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BNBUSDT:2024-01-09",
+      "raw_rows": 423666,
+      "legacy_cache_rows": 220896,
+      "lost_rows": 202770,
+      "repeated_timestamp_price_distinct_trades": 202770,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BNBUSDT:2024-01-10",
+      "raw_rows": 366664,
+      "legacy_cache_rows": 200095,
+      "lost_rows": 166569,
+      "repeated_timestamp_price_distinct_trades": 166569,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BNBUSDT:2024-01-11",
+      "raw_rows": 410105,
+      "legacy_cache_rows": 211670,
+      "lost_rows": 198435,
+      "repeated_timestamp_price_distinct_trades": 198435,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BNBUSDT:2024-01-12",
+      "raw_rows": 353574,
+      "legacy_cache_rows": 180696,
+      "lost_rows": 172878,
+      "repeated_timestamp_price_distinct_trades": 172878,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BNBUSDT:2024-01-13",
+      "raw_rows": 186167,
+      "legacy_cache_rows": 115561,
+      "lost_rows": 70606,
+      "repeated_timestamp_price_distinct_trades": 70606,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BNBUSDT:2024-01-14",
+      "raw_rows": 193008,
+      "legacy_cache_rows": 112703,
+      "lost_rows": 80305,
+      "repeated_timestamp_price_distinct_trades": 80305,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BNBUSDT:2024-01-15",
+      "raw_rows": 507633,
+      "legacy_cache_rows": 247602,
+      "lost_rows": 260031,
+      "repeated_timestamp_price_distinct_trades": 260031,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BNBUSDT:2024-01-16",
+      "raw_rows": 285324,
+      "legacy_cache_rows": 171343,
+      "lost_rows": 113981,
+      "repeated_timestamp_price_distinct_trades": 113981,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BNBUSDT:2024-01-17",
+      "raw_rows": 303286,
+      "legacy_cache_rows": 159129,
+      "lost_rows": 144157,
+      "repeated_timestamp_price_distinct_trades": 144157,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BNBUSDT:2024-01-18",
+      "raw_rows": 300608,
+      "legacy_cache_rows": 163400,
+      "lost_rows": 137208,
+      "repeated_timestamp_price_distinct_trades": 137208,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BNBUSDT:2024-01-19",
+      "raw_rows": 262620,
+      "legacy_cache_rows": 146210,
+      "lost_rows": 116410,
+      "repeated_timestamp_price_distinct_trades": 116410,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BNBUSDT:2024-01-20",
+      "raw_rows": 139000,
+      "legacy_cache_rows": 89779,
+      "lost_rows": 49221,
+      "repeated_timestamp_price_distinct_trades": 49221,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BNBUSDT:2024-01-21",
+      "raw_rows": 142612,
+      "legacy_cache_rows": 88545,
+      "lost_rows": 54067,
+      "repeated_timestamp_price_distinct_trades": 54067,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BNBUSDT:2024-01-22",
+      "raw_rows": 239986,
+      "legacy_cache_rows": 121111,
+      "lost_rows": 118875,
+      "repeated_timestamp_price_distinct_trades": 118875,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BNBUSDT:2024-01-23",
+      "raw_rows": 301539,
+      "legacy_cache_rows": 146852,
+      "lost_rows": 154687,
+      "repeated_timestamp_price_distinct_trades": 154687,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BNBUSDT:2024-01-24",
+      "raw_rows": 228147,
+      "legacy_cache_rows": 118975,
+      "lost_rows": 109172,
+      "repeated_timestamp_price_distinct_trades": 109172,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BNBUSDT:2024-01-25",
+      "raw_rows": 277782,
+      "legacy_cache_rows": 147363,
+      "lost_rows": 130419,
+      "repeated_timestamp_price_distinct_trades": 130419,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BNBUSDT:2024-01-26",
+      "raw_rows": 214719,
+      "legacy_cache_rows": 121940,
+      "lost_rows": 92779,
+      "repeated_timestamp_price_distinct_trades": 92779,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BNBUSDT:2024-01-27",
+      "raw_rows": 124410,
+      "legacy_cache_rows": 80779,
+      "lost_rows": 43631,
+      "repeated_timestamp_price_distinct_trades": 43631,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BNBUSDT:2024-01-28",
+      "raw_rows": 146852,
+      "legacy_cache_rows": 87441,
+      "lost_rows": 59411,
+      "repeated_timestamp_price_distinct_trades": 59411,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BNBUSDT:2024-01-29",
+      "raw_rows": 168366,
+      "legacy_cache_rows": 106497,
+      "lost_rows": 61869,
+      "repeated_timestamp_price_distinct_trades": 61869,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BNBUSDT:2024-01-30",
+      "raw_rows": 153482,
+      "legacy_cache_rows": 98831,
+      "lost_rows": 54651,
+      "repeated_timestamp_price_distinct_trades": 54651,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BNBUSDT:2024-01-31",
+      "raw_rows": 181983,
+      "legacy_cache_rows": 107437,
+      "lost_rows": 74546,
+      "repeated_timestamp_price_distinct_trades": 74546,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BTCUSDT:2024-01-01",
+      "raw_rows": 1114623,
+      "legacy_cache_rows": 801718,
+      "lost_rows": 312905,
+      "repeated_timestamp_price_distinct_trades": 312905,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BTCUSDT:2024-01-02",
+      "raw_rows": 2247532,
+      "legacy_cache_rows": 1625748,
+      "lost_rows": 621784,
+      "repeated_timestamp_price_distinct_trades": 621784,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BTCUSDT:2024-01-03",
+      "raw_rows": 2658041,
+      "legacy_cache_rows": 1885957,
+      "lost_rows": 772084,
+      "repeated_timestamp_price_distinct_trades": 772084,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BTCUSDT:2024-01-04",
+      "raw_rows": 1819944,
+      "legacy_cache_rows": 1284982,
+      "lost_rows": 534962,
+      "repeated_timestamp_price_distinct_trades": 534962,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BTCUSDT:2024-01-05",
+      "raw_rows": 2064845,
+      "legacy_cache_rows": 1454053,
+      "lost_rows": 610792,
+      "repeated_timestamp_price_distinct_trades": 610792,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BTCUSDT:2024-01-06",
+      "raw_rows": 956642,
+      "legacy_cache_rows": 697577,
+      "lost_rows": 259065,
+      "repeated_timestamp_price_distinct_trades": 259065,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BTCUSDT:2024-01-07",
+      "raw_rows": 1109259,
+      "legacy_cache_rows": 778607,
+      "lost_rows": 330652,
+      "repeated_timestamp_price_distinct_trades": 330652,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BTCUSDT:2024-01-08",
+      "raw_rows": 2364464,
+      "legacy_cache_rows": 1648401,
+      "lost_rows": 716063,
+      "repeated_timestamp_price_distinct_trades": 716063,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BTCUSDT:2024-01-09",
+      "raw_rows": 2637745,
+      "legacy_cache_rows": 1878561,
+      "lost_rows": 759184,
+      "repeated_timestamp_price_distinct_trades": 759184,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BTCUSDT:2024-01-10",
+      "raw_rows": 3133588,
+      "legacy_cache_rows": 2212167,
+      "lost_rows": 921421,
+      "repeated_timestamp_price_distinct_trades": 921421,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BTCUSDT:2024-01-11",
+      "raw_rows": 2998451,
+      "legacy_cache_rows": 2113650,
+      "lost_rows": 884801,
+      "repeated_timestamp_price_distinct_trades": 884801,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BTCUSDT:2024-01-12",
+      "raw_rows": 2809192,
+      "legacy_cache_rows": 1955778,
+      "lost_rows": 853414,
+      "repeated_timestamp_price_distinct_trades": 853414,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BTCUSDT:2024-01-13",
+      "raw_rows": 1434243,
+      "legacy_cache_rows": 1001160,
+      "lost_rows": 433083,
+      "repeated_timestamp_price_distinct_trades": 433083,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BTCUSDT:2024-01-14",
+      "raw_rows": 1235727,
+      "legacy_cache_rows": 849612,
+      "lost_rows": 386115,
+      "repeated_timestamp_price_distinct_trades": 386115,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BTCUSDT:2024-01-15",
+      "raw_rows": 1657611,
+      "legacy_cache_rows": 1042905,
+      "lost_rows": 614706,
+      "repeated_timestamp_price_distinct_trades": 614706,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BTCUSDT:2024-01-16",
+      "raw_rows": 1716580,
+      "legacy_cache_rows": 1101608,
+      "lost_rows": 614972,
+      "repeated_timestamp_price_distinct_trades": 614972,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BTCUSDT:2024-01-17",
+      "raw_rows": 1438172,
+      "legacy_cache_rows": 889506,
+      "lost_rows": 548666,
+      "repeated_timestamp_price_distinct_trades": 548666,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BTCUSDT:2024-01-18",
+      "raw_rows": 1466087,
+      "legacy_cache_rows": 945251,
+      "lost_rows": 520836,
+      "repeated_timestamp_price_distinct_trades": 520836,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BTCUSDT:2024-01-19",
+      "raw_rows": 1641428,
+      "legacy_cache_rows": 1113330,
+      "lost_rows": 528098,
+      "repeated_timestamp_price_distinct_trades": 528098,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BTCUSDT:2024-01-20",
+      "raw_rows": 807324,
+      "legacy_cache_rows": 560580,
+      "lost_rows": 246744,
+      "repeated_timestamp_price_distinct_trades": 246744,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BTCUSDT:2024-01-21",
+      "raw_rows": 657817,
+      "legacy_cache_rows": 459638,
+      "lost_rows": 198179,
+      "repeated_timestamp_price_distinct_trades": 198179,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BTCUSDT:2024-01-22",
+      "raw_rows": 2147250,
+      "legacy_cache_rows": 1330637,
+      "lost_rows": 816613,
+      "repeated_timestamp_price_distinct_trades": 816613,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BTCUSDT:2024-01-23",
+      "raw_rows": 2043925,
+      "legacy_cache_rows": 1331912,
+      "lost_rows": 712013,
+      "repeated_timestamp_price_distinct_trades": 712013,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BTCUSDT:2024-01-24",
+      "raw_rows": 1675615,
+      "legacy_cache_rows": 1068907,
+      "lost_rows": 606708,
+      "repeated_timestamp_price_distinct_trades": 606708,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BTCUSDT:2024-01-25",
+      "raw_rows": 1291233,
+      "legacy_cache_rows": 830506,
+      "lost_rows": 460727,
+      "repeated_timestamp_price_distinct_trades": 460727,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BTCUSDT:2024-01-26",
+      "raw_rows": 1624861,
+      "legacy_cache_rows": 1091558,
+      "lost_rows": 533303,
+      "repeated_timestamp_price_distinct_trades": 533303,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BTCUSDT:2024-01-27",
+      "raw_rows": 751148,
+      "legacy_cache_rows": 565364,
+      "lost_rows": 185784,
+      "repeated_timestamp_price_distinct_trades": 185784,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BTCUSDT:2024-01-28",
+      "raw_rows": 1032493,
+      "legacy_cache_rows": 722629,
+      "lost_rows": 309864,
+      "repeated_timestamp_price_distinct_trades": 309864,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BTCUSDT:2024-01-29",
+      "raw_rows": 1197856,
+      "legacy_cache_rows": 864528,
+      "lost_rows": 333328,
+      "repeated_timestamp_price_distinct_trades": 333328,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BTCUSDT:2024-01-30",
+      "raw_rows": 1316610,
+      "legacy_cache_rows": 969137,
+      "lost_rows": 347473,
+      "repeated_timestamp_price_distinct_trades": 347473,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:BTCUSDT:2024-01-31",
+      "raw_rows": 1499559,
+      "legacy_cache_rows": 1127214,
+      "lost_rows": 372345,
+      "repeated_timestamp_price_distinct_trades": 372345,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:ETHUSDT:2024-01-01",
+      "raw_rows": 536670,
+      "legacy_cache_rows": 370737,
+      "lost_rows": 165933,
+      "repeated_timestamp_price_distinct_trades": 165933,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:ETHUSDT:2024-01-02",
+      "raw_rows": 1028335,
+      "legacy_cache_rows": 705436,
+      "lost_rows": 322899,
+      "repeated_timestamp_price_distinct_trades": 322899,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:ETHUSDT:2024-01-03",
+      "raw_rows": 1351067,
+      "legacy_cache_rows": 926265,
+      "lost_rows": 424802,
+      "repeated_timestamp_price_distinct_trades": 424802,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:ETHUSDT:2024-01-04",
+      "raw_rows": 780771,
+      "legacy_cache_rows": 546669,
+      "lost_rows": 234102,
+      "repeated_timestamp_price_distinct_trades": 234102,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:ETHUSDT:2024-01-05",
+      "raw_rows": 758963,
+      "legacy_cache_rows": 530862,
+      "lost_rows": 228101,
+      "repeated_timestamp_price_distinct_trades": 228101,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:ETHUSDT:2024-01-06",
+      "raw_rows": 450441,
+      "legacy_cache_rows": 317784,
+      "lost_rows": 132657,
+      "repeated_timestamp_price_distinct_trades": 132657,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:ETHUSDT:2024-01-07",
+      "raw_rows": 516569,
+      "legacy_cache_rows": 353915,
+      "lost_rows": 162654,
+      "repeated_timestamp_price_distinct_trades": 162654,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:ETHUSDT:2024-01-08",
+      "raw_rows": 1069027,
+      "legacy_cache_rows": 730979,
+      "lost_rows": 338048,
+      "repeated_timestamp_price_distinct_trades": 338048,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:ETHUSDT:2024-01-09",
+      "raw_rows": 1196445,
+      "legacy_cache_rows": 809658,
+      "lost_rows": 386787,
+      "repeated_timestamp_price_distinct_trades": 386787,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:ETHUSDT:2024-01-10",
+      "raw_rows": 2010707,
+      "legacy_cache_rows": 1357508,
+      "lost_rows": 653199,
+      "repeated_timestamp_price_distinct_trades": 653199,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:ETHUSDT:2024-01-11",
+      "raw_rows": 1693755,
+      "legacy_cache_rows": 1192263,
+      "lost_rows": 501492,
+      "repeated_timestamp_price_distinct_trades": 501492,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:ETHUSDT:2024-01-12",
+      "raw_rows": 1860636,
+      "legacy_cache_rows": 1295325,
+      "lost_rows": 565311,
+      "repeated_timestamp_price_distinct_trades": 565311,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:ETHUSDT:2024-01-13",
+      "raw_rows": 898845,
+      "legacy_cache_rows": 631299,
+      "lost_rows": 267546,
+      "repeated_timestamp_price_distinct_trades": 267546,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:ETHUSDT:2024-01-14",
+      "raw_rows": 732294,
+      "legacy_cache_rows": 517155,
+      "lost_rows": 215139,
+      "repeated_timestamp_price_distinct_trades": 215139,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:ETHUSDT:2024-01-15",
+      "raw_rows": 789378,
+      "legacy_cache_rows": 551041,
+      "lost_rows": 238337,
+      "repeated_timestamp_price_distinct_trades": 238337,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:ETHUSDT:2024-01-16",
+      "raw_rows": 1140088,
+      "legacy_cache_rows": 778300,
+      "lost_rows": 361788,
+      "repeated_timestamp_price_distinct_trades": 361788,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:ETHUSDT:2024-01-17",
+      "raw_rows": 1140624,
+      "legacy_cache_rows": 738196,
+      "lost_rows": 402428,
+      "repeated_timestamp_price_distinct_trades": 402428,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:ETHUSDT:2024-01-18",
+      "raw_rows": 894355,
+      "legacy_cache_rows": 608963,
+      "lost_rows": 285392,
+      "repeated_timestamp_price_distinct_trades": 285392,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:ETHUSDT:2024-01-19",
+      "raw_rows": 855044,
+      "legacy_cache_rows": 589440,
+      "lost_rows": 265604,
+      "repeated_timestamp_price_distinct_trades": 265604,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:ETHUSDT:2024-01-20",
+      "raw_rows": 418938,
+      "legacy_cache_rows": 299071,
+      "lost_rows": 119867,
+      "repeated_timestamp_price_distinct_trades": 119867,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:ETHUSDT:2024-01-21",
+      "raw_rows": 360446,
+      "legacy_cache_rows": 255598,
+      "lost_rows": 104848,
+      "repeated_timestamp_price_distinct_trades": 104848,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:ETHUSDT:2024-01-22",
+      "raw_rows": 933793,
+      "legacy_cache_rows": 621610,
+      "lost_rows": 312183,
+      "repeated_timestamp_price_distinct_trades": 312183,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:ETHUSDT:2024-01-23",
+      "raw_rows": 1204183,
+      "legacy_cache_rows": 803225,
+      "lost_rows": 400958,
+      "repeated_timestamp_price_distinct_trades": 400958,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:ETHUSDT:2024-01-24",
+      "raw_rows": 801012,
+      "legacy_cache_rows": 536564,
+      "lost_rows": 264448,
+      "repeated_timestamp_price_distinct_trades": 264448,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:ETHUSDT:2024-01-25",
+      "raw_rows": 756164,
+      "legacy_cache_rows": 505064,
+      "lost_rows": 251100,
+      "repeated_timestamp_price_distinct_trades": 251100,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:ETHUSDT:2024-01-26",
+      "raw_rows": 823603,
+      "legacy_cache_rows": 553415,
+      "lost_rows": 270188,
+      "repeated_timestamp_price_distinct_trades": 270188,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:ETHUSDT:2024-01-27",
+      "raw_rows": 416970,
+      "legacy_cache_rows": 289295,
+      "lost_rows": 127675,
+      "repeated_timestamp_price_distinct_trades": 127675,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:ETHUSDT:2024-01-28",
+      "raw_rows": 566626,
+      "legacy_cache_rows": 383289,
+      "lost_rows": 183337,
+      "repeated_timestamp_price_distinct_trades": 183337,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:ETHUSDT:2024-01-29",
+      "raw_rows": 681798,
+      "legacy_cache_rows": 460607,
+      "lost_rows": 221191,
+      "repeated_timestamp_price_distinct_trades": 221191,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:ETHUSDT:2024-01-30",
+      "raw_rows": 770660,
+      "legacy_cache_rows": 518967,
+      "lost_rows": 251693,
+      "repeated_timestamp_price_distinct_trades": 251693,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:ETHUSDT:2024-01-31",
+      "raw_rows": 922884,
+      "legacy_cache_rows": 594839,
+      "lost_rows": 328045,
+      "repeated_timestamp_price_distinct_trades": 328045,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:SOLUSDT:2024-01-01",
+      "raw_rows": 563530,
+      "legacy_cache_rows": 248306,
+      "lost_rows": 315224,
+      "repeated_timestamp_price_distinct_trades": 315224,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:SOLUSDT:2024-01-02",
+      "raw_rows": 1029366,
+      "legacy_cache_rows": 445921,
+      "lost_rows": 583445,
+      "repeated_timestamp_price_distinct_trades": 583445,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:SOLUSDT:2024-01-03",
+      "raw_rows": 1428502,
+      "legacy_cache_rows": 676203,
+      "lost_rows": 752299,
+      "repeated_timestamp_price_distinct_trades": 752299,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:SOLUSDT:2024-01-04",
+      "raw_rows": 828177,
+      "legacy_cache_rows": 368092,
+      "lost_rows": 460085,
+      "repeated_timestamp_price_distinct_trades": 460085,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:SOLUSDT:2024-01-05",
+      "raw_rows": 792668,
+      "legacy_cache_rows": 351752,
+      "lost_rows": 440916,
+      "repeated_timestamp_price_distinct_trades": 440916,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:SOLUSDT:2024-01-06",
+      "raw_rows": 613981,
+      "legacy_cache_rows": 279956,
+      "lost_rows": 334025,
+      "repeated_timestamp_price_distinct_trades": 334025,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:SOLUSDT:2024-01-07",
+      "raw_rows": 610413,
+      "legacy_cache_rows": 267035,
+      "lost_rows": 343378,
+      "repeated_timestamp_price_distinct_trades": 343378,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:SOLUSDT:2024-01-08",
+      "raw_rows": 1011344,
+      "legacy_cache_rows": 458830,
+      "lost_rows": 552514,
+      "repeated_timestamp_price_distinct_trades": 552514,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:SOLUSDT:2024-01-09",
+      "raw_rows": 1264291,
+      "legacy_cache_rows": 567955,
+      "lost_rows": 696336,
+      "repeated_timestamp_price_distinct_trades": 696336,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:SOLUSDT:2024-01-10",
+      "raw_rows": 1171099,
+      "legacy_cache_rows": 542247,
+      "lost_rows": 628852,
+      "repeated_timestamp_price_distinct_trades": 628852,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:SOLUSDT:2024-01-11",
+      "raw_rows": 1293558,
+      "legacy_cache_rows": 614282,
+      "lost_rows": 679276,
+      "repeated_timestamp_price_distinct_trades": 679276,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:SOLUSDT:2024-01-12",
+      "raw_rows": 875300,
+      "legacy_cache_rows": 397644,
+      "lost_rows": 477656,
+      "repeated_timestamp_price_distinct_trades": 477656,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:SOLUSDT:2024-01-13",
+      "raw_rows": 483031,
+      "legacy_cache_rows": 218675,
+      "lost_rows": 264356,
+      "repeated_timestamp_price_distinct_trades": 264356,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:SOLUSDT:2024-01-14",
+      "raw_rows": 756466,
+      "legacy_cache_rows": 314193,
+      "lost_rows": 442273,
+      "repeated_timestamp_price_distinct_trades": 442273,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:SOLUSDT:2024-01-15",
+      "raw_rows": 434916,
+      "legacy_cache_rows": 198382,
+      "lost_rows": 236534,
+      "repeated_timestamp_price_distinct_trades": 236534,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:SOLUSDT:2024-01-16",
+      "raw_rows": 443725,
+      "legacy_cache_rows": 197201,
+      "lost_rows": 246524,
+      "repeated_timestamp_price_distinct_trades": 246524,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:SOLUSDT:2024-01-17",
+      "raw_rows": 890899,
+      "legacy_cache_rows": 357031,
+      "lost_rows": 533868,
+      "repeated_timestamp_price_distinct_trades": 533868,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:SOLUSDT:2024-01-18",
+      "raw_rows": 714584,
+      "legacy_cache_rows": 305334,
+      "lost_rows": 409250,
+      "repeated_timestamp_price_distinct_trades": 409250,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:SOLUSDT:2024-01-19",
+      "raw_rows": 684705,
+      "legacy_cache_rows": 298435,
+      "lost_rows": 386270,
+      "repeated_timestamp_price_distinct_trades": 386270,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:SOLUSDT:2024-01-20",
+      "raw_rows": 301796,
+      "legacy_cache_rows": 135465,
+      "lost_rows": 166331,
+      "repeated_timestamp_price_distinct_trades": 166331,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:SOLUSDT:2024-01-21",
+      "raw_rows": 229723,
+      "legacy_cache_rows": 107344,
+      "lost_rows": 122379,
+      "repeated_timestamp_price_distinct_trades": 122379,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:SOLUSDT:2024-01-22",
+      "raw_rows": 708563,
+      "legacy_cache_rows": 313561,
+      "lost_rows": 395002,
+      "repeated_timestamp_price_distinct_trades": 395002,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:SOLUSDT:2024-01-23",
+      "raw_rows": 830273,
+      "legacy_cache_rows": 347355,
+      "lost_rows": 482918,
+      "repeated_timestamp_price_distinct_trades": 482918,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:SOLUSDT:2024-01-24",
+      "raw_rows": 591745,
+      "legacy_cache_rows": 238629,
+      "lost_rows": 353116,
+      "repeated_timestamp_price_distinct_trades": 353116,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:SOLUSDT:2024-01-25",
+      "raw_rows": 475624,
+      "legacy_cache_rows": 197268,
+      "lost_rows": 278356,
+      "repeated_timestamp_price_distinct_trades": 278356,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:SOLUSDT:2024-01-26",
+      "raw_rows": 560673,
+      "legacy_cache_rows": 235386,
+      "lost_rows": 325287,
+      "repeated_timestamp_price_distinct_trades": 325287,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:SOLUSDT:2024-01-27",
+      "raw_rows": 302341,
+      "legacy_cache_rows": 139028,
+      "lost_rows": 163313,
+      "repeated_timestamp_price_distinct_trades": 163313,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:SOLUSDT:2024-01-28",
+      "raw_rows": 648842,
+      "legacy_cache_rows": 256576,
+      "lost_rows": 392266,
+      "repeated_timestamp_price_distinct_trades": 392266,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:SOLUSDT:2024-01-29",
+      "raw_rows": 634094,
+      "legacy_cache_rows": 253676,
+      "lost_rows": 380418,
+      "repeated_timestamp_price_distinct_trades": 380418,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:SOLUSDT:2024-01-30",
+      "raw_rows": 743499,
+      "legacy_cache_rows": 302871,
+      "lost_rows": 440628,
+      "repeated_timestamp_price_distinct_trades": 440628,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:SOLUSDT:2024-01-31",
+      "raw_rows": 914548,
+      "legacy_cache_rows": 363042,
+      "lost_rows": 551506,
+      "repeated_timestamp_price_distinct_trades": 551506,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:XRPUSDT:2024-01-01",
+      "raw_rows": 117055,
+      "legacy_cache_rows": 62306,
+      "lost_rows": 54749,
+      "repeated_timestamp_price_distinct_trades": 54749,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:XRPUSDT:2024-01-02",
+      "raw_rows": 225913,
+      "legacy_cache_rows": 111817,
+      "lost_rows": 114096,
+      "repeated_timestamp_price_distinct_trades": 114096,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:XRPUSDT:2024-01-03",
+      "raw_rows": 736079,
+      "legacy_cache_rows": 337556,
+      "lost_rows": 398523,
+      "repeated_timestamp_price_distinct_trades": 398523,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:XRPUSDT:2024-01-04",
+      "raw_rows": 242875,
+      "legacy_cache_rows": 123662,
+      "lost_rows": 119213,
+      "repeated_timestamp_price_distinct_trades": 119213,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:XRPUSDT:2024-01-05",
+      "raw_rows": 245647,
+      "legacy_cache_rows": 127872,
+      "lost_rows": 117775,
+      "repeated_timestamp_price_distinct_trades": 117775,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:XRPUSDT:2024-01-06",
+      "raw_rows": 153251,
+      "legacy_cache_rows": 96029,
+      "lost_rows": 57222,
+      "repeated_timestamp_price_distinct_trades": 57222,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:XRPUSDT:2024-01-07",
+      "raw_rows": 214162,
+      "legacy_cache_rows": 141746,
+      "lost_rows": 72416,
+      "repeated_timestamp_price_distinct_trades": 72416,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:XRPUSDT:2024-01-08",
+      "raw_rows": 376161,
+      "legacy_cache_rows": 178048,
+      "lost_rows": 198113,
+      "repeated_timestamp_price_distinct_trades": 198113,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:XRPUSDT:2024-01-09",
+      "raw_rows": 326240,
+      "legacy_cache_rows": 163405,
+      "lost_rows": 162835,
+      "repeated_timestamp_price_distinct_trades": 162835,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:XRPUSDT:2024-01-10",
+      "raw_rows": 429011,
+      "legacy_cache_rows": 206221,
+      "lost_rows": 222790,
+      "repeated_timestamp_price_distinct_trades": 222790,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:XRPUSDT:2024-01-11",
+      "raw_rows": 400838,
+      "legacy_cache_rows": 192629,
+      "lost_rows": 208209,
+      "repeated_timestamp_price_distinct_trades": 208209,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:XRPUSDT:2024-01-12",
+      "raw_rows": 336564,
+      "legacy_cache_rows": 162233,
+      "lost_rows": 174331,
+      "repeated_timestamp_price_distinct_trades": 174331,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:XRPUSDT:2024-01-13",
+      "raw_rows": 118002,
+      "legacy_cache_rows": 65864,
+      "lost_rows": 52138,
+      "repeated_timestamp_price_distinct_trades": 52138,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:XRPUSDT:2024-01-14",
+      "raw_rows": 162384,
+      "legacy_cache_rows": 86242,
+      "lost_rows": 76142,
+      "repeated_timestamp_price_distinct_trades": 76142,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:XRPUSDT:2024-01-15",
+      "raw_rows": 177076,
+      "legacy_cache_rows": 92053,
+      "lost_rows": 85023,
+      "repeated_timestamp_price_distinct_trades": 85023,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:XRPUSDT:2024-01-16",
+      "raw_rows": 152058,
+      "legacy_cache_rows": 82616,
+      "lost_rows": 69442,
+      "repeated_timestamp_price_distinct_trades": 69442,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:XRPUSDT:2024-01-17",
+      "raw_rows": 131484,
+      "legacy_cache_rows": 73539,
+      "lost_rows": 57945,
+      "repeated_timestamp_price_distinct_trades": 57945,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:XRPUSDT:2024-01-18",
+      "raw_rows": 161110,
+      "legacy_cache_rows": 87020,
+      "lost_rows": 74090,
+      "repeated_timestamp_price_distinct_trades": 74090,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:XRPUSDT:2024-01-19",
+      "raw_rows": 216243,
+      "legacy_cache_rows": 110929,
+      "lost_rows": 105314,
+      "repeated_timestamp_price_distinct_trades": 105314,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:XRPUSDT:2024-01-20",
+      "raw_rows": 102320,
+      "legacy_cache_rows": 54398,
+      "lost_rows": 47922,
+      "repeated_timestamp_price_distinct_trades": 47922,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:XRPUSDT:2024-01-21",
+      "raw_rows": 76745,
+      "legacy_cache_rows": 44785,
+      "lost_rows": 31960,
+      "repeated_timestamp_price_distinct_trades": 31960,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:XRPUSDT:2024-01-22",
+      "raw_rows": 201355,
+      "legacy_cache_rows": 103992,
+      "lost_rows": 97363,
+      "repeated_timestamp_price_distinct_trades": 97363,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:XRPUSDT:2024-01-23",
+      "raw_rows": 267650,
+      "legacy_cache_rows": 125689,
+      "lost_rows": 141961,
+      "repeated_timestamp_price_distinct_trades": 141961,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:XRPUSDT:2024-01-24",
+      "raw_rows": 133816,
+      "legacy_cache_rows": 69022,
+      "lost_rows": 64794,
+      "repeated_timestamp_price_distinct_trades": 64794,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:XRPUSDT:2024-01-25",
+      "raw_rows": 140119,
+      "legacy_cache_rows": 67771,
+      "lost_rows": 72348,
+      "repeated_timestamp_price_distinct_trades": 72348,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:XRPUSDT:2024-01-26",
+      "raw_rows": 159917,
+      "legacy_cache_rows": 78847,
+      "lost_rows": 81070,
+      "repeated_timestamp_price_distinct_trades": 81070,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:XRPUSDT:2024-01-27",
+      "raw_rows": 71686,
+      "legacy_cache_rows": 41646,
+      "lost_rows": 30040,
+      "repeated_timestamp_price_distinct_trades": 30040,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:XRPUSDT:2024-01-28",
+      "raw_rows": 84061,
+      "legacy_cache_rows": 47111,
+      "lost_rows": 36950,
+      "repeated_timestamp_price_distinct_trades": 36950,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:XRPUSDT:2024-01-29",
+      "raw_rows": 149835,
+      "legacy_cache_rows": 75814,
+      "lost_rows": 74021,
+      "repeated_timestamp_price_distinct_trades": 74021,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:XRPUSDT:2024-01-30",
+      "raw_rows": 286534,
+      "legacy_cache_rows": 142747,
+      "lost_rows": 143787,
+      "repeated_timestamp_price_distinct_trades": 143787,
+      "counts_agree": true
+    },
+    {
+      "source_id": "binance:spot:XRPUSDT:2024-01-31",
+      "raw_rows": 259626,
+      "legacy_cache_rows": 121218,
+      "lost_rows": 138408,
+      "repeated_timestamp_price_distinct_trades": 138408,
+      "counts_agree": true
+    }
+  ]
+}

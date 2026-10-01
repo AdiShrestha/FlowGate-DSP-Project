@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Standalone bundle verifier. Does NOT import gatekeeper or any engine module.
 
-This is the independent verifier specified by the trust model: it must not use
+This is a separate verifier implementation: it must not use
 the project's own gatekeeper.py to verify the gatekeeper's claims. It verifies:
 
   - ZIP membership and byte integrity
@@ -17,9 +17,10 @@ import base64
 import hashlib
 import hmac
 import json
+import math
 import sys
 import zipfile
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 
 MANIFEST = 'BUNDLE_MANIFEST.json'
 
@@ -29,7 +30,22 @@ def sha256_bytes(data):
 
 
 def canonical(obj):
-    return json.dumps(obj, sort_keys=True, separators=(',', ':')).encode()
+    return json.dumps(obj, sort_keys=True, separators=(',', ':'),allow_nan=False).encode()
+
+
+def strict_json(raw):
+    def unique(pairs):
+        out={}
+        for key,value in pairs:
+            if key in out:raise ValueError('duplicate JSON key: '+key)
+            out[key]=value
+        return out
+    def constant(value):raise ValueError('nonstandard JSON constant: '+value)
+    def finite(value):
+        number=float(value)
+        if not math.isfinite(number):raise ValueError('nonfinite JSON number')
+        return number
+    return json.loads(raw,object_pairs_hook=unique,parse_constant=constant,parse_float=finite)
 
 
 def _verify_receipt_sig(receipt_data, pub_key_bytes, scheme):
@@ -42,7 +58,7 @@ def _verify_receipt_sig(receipt_data, pub_key_bytes, scheme):
     if rec_scheme != scheme:
         return False, f"signature scheme mismatch: receipt has {rec_scheme}, key is {scheme}"
     try:
-        sig = base64.b64decode(sig_b64)
+        sig = base64.b64decode(sig_b64,validate=True)
     except Exception:
         return False, "malformed base64 signature"
     to_verify = {k: v for k, v in receipt_data.items()
@@ -57,10 +73,7 @@ def _verify_receipt_sig(receipt_data, pub_key_bytes, scheme):
         except Exception as e:
             return False, f"ed25519 signature verification failed: {e}"
     elif scheme == 'hmac-sha256':
-        expected = hmac.new(pub_key_bytes, payload, hashlib.sha256).digest()
-        if hmac.compare_digest(sig, expected):
-            return True, None
-        return False, "hmac signature mismatch"
+        return False, "HMAC has no public verification key; only Ed25519 supports portable signature verification"
     else:
         return False, f"unsupported signature scheme: {scheme}"
 
@@ -80,7 +93,8 @@ def verify_bundle(path, public_key_path=None):
 
             # Check for unsafe names
             for name in names:
-                if not name or '..' in name or name.startswith('/') or '\\' in name:
+                member=PurePosixPath(name)
+                if not name or member.is_absolute() or '..' in member.parts or str(member)!=name or ':' in name or '\\' in name:
                     errors.append(f'unsafe member name: {name}')
 
             # Duplicates
@@ -106,8 +120,8 @@ def verify_bundle(path, public_key_path=None):
             # Parse manifest
             raw = archive.read(MANIFEST)
             try:
-                manifest = json.loads(raw)
-            except json.JSONDecodeError as e:
+                manifest = strict_json(raw)
+            except (ValueError,UnicodeError) as e:
                 errors.append(f'invalid manifest JSON: {e}')
                 return {'status': 'FAIL', 'errors': errors}
 
@@ -158,17 +172,24 @@ def verify_bundle(path, public_key_path=None):
                         if lines and lines[0].startswith('#'):
                             scheme = lines[0].lstrip('#').strip()
                             key_b64 = '\n'.join(lines[1:]).strip()
-                        pub_bytes = base64.b64decode(key_b64)
+                        pub_bytes = base64.b64decode(key_b64,validate=True)
 
                         for name in archive_members:
                             if name.endswith('execution.json'):
                                 try:
-                                    receipt_json = json.loads(archive.read(name))
+                                    execution = strict_json(archive.read(name))
+                                    receipt_json = execution.get('supervisor_receipt',execution)
                                     ok, msg = _verify_receipt_sig(receipt_json, pub_bytes, scheme)
                                     if not ok:
                                         errors.append(f'invalid receipt signature in {name}: {msg}')
                                     else:
-                                        signatures_verified += 1
+                                        prefix=name.rsplit('/',1)[0]+'/' if '/' in name else ''
+                                        outputs={key:files[key] for key in archive_members if key.startswith(prefix) and key!=name}
+                                        if sha256_bytes(canonical(outputs))!=receipt_json.get('output_root'):
+                                            errors.append(f'signed output membership/digests differ in {name}')
+                                        elif execution.get('outputs')!=outputs:
+                                            errors.append(f'execution output inventory differs in {name}')
+                                        else:signatures_verified += 1
                                 except Exception as e:
                                     errors.append(f'could not verify receipt in {name}: {e}')
                     except Exception as e:
@@ -184,7 +205,9 @@ def verify_bundle(path, public_key_path=None):
         'errors': errors,
         'release_status': manifest.get('release_status', 'unknown'),
         'factory_version': manifest.get('factory_version', 'unknown'),
-        'assurance_level': manifest.get('assurance_level', 'unknown'),
+        'assurance_level': 'SUPERVISOR_ATTESTED' if signatures_verified else 'STRUCTURALLY_VALIDATED',
+        'claimed_assurance_level': manifest.get('assurance_level','unknown'),
+        'signature_verification_requested': bool(public_key_path),
         'scope': 'standalone verification: membership, byte integrity, and supervisor signatures',
     }
 

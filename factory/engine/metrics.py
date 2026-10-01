@@ -67,7 +67,7 @@ def quantile(values, q):
         raise EvidenceError('invalid quantile')
     x = (len(a)-1) * q
     i = int(x)
-    return a[i] if i == len(a)-1 else a[i] + (x-i)*(a[i+1]-a[i])
+    return a[i] if i == len(a)-1 else (1-(x-i))*a[i] + (x-i)*a[i+1]
 
 def paired_inference(a, b, *, seed=314159, draws=10000, alpha=0.05):
     """Paired mean difference, percentile CI, two-sided sign-flip randomization test.
@@ -77,27 +77,42 @@ def paired_inference(a, b, *, seed=314159, draws=10000, alpha=0.05):
     """
     if len(a) != len(b) or len(a) < 2:
         raise EvidenceError('paired inference needs >=2 aligned independent units')
-    d = [number(x)-number(y) for x,y in zip(a,b)]
+    d = [number(number(x)-number(y)) for x,y in zip(a,b)]
     n = len(d); observed = mean(d)
-    if not 0 < alpha < 1 or draws < 1000:
+    alpha = number(alpha)
+    if type(seed) is not int or type(draws) is not int or not 0 < alpha < 1 or draws < 1000:
         raise EvidenceError('invalid inference settings')
     rng = random.Random(seed)
     boot = [mean(rng.choices(d, k=n)) for _ in range(draws)]
+    # Compare in dimensionless units. The previous absolute 1e-14 tolerance
+    # made the p value change when the same measurements changed units.
+    scale = max(map(abs, d))
+    normalized = [x / scale for x in d] if scale else d
+    target = abs(mean(normalized))
+    tolerance = 8 * math.ulp(target)
+    def extreme(signs):
+        return abs(math.fsum(x*t for x,t in zip(normalized, signs))/n) >= target-tolerance
     if n <= 16:
-        extreme = sum(abs(sum(x*t for x,t in zip(d,signs))/n) >= abs(observed)-1e-14
-                      for signs in itertools.product((-1,1), repeat=n))
-        p = extreme / (2**n)
+        count = sum(extreme(signs) for signs in itertools.product((-1,1), repeat=n))
+        p = count / (2**n)
         method = 'exact_two_sided_paired_sign_flip'
     else:
-        extreme = sum(abs(sum(x*rng.choice((-1,1)) for x in d)/n) >= abs(observed)-1e-14
-                      for _ in range(draws))
-        p = (extreme+1)/(draws+1)
+        count = sum(extreme([rng.choice((-1,1)) for _ in d]) for _ in range(draws))
+        p = (count+1)/(draws+1)
         method = 'monte_carlo_two_sided_paired_sign_flip_plus_one'
     sd = stdev(d)
-    return {'effect': observed, 'ci': [quantile(boot,alpha/2),quantile(boot,1-alpha/2)],
-            'p_raw': p, 'paired_dz': observed/sd if sd > 0 else None,
+    if sd==0 and len(set(d))>1:
+        raise EvidenceError('paired variance underflow; do not report zero observed variance')
+    ci = [quantile(boot,alpha/2),quantile(boot,1-alpha/2)]
+    dz = observed/sd if sd > 0 else None
+    if not all(math.isfinite(v) for v in [observed, sd, *ci]) or (dz is not None and not math.isfinite(dz)):
+        raise EvidenceError('paired inference exceeds finite numerical range')
+    return {'effect': observed, 'ci': ci,
+            'p_raw': p, 'paired_dz': dz,
             'n_units': n, 'test': method, 'ci_method': 'paired_percentile_bootstrap',
-            'degenerate_variance': sd == 0, 'draws': draws, 'analysis_seed': seed}
+            'degenerate_variance': sd == 0, 'draws': draws, 'analysis_seed': seed,
+            'sign_flip_comparison': 'normalized_statistic_with_8_ulp_roundoff_tolerance',
+            'null_assumption': 'paired differences jointly invariant under independent sign changes'}
 
 def holm(pvalues):
     vals = [number(x) for x in pvalues]

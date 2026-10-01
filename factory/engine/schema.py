@@ -113,12 +113,18 @@ def validate_training_manifest(obj, field='manifest'):
     expect_dict(obj, field)
     c = obj.get('convergence_evidence', obj)
     expect_dict(c, f'{field}.convergence_evidence')
+    if c.get('mode')=='deterministic':
+        expect_str(c.get('rationale'),f'{field}.rationale',min_len=40)
+        evidence=expect_dict(c.get('method_evidence'),f'{field}.method_evidence',required_keys=['path','sha256'])
+        expect_str(evidence['path'],f'{field}.method_evidence.path')
+        import re
+        if not isinstance(evidence['sha256'],str) or not re.fullmatch(r'[0-9a-f]{64}',evidence['sha256']):
+            raise ValidationError(f'{field}.method_evidence.sha256','must be lowercase SHA256',evidence['sha256'])
+        if 'epochs_trained' in c:
+            raise ValidationError(f'{field}.epochs_trained','deterministic method must not declare training epochs',c['epochs_trained'])
+        return c
 
-    epochs = c.get('epochs_trained')
-    if type(epochs) is bool or not isinstance(epochs, (int, float)):
-        raise ValidationError(f'{field}.epochs_trained', 'must be a finite number > 0', epochs)
-    if not math.isfinite(float(epochs)) or epochs <= 0:
-        raise ValidationError(f'{field}.epochs_trained', 'must be a finite number > 0', epochs)
+    epochs = expect_int(c.get('epochs_trained'), f'{field}.epochs_trained', minimum=1)
 
     early = c.get('early_stopping_triggered')
     if early is not None:
@@ -172,18 +178,23 @@ def validate_plausibility_entry(entry, field='entry'):
     """Validate a single plausibility entry for type correctness."""
     expect_dict(entry, field)
     # p_value must be a real number if present, not a string
-    p = entry.get('p_value', entry.get('p'))
-    if p is not None:
+    for key in ('p_value','p','p_raw','p_holm','p_two_sided'):
+        p=entry.get(key)
+        if p is None:continue
         if type(p) is bool:
             raise ValidationError(f'{field}.p_value', 'boolean is not a p-value', p)
         if not isinstance(p, (int, float)):
             raise ValidationError(f'{field}.p_value', 'must be a number', p)
+        import math
+        if not math.isfinite(p) or not 0<=p<=1:
+            raise ValidationError(f'{field}.{key}','must be finite and in [0,1]',p)
     # confidence_interval must be [low, high] of numbers
     ci = entry.get('confidence_interval', entry.get('ci'))
     if ci is not None:
         expect_list(ci, f'{field}.confidence_interval', min_len=2, max_len=2)
         for i, v in enumerate(ci):
             expect_float(v, f'{field}.confidence_interval[{i}]')
+        if ci[1]<ci[0]:raise ValidationError(f'{field}.confidence_interval','bounds reversed',ci)
     return entry
 
 
@@ -197,6 +208,8 @@ def validate_reproduction_manifest(obj, field='manifest'):
         raise ValidationError(f'{field}.original', 'must be an object', a)
     if not isinstance(b, dict):
         raise ValidationError(f'{field}.replay', 'must be an object', b)
+    if not a or not b:
+        raise ValidationError(field,'original and replay must contain substantive results')
 
     tol = obj.get('tolerance', 1e-6)
     if tol is not None:

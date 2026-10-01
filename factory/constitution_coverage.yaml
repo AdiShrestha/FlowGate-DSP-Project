@@ -62,7 +62,7 @@ principles:
     rationale_if_null: null
   C85:
     level: A
-    mechanism: "validate_contract (D-095)"
+    mechanism: "engine.contract.validate_contract (D-095)"
     rationale_if_null: null
   C86:
     level: A
@@ -70,11 +70,11 @@ principles:
     rationale_if_null: null
   C87:
     level: A
-    mechanism: "build_receipt (D-097)"
+    mechanism: "engine.supervisor.build_receipt (D-097)"
     rationale_if_null: null
   C88:
     level: A
-    mechanism: "expect_str (D-098)"
+    mechanism: "engine.schema.expect_str (D-098)"
     rationale_if_null: null
   C89:
     level: A
@@ -82,7 +82,7 @@ principles:
     rationale_if_null: null
   C90:
     level: A
-    mechanism: "_compute_assurance_level (D-100)"
+    mechanism: "Audit.reproduction_identity (D-100)"
     rationale_if_null: null
   C91:
     level: A
@@ -90,5 +90,5 @@ principles:
     rationale_if_null: null
   C92:
     level: A
-    mechanism: "verify_attack_registry (D-102)"
+    mechanism: "engine.attacks.verify_attack_registry (D-102)"
     rationale_if_null: null

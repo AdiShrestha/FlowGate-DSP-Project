@@ -154,6 +154,8 @@ def run_exp(r,eid):
   contract=e.get('execution_contract')
   if contract:
    validate_contract(contract, r, e.get('code_paths',[]))
+   if contract.get('network')=='disabled':
+    die('this local supervisor cannot enforce network isolation; use an explicitly allowed network policy or an external isolated runner')
    argv,preexec,env_extra=resolve_contract(contract,a,seed,eid)
   else:
    argv=safe_args(e['command'],a,seed,eid)
@@ -164,14 +166,14 @@ def run_exp(r,eid):
   rt=runtime_attestation()
   run_nonce=str(uuid.uuid4())
   a.mkdir()
-  pre={'factory_version':VERSION,'epoch':epoch,'experiment_id':eid,'seed':seed,'argv':argv,'freeze_sha256':sha(ep/'freeze.json'),'engine_sha256':engine_hash(),'inputs_before':inputs,'started_at':now(),'run_nonce':run_nonce,'runtime_attestation':rt,'snapshot_merkle_root':f.get('snapshot_merkle_root',''),'interpreter_hash':rt.get('interpreter_hash',''),'dependency_lock_hash':sha(r/p['dependency_lock'])}
+  pre={'factory_version':VERSION,'epoch':epoch,'experiment_id':eid,'seed':seed,'argv':argv,'freeze_sha256':sha(ep/'freeze.json'),'engine_sha256':engine_hash(),'inputs_before':inputs,'started_at':now(),'run_nonce':run_nonce,'runtime_attestation':rt,'runtime_attestation_scope':'supervisor_process; launch binary bound only for typed contracts','snapshot_merkle_root':f.get('snapshot_merkle_root',''),'interpreter_hash':rt.get('interpreter_hash','') if contract else None,'dependency_lock_hash':sha(r/p['dependency_lock'])}
   write_json(a/'execution.json',pre);env.update({'FACTORY_RUN_DIR':str(a.resolve()),'FACTORY_SEED':str(seed),'FACTORY_EXPERIMENT_ID':eid})
   t=time.monotonic()
   try:
    with (a/'stdout.log').open('w') as stdout,(a/'stderr.log').open('w') as stderr:
     code=subprocess.run(argv,cwd=r,env=env,stdout=stdout,stderr=stderr,check=False,preexec_fn=preexec).returncode
   except KeyboardInterrupt:code=130
-  except OSError as ex:(a/'stderr.log').write_text(str(ex));code=None
+  except (OSError,subprocess.SubprocessError) as ex:(a/'stderr.log').write_text(str(ex));code=None
   outputs=inventory(r,[relpath(a,r)],reject_dangerous_ext=False);outputs.pop(relpath(a/'execution.json',r),None)
   post=inventory(r,p['frozen_paths']);rec={**pre,'returncode':code,'exit_code':code,'duration_sec':time.monotonic()-t,'finished_at':now(),'inputs_after':post,'outputs':outputs}
   # Generate supervisor-signed receipt
@@ -179,10 +181,10 @@ def run_exp(r,eid):
    signed=build_receipt(
     run_nonce=run_nonce,project_id=p.get('project_id',''),epoch=epoch,
     experiment_id=eid,snapshot_merkle_root=f.get('snapshot_merkle_root',''),
-    input_root=digest(inputs),runtime_id=contract.get('runtime_id','python-cpu-v1') if contract else 'python-cpu-v1',
-    interpreter_hash=rt.get('interpreter_hash',''),dependency_lock_hash=sha(r/p['dependency_lock']),
+    input_root=digest(inputs),runtime_id=contract['runtime_id'] if contract else 'legacy-command-unattested',
+    interpreter_hash=rt.get('interpreter_hash','') if contract else None,dependency_lock_hash=sha(r/p['dependency_lock']),
     launch_spec=digest(argv),seed=seed,output_root=digest(outputs),
-    exit_status=code,cpu_time=time.monotonic()-t,memory_peak=0,
+    exit_status=code,cpu_time=None,memory_peak=None,
     started_at=rec['started_at'],finished_at=rec['finished_at'],
     supervisor_version=VERSION,policy_version=str(p.get('schema_version',3)))
    rec['supervisor_receipt']=signed
@@ -229,8 +231,14 @@ def _finalize_release_checks(r,p,out):
      methodology_text=inside(r,p['methodology']).read_text(errors='replace')
      if re.search(r'(?i)\bT-(?:DESC|COMP|CAUSAL)\b',methodology_text) and tier_check(inside(r,p['methodology'])):
          out.setdefault('errors',[]).append({'code':'TIER_CHECK','detail':'methodology claim tier is stronger than its declared evidence'})
-     if verify_result_plausibility(out):
-         out.setdefault('errors',[]).append({'code':'RESULT_PLAUSIBILITY','detail':'audit artifact contains unexplained implausible values'})
+     if verify_result_plausibility(out,diagnostics_only=True):
+         for error in _result_numeric_errors(out):
+             out.setdefault('errors',[]).append({'code':'RESULT_NUMERIC_VALIDITY','detail':error})
+     # Adverse and degenerate results are diagnostics, not invalid results.
+     for kind,entry in _result_findings(out)+_deep_result_findings(out):
+         detail={'kind':kind,'entry':entry}
+         diagnostic={'id':'RESULT_DIAGNOSTIC:'+digest(detail)[:12],'code':'RESULT_DIAGNOSTIC','detail':detail}
+         if diagnostic not in out.setdefault('diagnostics',[]):out['diagnostics'].append(diagnostic)
      live_code,live=verify_coverage_liveness(r,quiet=True)
      out.setdefault('checks_executed',[]).extend(['ACQUISITION_AUDIT','COVERAGE_LIVENESS'])
      if live_code: out.setdefault('errors',[]).append({'code':'COVERAGE_LIVENESS','detail':live.get('errors',[])})
@@ -252,26 +260,19 @@ def _compute_assurance_level(out):
      """Determine the highest achieved assurance level."""
      if out.get('errors'):
          return 'BLOCKED'
-     # Check for supervisor attestation: at least one run has a signed receipt
-     has_signed_receipts=False
-     for eid,run_data in out.get('computed_runs',{}).items():
-         if isinstance(run_data,dict):
-             rpath=run_data.get('result_path','')
-             if rpath:  # We know a result was validated
-                 has_signed_receipts=True
+     runs=list(out.get('computed_runs',{}).values())
+     has_signed_receipts=bool(runs) and all(isinstance(x,dict) and x.get('receipt_signature_verified') is True for x in runs)
      # Level determination
      if not out.get('checks_executed'):
          return 'STRUCTURALLY_VALIDATED'
      if not has_signed_receipts:
          return 'STRUCTURALLY_VALIDATED'
-     return 'SEALED_EVALUATION_ATTESTED'
+     return 'SUPERVISOR_ATTESTED'
 
 def _assurance_with_review(base_level, has_review):
-     """Promote assurance level when independent review is complete."""
-     if base_level == 'BLOCKED':
-         return 'BLOCKED'
-     if has_review and base_level in ('SEALED_EVALUATION_ATTESTED', 'SUPERVISOR_ATTESTED'):
-         return 'INDEPENDENT_REVIEW_COMPLETE'
+     """A review declaration cannot establish independence or sealing."""
+     if base_level not in ('BLOCKED','STRUCTURALLY_VALIDATED','SUPERVISOR_ATTESTED') or type(has_review) is not bool:
+         raise EvidenceError('unsupported local assurance level or review declaration')
      return base_level
 
 def audit(r):
@@ -297,7 +298,7 @@ def certify(r):
   final_assurance=_assurance_with_review(out.get('assurance_level','STRUCTURALLY_VALIDATED'),True)
   if final_assurance not in ('BLOCKED',):
    final_assurance='READY_FOR_HUMAN_SUBMISSION_REVIEW'
-  cert={'factory_version':VERSION,'status':final_assurance,'issued_at':now(),'scope':'immutable evidence admissibility and disclosed adversarial review; not a claim of publication acceptance or scientific truth','epoch':epoch,'audit_sha256':sha(r/'project/audit_report.json'),'review_sha256':sha(r/'project/review.json'),'checks_executed':out['checks_executed'],'diagnostics_resolved':len(out['diagnostics']),'not_automated':out['not_automated'],'limitations':review['limitations'],'review_disclosure':{k:review[k] for k in ('reviewer_model','session_id','review_mode')},'assurance_level':final_assurance,'assurance_components':{'byte_integrity':'verified','execution_provenance':'supervisor_attested' if out.get('computed_runs') else 'local_only','runtime_integrity':'attested','evaluation_integrity':'independently_recomputed','statistical_validity':'checked' if 'STATISTICS' in out.get('checks_executed',[]) else 'not_applicable','not_automated':out['not_automated']}}
+  cert={'factory_version':VERSION,'status':final_assurance,'issued_at':now(),'scope':'local cooperative-process evidence checks and disclosed review; no sealed execution, scientific-validity, peer-review-independence, or publication claim','epoch':epoch,'audit_sha256':sha(r/'project/audit_report.json'),'review_sha256':sha(r/'project/review.json'),'checks_executed':out['checks_executed'],'diagnostics_resolved':len(out['diagnostics']),'not_automated':out['not_automated'],'limitations':review['limitations'],'review_disclosure':{k:review[k] for k in ('reviewer_model','session_id','review_mode')},'assurance_level':out.get('assurance_level','STRUCTURALLY_VALIDATED'),'assurance_components':{'byte_integrity':'verified','execution_provenance':'local_signed_receipts_verified' if out.get('assurance_level')=='SUPERVISOR_ATTESTED' else 'local_only','runtime_integrity':'not isolated; binary observation is not a dependency seal','evaluation_integrity':'binary metrics recomputed by separate code path','statistical_validity':'registered arithmetic checked; sampling assumptions require review','review_independence':'disclosed mode only; not established by software','resource_measurements':'CPU time and peak memory unavailable unless separately instrumented','not_automated':out['not_automated']}}
   cert['evidence_digest']=out['evidence_digest'];cert['engine_sha256']=engine_hash()
   write_json(inside(r,'project/RELEASE_CERTIFICATION.json'),cert);print(json.dumps(cert,indent=2));return 0
 
@@ -443,13 +444,11 @@ def _deep_result_findings(obj, _path='root', _depth=0):
 def _result_findings_single(e):
     """Check a single dict for plausibility issues."""
     findings = []
-    chance_names = ('auroc', 'auc', 'accuracy', 'balanced_accuracy', 'f1', 'precision', 'recall')
     name = str(e.get('metric', e.get('name', ''))).lower()
     v = _metric_value(e)
-    if v is not None and any(x in name for x in chance_names):
-        chance = .5
-        if 'accuracy' in name and isinstance(e.get('n_classes'), int) and e['n_classes'] > 1:
-            chance = 1 / e['n_classes']
+    # F1, precision, recall and raw accuracy have no universal .5 baseline.
+    chance = .5 if name in ('auroc','auc') else e.get('chance_baseline')
+    if v is not None and type(chance) in (int,float) and math.isfinite(chance):
         verdict = str(e.get('verdict', '')).lower()
         if v <= chance and not any(x in verdict for x in ('null', 'inconclusive', 'not supported', 'unsupported')):
             findings.append(('below_chance', e))
@@ -460,8 +459,7 @@ def _result_findings_single(e):
     if isinstance(ci, list) and len(ci) == 2:
         try:
             width = float(ci[1]) - float(ci[0])
-            n = e.get('n', e.get('sample_size', 0))
-            if width <= 0 or (n and width < 1e-6 / max(1, math.sqrt(float(n)))):
+            if width == 0:
                 findings.append(('implausibly_narrow_ci', e))
         except (TypeError, ValueError):
             pass
@@ -478,25 +476,28 @@ def _metric_value(e):
 
 def _result_findings(obj):
     entries=_flatten_entries(obj); findings=[]
-    chance_names=('auroc','auc','accuracy','balanced_accuracy','f1','precision','recall')
     for e in entries:
-        name=str(e.get('metric',e.get('name',''))).lower(); v=_metric_value(e)
-        if v is not None and any(x in name for x in chance_names):
-            chance=.5
-            if 'accuracy' in name and isinstance(e.get('n_classes'),int) and e['n_classes']>1: chance=1/e['n_classes']
-            verdict=str(e.get('verdict','')).lower()
-            if v<=chance and not any(x in verdict for x in ('null','inconclusive','not supported','unsupported')): findings.append(('below_chance',e))
-        p=e.get('p_value',e.get('p'))
-        if p==0 or p==0.0: findings.append(('exact_zero_p',e))
-        ci=e.get('confidence_interval',e.get('ci'))
-        if isinstance(ci,list) and len(ci)==2:
-            try:
-                width=float(ci[1])-float(ci[0]); n=e.get('n',e.get('sample_size',0))
-                if width<=0 or (n and width < 1e-6/max(1,math.sqrt(float(n)))): findings.append(('implausibly_narrow_ci',e))
-            except (TypeError,ValueError): pass
+        findings.extend(_result_findings_single(e))
     verdicts=[str(e.get('verdict','')).lower() for e in entries if e.get('verdict') is not None]
-    if len(verdicts)>=3 and all(any(x in v for x in ('supported','confirmed','pass')) for v in verdicts): findings.append(('all_supported',{'count':len(verdicts)}))
+    if len(verdicts)>=3 and all(v.strip() in ('supported','confirmed','pass') for v in verdicts): findings.append(('all_supported',{'count':len(verdicts)}))
     return findings
+
+def _result_numeric_errors(obj, path='root'):
+    errors=[]
+    if isinstance(obj,dict):
+        try:validate_plausibility_entry(obj,path)
+        except ValidationError as ex:errors.append(str(ex))
+        bounded={'auroc','auc','accuracy','balanced_accuracy','f1','precision','recall','average_precision'}
+        values=[(k,v) for k,v in obj.items() if k.lower() in bounded]
+        if str(obj.get('metric','')).lower() in bounded and 'value' in obj:values.append(('value',obj['value']))
+        for key,value in values:
+            if type(value) not in (int,float) or not math.isfinite(value) or not 0<=value<=1:
+                errors.append(path+'.'+key+': bounded metric must be finite and in [0,1]')
+        for key,value in obj.items():
+            if isinstance(value,(dict,list)):errors.extend(_result_numeric_errors(value,path+'.'+key))
+    elif isinstance(obj,list):
+        for i,value in enumerate(obj):errors.extend(_result_numeric_errors(value,f'{path}[{i}]'))
+    return errors
 
 def _coverage_entries(path):
     entries={}; current=None
@@ -538,33 +539,42 @@ def verify_training_sufficiency(path):
     # Use strict schema validation (v3.3.0)
     try: c=validate_training_manifest(m)
     except ValidationError as e: print(json.dumps({'status':'FAIL','errors':[str(e)]},indent=2)); return EXIT_TRAINING
-    epochs=c.get('epochs_trained')
-    early_raw=c.get('early_stopping_triggered')
-    # Strict boolean check: early_stopping_triggered must be a real boolean if present
-    early=False
-    if early_raw is not None:
-        if type(early_raw) is not bool:
-            print(json.dumps({'status':'FAIL','errors':['early_stopping_triggered must be a JSON boolean']},indent=2)); return EXIT_TRAINING
-        early=early_raw
-    justification=str(c.get('justification','')).strip(); errors=[]
-    # Reject NaN/Inf explicitly: comparisons with NaN are false and previously
-    # let malformed manifests pass every numeric threshold.
-    if (isinstance(epochs,bool) or not isinstance(epochs,(int,float)) or
-            not math.isfinite(float(epochs)) or epochs<=0): errors.append('epochs_trained must be a finite number > 0')
-    elif epochs<10 and not early and not justification: errors.append('fewer than 10 epochs requires early stopping or a specific justification')
-    curve=c.get('loss_curve',[])
-    try: threshold=float(c.get('criterion_threshold',.001) or .001)
-    except (TypeError,ValueError): threshold=float('nan')
-    if not math.isfinite(threshold) or threshold<=0: errors.append('criterion_threshold must be finite and > 0')
-    if isinstance(curve,list) and len(curve)>=5 and not early and not justification:
+    if c.get('mode')=='deterministic':
+        evidence=c['method_evidence']
         try:
-            tail=[float(x) for x in curve[max(0,int(len(curve)*.8)):]]
-            if not all(math.isfinite(x) for x in tail): raise ValueError
-            slope=(tail[-1]-tail[0])/max(1,len(tail)-1)
-            if abs(slope)>threshold: errors.append(f'validation loss slope {slope:.6g} exceeds criterion threshold {threshold}')
-        except (TypeError,ValueError): errors.append('loss_curve must contain finite numeric values')
-    if errors: print(json.dumps({'status':'FAIL','errors':errors},indent=2)); return EXIT_TRAINING
-    print(json.dumps({'status':'PASS','epochs_trained':epochs})); return 0
+            location=inside(Path(path).absolute().parent,evidence['path'])
+            if not location.is_file() or location.stat().st_size==0 or sha(location)!=evidence['sha256']:raise EvidenceError('method evidence missing, empty, or changed')
+        except (EvidenceError,OSError) as ex:print(json.dumps({'status':'FAIL','error':str(ex)}));return EXIT_TRAINING
+        print(json.dumps({'status':'NOT_APPLICABLE','scope':'method bytes and rationale bound; no training-convergence or operator-correctness claim'}));return 0
+    try:
+        epochs=c['epochs_trained']
+        minimum=expect_int(c.get('min_epochs'),'min_epochs',minimum=1)
+        maximum=expect_int(c.get('max_epochs'),'max_epochs',minimum=minimum)
+        rule=expect_enum(c.get('stopping_rule'),{'fixed_budget','early_stopping'},'stopping_rule')
+        evidence=expect_dict(c.get('history_evidence'),'history_evidence',required_keys=['path','sha256'])
+        location=inside(Path(path).absolute().parent,evidence['path'])
+        if sha(location)!=evidence['sha256']:raise EvidenceError('history digest mismatch')
+        from engine.io import read_csv
+        rows=read_csv(location,{'epoch','validation_loss'})
+        if [int(row['epoch']) for row in rows]!=list(range(1,len(rows)+1)):raise EvidenceError('history must be contiguous')
+        if len(rows)!=epochs or not minimum<=epochs<=maximum:raise EvidenceError('observed training budget differs from declared rule')
+        from engine.metrics import number
+        losses=[number(row['validation_loss']) for row in rows]
+        if any(v<0 for v in losses):raise EvidenceError('negative validation loss')
+        if rule=='fixed_budget':
+            if epochs!=maximum:raise EvidenceError('fixed budget incomplete')
+        else:
+            patience=expect_int(c.get('patience'),'patience',minimum=1)
+            delta=expect_float(c.get('min_delta'),'min_delta',minimum=0)
+            best=float('inf');bad=0;stop=None
+            for epoch,loss in enumerate(losses,1):
+                if loss<best-delta:best=loss;bad=0
+                else:bad+=1
+                if epoch>=minimum and bad>=patience:stop=epoch;break
+            if stop!=epochs:raise EvidenceError('early stopping not supported by supplied history')
+    except (EvidenceError,OSError,KeyError,TypeError,ValueError) as ex:
+        print(json.dumps({'status':'FAIL','error':str(ex)}));return EXIT_TRAINING
+    print(json.dumps({'status':'PASS','epochs_trained':epochs,'scope':'declared budget/stopping arithmetic and history bytes; no universal epoch floor or proof of convergence'}));return 0
 
 def verify_split_integrity(path,tier=None):
     try: m=_json_load(path)
@@ -589,13 +599,18 @@ def verify_split_integrity(path,tier=None):
     if errors: print(json.dumps({'status':'FAIL','errors':errors,'warnings':warnings},indent=2)); return EXIT_SPLIT
     print(json.dumps({'status':'PASS','warnings':warnings,'n':total})); return 0
 
-def verify_result_plausibility(path):
+def verify_result_plausibility(path, *, diagnostics_only=False):
     try: obj=path if isinstance(path,(dict,list)) else _json_load(path)
     except Exception as e: print(json.dumps({'status':'FAIL','error':str(e)})); return EXIT_PLAUSIBILITY
+    numeric_errors=_result_numeric_errors(obj)
+    if numeric_errors:
+        if not diagnostics_only:print(json.dumps({'status':'FAIL','errors':numeric_errors}))
+        return EXIT_PLAUSIBILITY
     # Use recursive deep findings in addition to flat findings
     findings=_result_findings(obj)
     deep_findings=_deep_result_findings(obj) if isinstance(obj,(dict,list)) else []
     all_findings=findings+[f for f in deep_findings if f not in findings]
+    if diagnostics_only:return 0
     if all_findings:
         note=(obj.get('investigation_note','') if isinstance(obj,dict) else '') or ''
         if not note: note=' '.join(str(e.get('investigation_note','')) for _,e in all_findings if isinstance(e,dict))
@@ -606,6 +621,8 @@ def verify_result_plausibility(path):
             disposition=obj.get('investigation_disposition')
         if disposition and disposition not in ('explained','claim_narrowed','unresolved'):
             print(json.dumps({'status':'FAIL','error':'investigation_disposition must be explained, claim_narrowed, or unresolved'})); return EXIT_PLAUSIBILITY
+        if disposition=='unresolved':
+            print(json.dumps({'status':'FAIL','error':'investigation remains unresolved'}));return EXIT_PLAUSIBILITY
         print(json.dumps({'status':'PASS_WITH_INVESTIGATION','findings':[k for k,_ in all_findings],'note_verified':False,'disposition':disposition})); return 0
     print(json.dumps({'status':'PASS'})); return 0
 
@@ -694,25 +711,25 @@ def verify_reproducibility(manifest):
     print(json.dumps({'status':'PASS','tolerance':tol})); return 0
 
 def verify_sensitivity_analysis(manifest):
-    try: m=_json_load(manifest)
-    except Exception as e: print(json.dumps({'status':'FAIL','error':str(e)})); return 28
-    findings=[]; errors=[]
-    entries=m.get('sweeps',m.get('entries',m if isinstance(m,list) else []))
-    if isinstance(entries,dict): entries=[entries]
-    if not entries: errors.append('manifest requires at least one sensitivity sweep')
-    for item in entries or []:
-        if not isinstance(item,dict): errors.append('each sensitivity sweep must be an object'); continue
-        vals=item.get('metrics',item.get('values',[])) if isinstance(item,dict) else []
-        if isinstance(vals,dict): vals=list(vals.values())
-        try:
-            nums=[float(v) for v in vals]
-            if not nums or not all(math.isfinite(v) for v in nums): raise ValueError
-            if len(nums)>1 and max(nums)-min(nums)<max(.005,.01*max(abs(v) for v in nums)) and not item.get('expected_flat'): findings.append(item.get('parameter','unknown'))
-        except (TypeError,ValueError): errors.append(f"{item.get('parameter','unknown')}: metrics must be a nonempty finite numeric list")
-    if errors:
-        print(json.dumps({'status':'FAIL','errors':errors,'flat_parameters':findings},indent=2)); return 28
-    if findings: print(json.dumps({'status':'FAIL','flat_parameters':findings})); return 28
-    print(json.dumps({'status':'PASS'})); return 0
+    """Validate a declared grid; exact invariance is a legitimate diagnostic."""
+    try:
+        m=_json_load(manifest)
+        entries=m if isinstance(m,list) else m.get('sweeps',m.get('entries',[]))
+        expect_list(entries,'sweeps',min_len=1)
+        diagnostics=[]
+        for item in entries:
+            expect_dict(item,'sweep')
+            parameter=expect_str(item.get('parameter'),'parameter')
+            levels=expect_list(item.get('levels'),'levels',min_len=2)
+            values=expect_list(item.get('metrics',item.get('values')),'metrics',min_len=2)
+            if len(levels)!=len(values):raise EvidenceError('grid levels and measurements must align')
+            levels=[expect_float(x,'level') for x in levels]
+            if len(set(levels))!=len(levels):raise EvidenceError('duplicate sensitivity level')
+            values=[expect_float(x,'measurement') for x in values]
+            if len(set(values))==1:diagnostics.append({'parameter':parameter,'kind':'exactly_flat_observed_grid'})
+    except (EvidenceError,TypeError,ValueError) as ex:
+        print(json.dumps({'status':'FAIL','error':str(ex)}));return 28
+    print(json.dumps({'status':'PASS','diagnostics':diagnostics,'scope':'grid and finite measurements only; dependence, uncertainty and scientific relevance require review'}));return 0
 
 def verify_statistical_protocol(path):
     """Validate a structured statistical protocol and its reported values."""
@@ -722,14 +739,20 @@ def verify_statistical_protocol(path):
     required=('primary_metric','sampling_unit','test','alpha','effect_size','confidence_interval','multiplicity_correction')
     missing=[k for k in required if k not in proto]
     errors=[]
+    for key in ('primary_metric','sampling_unit','test','multiplicity_correction'):
+        if not isinstance(proto.get(key),str) or not proto[key].strip():errors.append(key+': nonempty string required')
+    try:
+        expect_float(proto.get('effect_size'),'effect_size')
+        for value in proto.get('p_values',[]):expect_float(value,'p_value',minimum=0,maximum=1)
+    except (ValidationError,TypeError):errors.append('invalid effect size or p values')
     if missing: errors.append('missing structured fields: '+', '.join(missing))
     try:
-        alpha=float(proto.get('alpha')); 
+        alpha=expect_float(proto.get('alpha'),'alpha')
         if not 0<alpha<=.1: errors.append('alpha must be in (0, .1]')
     except (TypeError,ValueError): errors.append('alpha must be numeric')
     ci=proto.get('confidence_interval')
     if not isinstance(ci,list) or len(ci)!=2: errors.append('confidence_interval must be [low, high]')
-    elif any(not isinstance(x,(int,float)) or not math.isfinite(float(x)) for x in ci) or ci[0]>ci[1]: errors.append('confidence_interval is invalid')
+    elif any(type(x) not in (int,float) or not math.isfinite(float(x)) for x in ci) or ci[0]>ci[1]: errors.append('confidence_interval is invalid')
     if isinstance(proto.get('p_values'),list) and len(proto['p_values'])>1 and not proto.get('multiplicity_correction'): errors.append('multiplicity correction required for multiple p-values')
     if errors: print(json.dumps({'status':'FAIL','errors':errors},indent=2)); return 27
     print(json.dumps({'status':'PASS','fields_checked':len(required)})); return 0
@@ -745,7 +768,8 @@ def pre_submission_audit(path):
         v=obj.get(k)
         if v is None or v=='' or v==[] or v=={}: errors.append('missing substantive section: '+k)
     claims=obj.get('claims',[])
-    if isinstance(claims,list):
+    if not isinstance(claims,list) or not claims:errors.append('claims must be a nonempty list of evidence-bearing objects')
+    else:
         for i,c in enumerate(claims):
             if not isinstance(c,dict) or not c.get('evidence') or not c.get('scope'): errors.append(f'claim {i} needs evidence and scope')
     if errors: print(json.dumps({'status':'FAIL','errors':errors},indent=2)); return 29
@@ -755,9 +779,12 @@ def verify_failure_taxonomy(path):
     """Validate failure cases as traced, categorized observations."""
     try: obj=_json_load(path)
     except Exception as e: print(json.dumps({'status':'FAIL','error':str(e)})); return 30
+    if not isinstance(obj,dict):print(json.dumps({'status':'FAIL','error':'failure artifact must be an object'}));return 30
     rows=obj.get('failures',obj.get('taxonomy',[])) if isinstance(obj,dict) else []
     errors=[]
-    if not isinstance(rows,list) or len(rows)<3: errors.append('at least three failure categories are required')
+    if not isinstance(rows,list):errors.append('failures must be a list')
+    elif not rows and not (obj.get('no_observed_failures') is True and isinstance(obj.get('evaluated_unit_ids'),list) and bool(obj['evaluated_unit_ids'])):
+        errors.append('empty failure observations require an explicit evaluated-unit accounting statement')
     seen=set()
     for i,row in enumerate(rows if isinstance(rows,list) else []):
         if not isinstance(row,dict): errors.append(f'failure {i} must be an object'); continue
@@ -765,12 +792,12 @@ def verify_failure_taxonomy(path):
         if row.get('category') in seen: errors.append(f'duplicate failure category: {row.get("category")}')
         seen.add(row.get('category'))
         if not row.get('condition_ids') and not row.get('candidate_ids'): errors.append(f'failure {i} missing traced condition/candidate IDs')
-        if not isinstance(row.get('prevalence',row.get('rate')), (int,float)): errors.append(f'failure {i} missing numeric prevalence')
+        if type(row.get('prevalence',row.get('rate'))) not in (int,float) or not math.isfinite(row.get('prevalence',row.get('rate'))) or not 0<=row.get('prevalence',row.get('rate'))<=1: errors.append(f'failure {i} prevalence must be finite in [0,1]')
         if row.get('severity') not in ('SEV-1','SEV-2','SEV-3','SEV-4'): errors.append(f'failure {i} missing severity SEV-1..SEV-4')
     if errors: print(json.dumps({'status':'FAIL','errors':errors},indent=2)); return 30
     print(json.dumps({'status':'PASS','categories_checked':len(rows)})); return 0
 
-_MODULE_BY_FILE={'audit.py':'engine.audit','metrics.py':'engine.metrics','io.py':'engine.io'}
+_MODULE_BY_FILE={name+'.py':'engine.'+name for name in ('audit','metrics','io','plan','schema','contract','supervisor','attacks')}
 
 def _call_graph(paths):
     graph={}; defs={}
@@ -836,7 +863,7 @@ def verify_coverage_liveness(r,quiet=False):
             if m: block=m.group(1); continue
             if block and 'Implementation:' in line:
                 dynamic[block]=line.split('Implementation:',1)[1].strip().strip('`')
-    graph,defs=_call_graph([HERE/'gatekeeper.py',HERE/'engine/audit.py',HERE/'engine/metrics.py',HERE/'engine/io.py',HERE/'engine/contract.py',HERE/'engine/supervisor.py',HERE/'engine/schema.py',HERE/'engine/attacks.py'])
+    graph,defs=_call_graph([HERE/'gatekeeper.py',HERE/'engine/audit.py',HERE/'engine/metrics.py',HERE/'engine/io.py',HERE/'engine/plan.py',HERE/'engine/contract.py',HERE/'engine/supervisor.py',HERE/'engine/schema.py',HERE/'engine/attacks.py'])
     reachable=set(); todo=['gatekeeper.certify','gatekeeper.audit','engine.audit.run','gatekeeper.run_exp','gatekeeper.freeze']
     while todo:
         key=todo.pop()
@@ -884,7 +911,7 @@ def check_contract(path):
     """Validate a real structured contract; prose mentioning check names is insufficient."""
     try: obj=_json_load(path)
     except Exception as e: print(json.dumps({'status':'FAIL','error':'contract must be strict JSON with executable checks: '+str(e)})); return 17
-    if not isinstance(obj,dict) or not isinstance(obj.get('checks'),list): print(json.dumps({'status':'FAIL','error':'contract requires a checks array'})); return 17
+    if not isinstance(obj,dict) or not isinstance(obj.get('checks'),list) or not obj['checks']: print(json.dumps({'status':'FAIL','error':'contract requires a checks array'})); return 17
     errors=[]; allowed={'audit','certify','verify-constitution-coverage','verify-training-sufficiency','verify-split-integrity','verify-result-plausibility','verify-cross-artifact-traceability','verify-reproducibility','acquisition-audit','tier-check','verify-sensitivity-analysis','verify-statistical-protocol','pre-submission-audit','verify-failure-taxonomy'}
     for i,c in enumerate(obj['checks']):
         if not isinstance(c,dict) or c.get('command') not in allowed: errors.append(f'check {i} has no registered executable command')
